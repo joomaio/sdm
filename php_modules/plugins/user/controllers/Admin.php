@@ -31,22 +31,9 @@ class Admin extends MVController
         return false;
     }
 
-    public function disp_users()
-    {
-        $this->isAdmin();
-        $this->app->set('format', 'html');
-        $this->app->set('layout', 'admin.disp_users');
-    }
-
     public function login()
     {
         // write your code here
-        if ($this->user->get('u_type') == 'update' || $this->user->get('u_type') == 'admin') 
-        {
-            $this->app->redirect(
-                $this->router->url('admin')
-            );
-        }
 
         $result = $this->user->login(
             $this->request->post->get('username', '', 'string'),
@@ -54,14 +41,6 @@ class Admin extends MVController
         );
 
         if ($result) {
-            if ($this->user->get('u_type') != 'update' && $this->user->get('u_type') != 'admin')
-            {
-                $this->user->logout();
-                $this->session->set('flashMsg', 'You do not have access to the site admin.');
-                $this->app->redirect(
-                    $this->router->url('admin/login')
-                );
-            }
             $this->app->redirect(
                 $this->router->url('admin')
             );
@@ -115,25 +94,7 @@ class Admin extends MVController
         }
         else
         {
-            if (!$updater)
-            {
-                if ($this->user->get('u_type') != 'admin')
-                {
-                    $this->app->redirect(
-                        $this->router->url()
-                    );
-                }
-            }
-            else
-            {
-                if ($this->user->get('u_type') != 'update' && $this->user->get('u_type') != 'admin')
-                {
-                    $this->app->redirect(
-                        $this->router->url()
-                    );
-                }
-            }
-            
+            return true;
         }
     }
 }
