@@ -21,3 +21,6 @@ Homestead.yaml
 Homestead.json
 /.vagrant
 .phpunit.result.cache
+/php_modules/config.php
+/public/media
+/composer.lock
