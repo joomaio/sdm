@@ -4,7 +4,19 @@
             <div class="pe-2">
                 <div class="row">
                     <div class="col-auto">
-                        <button type="button" class="align-middle btn border border-1" data-bs-placement="top" data-bs-toggle="modal" data-bs-target="#exampleModalToggle"><i class="fa-solid fa-plus"></i></button>
+                        <button data-id="" 
+                            data-title="" 
+                            data-status="1" 
+                            data-create_at="" 
+                            data-note="" 
+                            data-end_date="" 
+                            type="button" 
+                            class="align-middle btn border border-1 show_data" 
+                            data-bs-placement="top" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#exampleModalToggle">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
                     </div>
                 </div>
             </div>

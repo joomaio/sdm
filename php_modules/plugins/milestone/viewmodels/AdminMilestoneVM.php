@@ -25,21 +25,9 @@ class AdminMilestoneVM extends ViewModel
 
     public function form()
     {
-        $urlVars = $this->request->get('urlVars');
-        $id = (int) $urlVars['id'];
-        $this->set('id', $id, true);
-
-        $data = $id ? $this->MilestoneEntity->findByPK($id) : [];
-        if ($data)
-        {
-            $data['start_date'] = $data['start_date'] ? date('Y-m-d', strtotime($data['start_date'])) : '';
-            $data['end_date'] = $data['end_date'] ? date('Y-m-d', strtotime($data['end_date'])) : '';
-        }
-        $form = new Form($this->getFormFields(), $data);
+        $form = new Form($this->getFormFields(), []);
 
         $this->set('form', $form, true);
-        $this->set('data', $data, true);
-        $this->set('title_page', $data ? 'Edit Milestone' : 'New Milestone', true);
         $this->set('url', $this->router->url(), true);
         $this->set('link_list', $this->router->url('admin/milestones'));
         $this->set('link_form', $this->router->url('admin/milestone'));

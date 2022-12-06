@@ -29,6 +29,7 @@ class Milestone extends Admin
                 $this->router->url('admin/milestones')
             );
         }
+
         $this->app->set('layout', 'backend.milestone.form');
         $this->app->set('page', 'backend');
         $this->app->set('format', 'html');
@@ -53,7 +54,7 @@ class Milestone extends Admin
         {
             $this->session->set('flashMsg', 'Error: Title can\'t empty! ');
             $this->app->redirect(
-                $this->router->url('admin/milestone/0')
+                $this->router->url('admin/milestones')
             );
         }
 
@@ -97,6 +98,7 @@ class Milestone extends Admin
 
     public function update()
     {
+
         $ids = $this->validateID(); 
        
         // TODO valid the request input
@@ -140,7 +142,6 @@ class Milestone extends Admin
                 'modified_at' => date('Y-m-d H:i:s'),
                 'id' => $ids,
             ]);
-            
             if($try) 
             {
                 $this->session->set('flashMsg', 'Edit Successfully');

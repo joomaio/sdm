@@ -45,5 +45,28 @@
         $('#limit').on("change", function (e) {
             $('#filter_form').submit()
         });
+        $(".show_data").click(function() {
+            var id = $(this).data('id');
+            var title = $(this).data('title');
+            var status = $(this).data('status');
+            var start_date = $(this).data('start_date');
+            var end_date = $(this).data('end_date');
+            var note = $(this).data('note');
+
+            $('#title').val(title);
+            console.log(status);
+            $('input[name=status][value='+ status +']').prop("checked", true); 
+            $('#end_date').val(end_date);
+            $('#start_date').val(start_date);
+            $('#note').val(note);
+
+            $('#form_milestone').attr('action', '<?php echo $this->link_form;?>/' + id);
+            if(id) {
+                $('#mile_stone').val('PUT');
+            } else {
+                $('#mile_stone').val('POST');
+            }
+        });
+
     });
 </script>
