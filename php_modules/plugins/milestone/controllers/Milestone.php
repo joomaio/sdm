@@ -62,7 +62,7 @@ class Milestone extends Admin
         {
             $this->session->set('flashMsg', 'Error: Title is already in use! ');
             $this->app->redirect(
-                $this->router->url('admin/milestone/0')
+                $this->router->url('admin/milestones')
             );
         }
         // TODO: validate new add
@@ -83,7 +83,7 @@ class Milestone extends Admin
             $msg = 'Error: Create Failed!';
             $this->session->set('flashMsg', $msg);
             $this->app->redirect(
-                $this->router->url('admin/milestone/0')
+                $this->router->url('admin/milestones')
             );
         }
         else
