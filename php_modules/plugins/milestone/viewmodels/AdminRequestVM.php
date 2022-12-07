@@ -24,22 +24,11 @@ class AdminRequestVM extends ViewModel
 
     public function form()
     {
-        $urlVars = $this->request->get('urlVars');
-        $id = (int) $urlVars['id'];
-        $milestone_id = (int) $urlVars['milestone_id'];
-        $this->set('id', $id, true);
-
-        $data = $id ? $this->RequestEntity->findOne(['id = '. $id, 'milestone_id = '. $milestone_id ]) : [];
-        
-        $form = new Form($this->getFormFields(), $data);
-        $milestone = $this->MilestoneEntity->findOne(['id = '. $milestone_id]);
-        $title_page = $milestone ? $milestone['title'] .' - ' : '';
+        $form = new Form($this->getFormFields(), []);
         $this->set('form', $form, true);
-        $this->set('data', $data, true);
-        $this->set('title_page', $data ? $title_page. 'Edit Request' : $title_page. 'New Request', true);
         $this->set('url', $this->router->url(), true);
-        $this->set('link_list', $this->router->url('admin/requests/'. $milestone_id));
-        $this->set('link_form', $this->router->url('admin/request/'. $milestone_id));
+        $this->set('link_list', $this->router->url('admin/requests'));
+        $this->set('link_form', $this->router->url('admin/requests'));
     }
 
     public function getFormFields()
@@ -48,20 +37,20 @@ class AdminRequestVM extends ViewModel
             'id' => ['hidden'],
             'title' => [
                 'text',
-                'placeholder' => 'Enter Title',
+                'placeholder' => 'New Request',
                 'showLabel' => false,
-                'formClass' => 'form-control',
+                'formClass' => 'form-control h-50-px fw-bold rounded-0 fs-3',
                 'required' => 'required'
             ],
             'note' => ['textarea',
                 'placeholder' => 'Enter Note',
                 'showLabel' => false,
-                'formClass' => 'form-control',
+                'formClass' => 'form-control rounded-0 border border-1 py-1 fs-4-5',
                 'required' => 'required',
             ],
             'status' => ['option',
                 'showLabel' => false,
-                'type' => 'radio',
+                'type' => 'radio_inline',
                 'formClass' => '',
                 'default' => 1,
                 'options' => [
