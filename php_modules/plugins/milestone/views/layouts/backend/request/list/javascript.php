@@ -45,5 +45,23 @@
         $('#limit').on("change", function (e) {
             $('#filter_form').submit()
         });
+
+        $(".show_data").click(function() {
+            var id = $(this).data('id');
+            var title = $(this).data('title');
+            var status = $(this).data('status');
+            var note = $(this).data('note');
+
+            $('#title').val(title);
+            $('input[name=status][value='+ status +']').prop("checked", true); 
+            $('#note').val(note);
+
+            $('#form_request').attr('action', '<?php echo $this->link_form;?>/' + id);
+            if(id) {
+                $('#request').val('PUT');
+            } else {
+                $('#request').val('POST');
+            }
+        });
     });
 </script>
