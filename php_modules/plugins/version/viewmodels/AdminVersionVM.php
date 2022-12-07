@@ -25,20 +25,9 @@ class AdminVersionVM extends ViewModel
 
     public function form()
     {
-        $urlVars = $this->request->get('urlVars');
-        $id = (int) $urlVars['id'];
-        $this->set('id', $id, true);
-
-        $data = $id ? $this->VersionEntity->findByPK($id) : [];
-        if ($data)
-        {
-            $data['release_date'] = $data['release_date'] ? date('Y-m-d', strtotime($data['release_date'])) : '';
-        }
-        $form = new Form($this->getFormFields(), $data);
+        $form = new Form($this->getFormFields(), []);
 
         $this->set('form', $form, true);
-        $this->set('data', $data, true);
-        $this->set('title_page', $data ? 'Edit Version' : 'New Version', true);
         $this->set('url', $this->router->url(), true);
         $this->set('link_list', $this->router->url('admin/versions'));
         $this->set('link_form', $this->router->url('admin/version'));
