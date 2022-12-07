@@ -75,7 +75,7 @@ class Request extends Admin
             $msg = 'Error: Create Failed!';
             $this->session->set('flashMsg', $msg);
             $this->app->redirect(
-                $this->router->url('admin/request/'. $milestone_id .'/0')
+                $this->router->url('admin/requests/'. $milestone_id .'/0')
             );
         }
         else
@@ -136,7 +136,7 @@ class Request extends Admin
                 $msg = 'Error: Save Failed';
                 $this->session->set('flashMsg', $msg);
                 $this->app->redirect(
-                    $this->router->url('admin/request/'. $milestone_id .'/'. $ids)
+                    $this->router->url('admin/requests/'. $milestone_id .'/'. $ids)
                 );
             }
         }
