@@ -25,23 +25,14 @@ class AdminRelateNoteVM extends ViewModel
     public function form()
     {
         $urlVars = $this->request->get('urlVars');
-        $id = (int) $urlVars['id'];
         $request_id = (int) $urlVars['request_id'];
-        $this->set('id', $id, true);
 
-        $data = $id ? $this->RelateNoteEntity->findOne(['id = '. $id, 'request_id = '. $request_id ]) : [];
-        
-        $form = new Form($this->getFormFields(), $data);
-        $request = $this->RequestEntity->findByPK($request_id);
-        $milestone = $request ? $this->MilestoneEntity->findByPK($request['milestone_id']) : ['title' => '', 'id' => 0];
-        $title_page = $request ? '<a href="'. $this->router->url('admin/requests/'. $milestone['id']).'" >'.$milestone['title'] .'</a> >> Request: '. $request['title'] .' - Relate Note' : 'Relate Note';
+        $form = new Form($this->getFormFields(), []);
 
         $note_exist = $this->container->exists('NoteEntity');
 
         $this->set('note_exist', $note_exist);
         $this->set('form', $form, true);
-        $this->set('data', $data, true);
-        $this->set('title_page', $title_page, true);
         $this->set('url', $this->router->url(), true);
         $this->set('link_list', $this->router->url('admin/relate-notes/'. $request_id));
         $this->set('link_form', $this->router->url('admin/relate-note/'. $request_id));
@@ -70,21 +61,21 @@ class AdminRelateNoteVM extends ViewModel
             'id' => ['hidden'],
             'title' => [
                 'text',
-                'placeholder' => 'Enter Title',
+                'placeholder' => 'New Relate Note',
                 'showLabel' => false,
-                'formClass' => 'form-control',
+                'formClass' => 'form-control h-50-px fw-bold rounded-0 fs-3',
                 'required' => 'required'
             ],
             'description' => ['textarea',
                 'placeholder' => 'Enter Note',
                 'showLabel' => false,
-                'formClass' => 'form-control',
+                'formClass' => 'form-control rounded-0 border border-1 py-1 fs-4-5',
                 'required' => 'required',
             ],
             'note_id' => ['option',
                 'options' => $options,
                 'showLabel' => false,
-                'formClass' => 'form-select',
+                'formClass' => 'form-select rounded-0 border border-1 py-1 fs-4-5',
                 'required' => 'required',
             ],
             'token' => ['hidden',
