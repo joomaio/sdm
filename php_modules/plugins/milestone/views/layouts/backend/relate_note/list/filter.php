@@ -6,8 +6,7 @@
                     <div class="col-auto">
                         <button data-id="" 
                             data-title="" 
-                            data-status="1" 
-                            data-note="" 
+                            data-description="" 
                             type="button" 
                             class="align-middle btn border border-1 show_data" 
                             data-bs-placement="top" 
