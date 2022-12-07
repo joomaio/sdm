@@ -86,7 +86,7 @@ tests/codeception/cache
 tests/codeception/_output
 tests/codeception/vendor
 composer.phar
-
+.phpunit.result.cache
 # Build related
 RoboFile.ini
 
