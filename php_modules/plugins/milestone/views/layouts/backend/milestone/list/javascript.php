@@ -54,7 +54,6 @@
             var note = $(this).data('note');
 
             $('#title').val(title);
-            console.log(status);
             $('input[name=status][value='+ status +']').prop("checked", true); 
             $('#end_date').val(end_date);
             $('#start_date').val(start_date);
