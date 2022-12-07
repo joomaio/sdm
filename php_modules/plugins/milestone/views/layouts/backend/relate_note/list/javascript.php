@@ -44,5 +44,20 @@
         $('#limit').on("change", function (e) {
             $('#filter_form').submit()
         });
+        $(".show_data").click(function() {
+            var id = $(this).data('id');
+            var title = $(this).data('title');
+            var description = $(this).data('description');
+
+            $('#title').val(title);
+            $('#description').val(description);
+
+            $('#form_relate_note').attr('action', '<?php echo $this->link_form;?>/' + id);
+            if(id) {
+                $('#relate_note').val('PUT');
+            } else {
+                $('#relate_note').val('POST');
+            }
+        });
     });
 </script>
