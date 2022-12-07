@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-dialog-centered " style="max-width: 600px;">
         <div class="modal-content container px-5 pt-5">
             <?php echo $this->render('message'); ?>
-            <form action="" method="post" id="form_request_list">
+            <form action="" method="post" id="form_request">
                 <div class="row g-3 align-items-center">
                     <div class="row px-0">
                         <div class="mb-5 col-12 mx-auto pt-3">
@@ -28,7 +28,7 @@
                     <div class="row g-3 align-items-center m-0">
                         <div class="modal-footer">
                             <?php $this->field('token'); ?>
-                            <input class="form-control rounded-0 border border-1" id="request_list" type="hidden" name="_method" value="POST">
+                            <input class="form-control rounded-0 border border-1" id="request" type="hidden" name="_method" value="POST">
                             <div class="row">
                                 <div class="col-6 text-end pe-0">
                                     <a href="<?php echo $this->link_list ?>">
