@@ -25,19 +25,14 @@ class AdminTaskVM extends ViewModel
     public function form()
     {
         $urlVars = $this->request->get('urlVars');
-        $id = (int) $urlVars['id'];
         $request_id = (int) $urlVars['request_id'];
-        $this->set('id', $id, true);
 
-        $data = $id ? $this->TaskEntity->findOne(['id = '. $id, 'request_id = '. $request_id ]) : [];
-        
-        $form = new Form($this->getFormFields(), $data);
+        $form = new Form($this->getFormFields(), []);
         $request = $this->RequestEntity->findByPK($request_id);
         $milestone = $request ? $this->MilestoneEntity->findByPK($request['milestone_id']) : ['title' => '', 'id' => 0];
         $title_page = $request ? '<a href="'. $this->router->url('admin/requests/'. $milestone['id']).'" >'.$milestone['title'] .'</a> >> Request: '. $request['title'] .' - Task' : 'Task';
 
         $this->set('form', $form, true);
-        $this->set('data', $data, true);
         $this->set('title_page', $title_page, true);
         $this->set('url', $this->router->url(), true);
         $this->set('link_list', $this->router->url('admin/tasks/'. $request_id));
@@ -50,15 +45,15 @@ class AdminTaskVM extends ViewModel
             'id' => ['hidden'],
             'title' => [
                 'text',
-                'placeholder' => 'Enter Title',
+                'placeholder' => 'New Task',
                 'showLabel' => false,
-                'formClass' => 'form-control',
+                'formClass' => 'form-control h-50-px fw-bold rounded-0 fs-3',
                 'required' => 'required'
             ],
             'url' => ['text',
                 'placeholder' => 'Enter Url',
                 'showLabel' => false,
-                'formClass' => 'form-control',
+                'formClass' => 'form-control rounded-0 border border-1 py-1 fs-4-5',
                 'required' => 'required',
             ],
             'token' => ['hidden',
