@@ -54,7 +54,7 @@ class Request extends Admin
         {
             $this->session->set('flashMsg', 'Error: Title can\'t empty! ');
             $this->app->redirect(
-                $this->router->url('admin/requests/'. $milestone_id.'/0')
+                $this->router->url('admin/requests/'. $milestone_id)
             );
         }
 
@@ -75,7 +75,7 @@ class Request extends Admin
             $msg = 'Error: Create Failed!';
             $this->session->set('flashMsg', $msg);
             $this->app->redirect(
-                $this->router->url('admin/requests/'. $milestone_id .'/0')
+                $this->router->url('admin/requests/'. $milestone_id)
             );
         }
         else
