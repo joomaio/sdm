@@ -20,13 +20,7 @@
                 </div>
             </div>
             <div class="pe-2">
-                <?php $this->field('status');  ?>
-            </div>
-            <div class="pe-2">
                 <?php $this->field('sort');  ?>
-            </div>
-            <div class="pe-2">
-                <?php $this->field('group');  ?>
             </div>
             <div class="pe-2">
                 <?php $this->field('search');  ?>
@@ -45,4 +39,4 @@
         </div>
     </div>
 </form>
-<?php echo $this->render('backend.user.list.javascript'); ?>
+<?php echo $this->render('backend.note.list.javascript'); ?>

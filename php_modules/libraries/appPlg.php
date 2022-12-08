@@ -11,9 +11,7 @@
 namespace App\libraries; 
 
 use SPT\App\JDIContainer\CMSApp; 
-use SPT\User\Instance as User;
-use SPT\User\SPT\User as UserAdapter;
-use App\plugins\user\entities\UserEntity;
+use SPT\Middleware\Dispatcher as MW;
 
 class appPlg extends CMSApp
 {
@@ -22,13 +20,29 @@ class appPlg extends CMSApp
         return 'App\\'. $extra;
     }
 
-    public function prepareUser()
+    public function routing()
     {
-        $user = new User( new UserAdapter() );
-        $user->init([
-            'session' => $this->session,
-            'entity' => new  UserEntity($this->query)
-        ]);
-        $this->getContainer()->share('user', $user, true);
+        $routing = parent::routing();
+
+        $middleware = $this->get('middleware', []);
+        if  (is_array($middleware) && $middleware && isset($middleware['permission']) && is_array($middleware['permission']))
+        {
+            $permissionList = array_keys($middleware['permission']);
+            $permissionParams = $middleware['permission'];
+        }
+        else
+        {
+            $permissionList = [];
+            $permissionParams = [];
+        }
+
+        $try = MW::fire('permission', $permissionList, $permissionParams);
+
+        if (false === $try)
+        {
+            throw new \Exception('You are not allowed.', 403);
+        }
+
+        return $routing;
     }
 }

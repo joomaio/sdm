@@ -1,5 +1,5 @@
 <?php 
-// $this->theme->add( $this->url. 'assets/css/select2.min.css', '', 'select2-css');
+$this->theme->add( $this->url. 'assets/css/select2.min.css', '', 'select2-css');
 // $this->theme->add( $this->url. 'assets/css/select2_custom.css', '', 'select2-custom-css');
 $this->theme->add( $this->url. 'assets/js/select2.full.min.js', '', 'bootstrap-select2');
 if($this->field->emptyOption)

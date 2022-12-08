@@ -12,32 +12,14 @@
                     </div>
                     <div class="row">
                         <div class="mb-3 col-lg-6 col-sm-12 mx-auto">
-                            <label class="form-label fw-bold">User Name:</label>
-                            <?php $this->field('username'); ?>
+                            <label class="form-label fw-bold">Right Access:</label>
+                            <?php $this->field('access'); ?>
                         </div>
                     </div>
                     <div class="row">
                         <div class="mb-3 col-lg-6 col-sm-12 mx-auto">
-                            <label class="form-label fw-bold">Password:</label>
-                            <?php $this->field('password'); ?>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="mb-3 col-lg-6 col-sm-12 mx-auto">
-                            <label class="form-label fw-bold">Confirm Password:</label>
-                            <?php $this->field('confirm_password'); ?>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="mb-3 col-lg-6 col-sm-12 mx-auto">
-                            <label class="form-label fw-bold" for="inputEmail4">Email:</label>
-                            <?php $this->field('email'); ?>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="mb-3 col-lg-6 col-sm-12 mx-auto">
-                            <label class="form-label fw-bold" for="groups">Groups:</label>
-                            <?php $this->field('groups'); ?>
+                            <label class="form-label fw-bold">Description:</label>
+                            <?php $this->field('description'); ?>
                         </div>
                     </div>
                     <div class="row">
