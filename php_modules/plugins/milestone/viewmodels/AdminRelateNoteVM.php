@@ -29,9 +29,6 @@ class AdminRelateNoteVM extends ViewModel
 
         $form = new Form($this->getFormFields(), []);
 
-        $note_exist = $this->container->exists('NoteEntity');
-
-        $this->set('note_exist', $note_exist);
         $this->set('form', $form, true);
         $this->set('url', $this->router->url(), true);
         $this->set('link_list', $this->router->url('admin/relate-notes/'. $request_id));
