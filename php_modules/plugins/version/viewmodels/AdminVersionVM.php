@@ -30,7 +30,7 @@ class AdminVersionVM extends ViewModel
         $this->set('form', $form, true);
         $this->set('url', $this->router->url(), true);
         $this->set('link_list', $this->router->url('admin/versions'));
-        $this->set('link_form', $this->router->url('admin/version'));
+        $this->set('link_form', $this->router->url('admin/versions'));
     }
 
     public function getFormFields()
