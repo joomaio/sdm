@@ -40,6 +40,11 @@ class AdminUserVM extends ViewModel
         if ($data)
         {
             $data['password'] = '';
+            $groups = $this->UserEntity->getGroups($data['id']);
+            foreach ($groups as $group)
+            {
+                $data['groups'][] = $group['group_id'];
+            }
         }
         $form = new Form($this->getFormFields(), $data);
 
@@ -53,6 +58,16 @@ class AdminUserVM extends ViewModel
 
     public function getFormFields()
     {
+        $groups = $this->GroupEntity->list(0, 0, [], 'name asc');
+        $options = [];
+        foreach ($groups as $group)
+        {
+            $options[] = [
+                'text' => $group['name'],
+                'value' => $group['id'],
+            ];
+        }
+
         $fields = [
             'id' => ['hidden'],
             'name' => [
@@ -93,6 +108,12 @@ class AdminUserVM extends ViewModel
                     ['text'=>'Active', 'value'=>1],
                     ['text'=>'Inactive', 'value'=>0]
                 ]
+            ],
+            'groups' => ['option',
+                'options' => $options,
+                'type' => 'multiselect',
+                'showLabel' => false,
+                'formClass' => 'form-select',
             ],
             'token' => ['hidden',
                 'default' => $this->app->getToken(),

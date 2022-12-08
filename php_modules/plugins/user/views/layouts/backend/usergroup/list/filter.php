@@ -26,9 +26,6 @@
                 <?php $this->field('sort');  ?>
             </div>
             <div class="pe-2">
-                <?php $this->field('group');  ?>
-            </div>
-            <div class="pe-2">
                 <?php $this->field('search');  ?>
             </div>
             <button type='Submit' data-bs-toggle="tooltip" title="Filter" class=" align-middle btn border border-1 ms-2" type="button">
@@ -45,4 +42,4 @@
         </div>
     </div>
 </form>
-<?php echo $this->render('backend.user.list.javascript'); ?>
+<?php echo $this->render('backend.usergroup.list.javascript'); ?>
