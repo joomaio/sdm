@@ -53,7 +53,7 @@ class Version extends Admin
         {
             $this->session->set('flashMsg', 'Error: Name can\'t empty! ');
             $this->app->redirect(
-                $this->router->url('admin/version/0')
+                $this->router->url('admin/versions')
             );
         }
 
@@ -62,7 +62,7 @@ class Version extends Admin
         {
             $this->session->set('flashMsg', 'Error: Version name is already in use! ');
             $this->app->redirect(
-                $this->router->url('admin/version/0')
+                $this->router->url('admin/versions')
             );
         }
         // TODO: validate new add
@@ -81,7 +81,7 @@ class Version extends Admin
             $msg = 'Error: Create Failed!';
             $this->session->set('flashMsg', $msg);
             $this->app->redirect(
-                $this->router->url('admin/version/0')
+                $this->router->url('admin/versions')
             );
         }
         else
@@ -115,7 +115,7 @@ class Version extends Admin
             {
                 $this->session->set('flashMsg', 'Error: Version name is already in use! ');
                 $this->app->redirect(
-                    $this->router->url('admin/version/'. $ids)
+                    $this->router->url('admin/versions')
                 );
             }
 
@@ -140,7 +140,7 @@ class Version extends Admin
                 $msg = 'Error: Save Failed';
                 $this->session->set('flashMsg', $msg);
                 $this->app->redirect(
-                    $this->router->url('admin/version/'. $ids)
+                    $this->router->url('admin/versions')
                 );
             }
         }
