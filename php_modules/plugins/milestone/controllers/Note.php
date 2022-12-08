@@ -52,6 +52,18 @@ class Note extends Admin
         $note_id = $this->request->post->get('note_id', 0, 'string');
         $description = $this->request->post->get('description', '', 'string');
 
+        if ($note_id)
+        {
+            $findOne = $this->RelateNoteEntity->findOne(['note_id = '. $note_id, 'request_id = '. $request_id]);
+            if ($findOne)
+            {
+                $this->session->set('flashMsg', 'Error: Duplicate Relate Note');
+                $this->app->redirect(
+                    $this->router->url('admin/relate-notes/'. $request_id),
+                );
+            }
+        }
+
         // TODO: validate new add
         $newId =  $this->RelateNoteEntity->add([
             'request_id' => $request_id,
