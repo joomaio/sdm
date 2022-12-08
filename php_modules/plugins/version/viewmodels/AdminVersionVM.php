@@ -39,14 +39,14 @@ class AdminVersionVM extends ViewModel
             'id' => ['hidden'],
             'name' => [
                 'text',
-                'placeholder' => 'Enter Name',
+                'placeholder' => 'New Version',
                 'showLabel' => false,
-                'formClass' => 'form-control',
+                'formClass' => 'form-control h-50-px fw-bold rounded-0 fs-3',
                 'required' => 'required'
             ],
             'release_date' => ['date',
                 'showLabel' => false,
-                'formClass' => 'form-control',
+                'formClass' => 'form-control rounded-0 border border-1 py-1 fs-4-5',
                 'required' => 'required',
             ],
             'token' => ['hidden',
