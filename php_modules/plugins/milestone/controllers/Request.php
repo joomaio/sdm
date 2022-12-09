@@ -35,6 +35,29 @@ class Request extends Admin
         $this->app->set('format', 'html');
     }
 
+    public function detail_request()
+    {
+        $this->isLoggedIn();
+
+        $urlVars = $this->request->get('urlVars');
+        $id = (int) $urlVars['request_id'];
+        
+        $milestone_id = $this->validateMilestoneID();
+        $exist = $this->RequestEntity->findByPK($id);
+
+        if(!empty($id) && !$exist) 
+        {   
+            $this->session->set('flashMsg', "Invalid Request");
+            $this->app->redirect(
+                $this->router->url('admin/requests/'. $milestone_id)
+            );
+        }
+
+        $this->app->set('layout', 'backend.request.detail_request');
+        $this->app->set('page', 'backend');
+        $this->app->set('format', 'html');
+    }
+
     public function list()
     {
         $this->isLoggedIn();
@@ -199,7 +222,8 @@ class Request extends Admin
         $this->isLoggedIn();
 
         $urlVars = $this->request->get('urlVars');
-        $id = (int) $urlVars['milestone_id'];
+        // var_dump($urlVars);die;
+        $id = (int) $urlVars['request_id'];
 
         if(empty($id))
         {
