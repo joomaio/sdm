@@ -94,7 +94,6 @@ class AdminFeedbackVM extends ViewModel
         return [
             'num' => '#',
             'title' => 'Title',
-            'release' => 'release',
             'created_at' => 'Created at',
             'col_last' => ' ',
         ];
