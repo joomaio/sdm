@@ -39,7 +39,7 @@ class EmailModel extends Base
 
         if(!$mail->Send()) {
             echo 'Message could not be sent.';
-            $this->session(['flashMsg' => $mail->ErrorInfo]);
+            $this->session('flashMsg', $mail->ErrorInfo);
             return false;
         }         
 

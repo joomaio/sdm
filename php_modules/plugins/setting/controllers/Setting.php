@@ -63,4 +63,16 @@ class Setting extends MVController
             );
         }
     }
+
+    public function testMail()
+    {
+        $this->isLoggedIn();
+
+        $admin_mail = $this->OptionModel->get('admin_mail', '');
+        if ($admin_mail)
+        {
+            $this->session->set('flashMsg', $msg);
+            $this->app->redirect( $this->router->url('admin/setting'));
+        }
+    }
 }
