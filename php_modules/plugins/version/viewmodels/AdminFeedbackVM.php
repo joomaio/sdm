@@ -74,16 +74,29 @@ class AdminFeedbackVM extends ViewModel
             }
         }
 
+        $data_tags = [];
+        foreach ($result as $item){
+            if (!empty($item['tags'])){
+                $t1 = $where = [];
+                $where[] = "(`id` IN (".$item['tags'].") )";
+                $t2 = $this->TagEntity->list(0, 1000, $where,'','`name`');
+
+                foreach ($t2 as $i) $t1[] = $i['name'];
+
+                $data_tags[$item['id']] = implode(',', $t1);
+            }
+        }
+
         if (!$result) {
             $result = [];
             $total = 0;
         }
-        
-        $list = new Listing($result, $total, $limit, $this->getColumns());
 
+        $list = new Listing($result, $total, $limit, $this->getColumns());
         $version = $version ? $version : ['name' => ''];
         $this->set('list', $list, true);
         $this->set('url', $this->router->url(), true);
+        $this->set('data_tags', $data_tags, true);
         $this->set('link_cancel', $this->router->url('admin/versions'), true);
         $this->set('title_page', 'Feeback Of Version ' . $version['name'], true);
         $this->set('link_form', $this->router->url('admin/note'), true);
