@@ -75,7 +75,9 @@ class plugin extends PluginAbstract
     public function registerMenu()
     {
         return [
-            [['setting', 'setting',], 'setting', 'Setting', '<i class="fa-solid fa-gear"></i>', ''],
+            [['setting', 'setting',], 'setting', 'Setting', '<i class="fa-solid fa-gear"></i>', [
+              [['setting/email'], 'setting/email', 'SMTP', '<i class="fa-solid fa-gear"></i>']  
+            ]],
         ];
     }
 }
