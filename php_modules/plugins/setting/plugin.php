@@ -72,12 +72,34 @@ class plugin extends PluginAbstract
         }
     }
 
+    public function registerSettingMenu()
+    {
+        return [[['setting#email'], 'setting#email', 'SMTP', '']];
+    }
+    
+    public function registerSetting()
+    {
+        return [['setting#email'], 'setting#email', 'SMTP', ''];
+    }
+
     public function registerMenu()
     {
+        $submenu = [];
+        $plugins = AppIns::factory('plugin');
+        foreach ($plugins as $plg_name => $plg)
+        {
+            if (method_exists($plg, 'registerSettingMenu'))
+            {
+                $submenu_tmp = $plg->registerSettingMenu();
+                if (is_array($submenu_tmp))
+                {
+                    $submenu = array_merge($submenu, $submenu_tmp);
+                }
+            }
+        }
+
         return [
-            [['setting', 'setting',], 'setting', 'Setting', '<i class="fa-solid fa-gear"></i>', [
-              [['setting'], 'setting', 'SMTP', '<i class="fa-solid fa-gear"></i>']  
-            ]],
+            [['setting', 'setting',], 'setting', 'Settings', '<i class="fa-solid fa-gear"></i>', $submenu],
         ];
     }
 }

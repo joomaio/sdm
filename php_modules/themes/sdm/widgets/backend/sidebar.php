@@ -56,7 +56,10 @@
                 }
                 ?>
                 <li class="sidebar-item <?php echo $active && !(is_array($submenu) && $submenu) ? 'active' : ''; ?>">
-                    <a href="<?php echo (is_array($submenu) && $submenu) ? '' : $this->link_admin . $plural ?>" class="sidebar-link <?php echo (is_array($submenu) && $submenu) ? 'link-collapse' : '';?>" <?php echo (is_array($submenu) && $submenu) ? 'data-bs-target="#Setting" data-bs-toggle="collapse" aria-expanded="true" ' : '' ?> >
+                    <a href="<?php echo (is_array($submenu) && $submenu) ? '' : $this->link_admin . $plural ?>" 
+                        class="sidebar-link <?php echo (is_array($submenu) && $submenu) ? 'link-collapse' : '';?>" 
+                        <?php echo (is_array($submenu) && $submenu) ? 'data-bs-target="#'. $plural. '" data-bs-toggle="collapse" aria-expanded="true" ' : '' ?> 
+                    >
                         <?php echo $icon ?> 
                         <span class="align-middle">
                             <?php echo $name ?>
@@ -66,12 +69,12 @@
                         </span>
                     </a>
                     <?php if (is_array($submenu) && $submenu) : ?>
-                        <ul id="Setting" class="sidebar-dropdown list-unstyled collapse <?php echo $check_submenu_active ? 'show' : ''; ?>" >
+                        <ul id="<?php echo $plural; ?>" class="sidebar-dropdown list-unstyled collapse <?php echo $check_submenu_active ? 'show' : ''; ?>" >
                             <?php foreach($submenu as $key => $sub) :
                                 list($allow_sub, $plural_sub, $name_sub, $icon_sub) = $sub;
                              ?>
                             <li class="sidebar-item <?php echo $sub_actives[$key] ? 'active' : ''; ?>">
-                                <a href="<?php echo $this->link_admin . $plural; ?>" class="sidebar-link submenu-link">
+                                <a href="<?php echo $this->link_admin . $plural_sub; ?>" class="sidebar-link submenu-link">
                                     <span class="align-middle">
                                         <i class="fa-solid fa-arrow-right"></i><?php echo $name_sub ?>
                                     </span>
@@ -89,4 +92,5 @@
     $('.link-collapse').on('click', function() {
         $('.icon-collapse', this).toggleClass('fa-caret-down fa-caret-up');
     });
+    
 </script>
