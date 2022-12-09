@@ -86,31 +86,31 @@ class plugin extends PluginAbstract
                 ],
             ],
             [
-            'label' => 'SMTP Setting',
-            'fields' => [
-                'email_host' => [
-                    'text',
-                    'label' => 'Email Host:',
-                    'formClass' => 'form-control',
+                'label' => 'SMTP Setting',
+                'fields' => [
+                    'email_host' => [
+                        'text',
+                        'label' => 'Email Host:',
+                        'formClass' => 'form-control',
+                    ],
+                    'email_port' => [
+                        'text',
+                        'label' => 'Email Port:',
+                        'formClass' => 'form-control',
+                    ],
+                    'email_username' => [
+                        'email',
+                        'label' => 'Email:',
+                        'formClass' => 'form-control',
+                    ],
+                    'email_password' => [
+                        'password',
+                        'label' => 'Password Email:',
+                        'formClass' => 'form-control',
+                    ],
                 ],
-                'email_port' => [
-                    'text',
-                    'label' => 'Email Port:',
-                    'formClass' => 'form-control',
-                ],
-                'email_username' => [
-                    'email',
-                    'label' => 'Email:',
-                    'formClass' => 'form-control',
-                ],
-                'email_password' => [
-                    'password',
-                    'label' => 'Password Email:',
-                    'formClass' => 'form-control',
-                ],
-            ],
-        ]
-    ];
+            ]
+        ];
     }
 
     public function registerMenu()
