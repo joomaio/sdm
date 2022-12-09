@@ -76,7 +76,7 @@ class plugin extends PluginAbstract
     {
         return [
             [['setting', 'setting',], 'setting', 'Setting', '<i class="fa-solid fa-gear"></i>', [
-              [['setting/email'], 'setting/email', 'SMTP', '<i class="fa-solid fa-gear"></i>']  
+              [['setting'], 'setting', 'SMTP', '<i class="fa-solid fa-gear"></i>']  
             ]],
         ];
     }

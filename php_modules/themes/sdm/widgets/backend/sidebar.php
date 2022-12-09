@@ -55,17 +55,27 @@
                     }
                 }
                 ?>
-                <li class="sidebar-item <?php echo $active ? 'active' : ''; ?>">
-                    <a href="<?php echo (is_array($submenu) && $submenu) ? '' : $this->link_admin . $plural ?>" class="sidebar-link" <?php echo (is_array($submenu) && $submenu) ? 'data-bs-target="#Setting" data-bs-toggle="collapse" aria-expanded="true" ' : '' ?> >
-                        <?php echo $icon ?> <span class="align-middle"><?php echo $name ?><?php echo (is_array($submenu) && $submenu) ? '<i id="icon" class="fa-solid  fa-caret-down  float-end mt-1 test1"></i>' : '' ?></span>
+                <li class="sidebar-item <?php echo $active && !(is_array($submenu) && $submenu) ? 'active' : ''; ?>">
+                    <a href="<?php echo (is_array($submenu) && $submenu) ? '' : $this->link_admin . $plural ?>" class="sidebar-link <?php echo (is_array($submenu) && $submenu) ? 'link-collapse' : '';?>" <?php echo (is_array($submenu) && $submenu) ? 'data-bs-target="#Setting" data-bs-toggle="collapse" aria-expanded="true" ' : '' ?> >
+                        <?php echo $icon ?> 
+                        <span class="align-middle">
+                            <?php echo $name ?>
+                            <?php if (is_array($submenu) && $submenu) : ?>
+                                <i id="icon" class="fa-solid  fa-caret-<?php echo $check_submenu_active ? 'up' : 'down'; ?> icon-collapse float-end mt-1"></i>
+                            <?php endif; ?>
+                        </span>
                     </a>
                     <?php if (is_array($submenu) && $submenu) : ?>
-                        <ul id="Setting" class="sidebar-dropdown list-unstyled collapse ">
-                            <?php foreach($submenu as $sub) :
+                        <ul id="Setting" class="sidebar-dropdown list-unstyled collapse <?php echo $check_submenu_active ? 'show' : ''; ?>" >
+                            <?php foreach($submenu as $key => $sub) :
                                 list($allow_sub, $plural_sub, $name_sub, $icon_sub) = $sub;
                              ?>
-                            <li class="sidebar-item ">
-                                <a href="<?php echo $this->link_admin . $plural; ?>" class="sidebar-link"><i class="fa-solid fa-arrow-right"></i><?php echo $name_sub ?></a>
+                            <li class="sidebar-item <?php echo $sub_actives[$key] ? 'active' : ''; ?>">
+                                <a href="<?php echo $this->link_admin . $plural; ?>" class="sidebar-link submenu-link">
+                                    <span class="align-middle">
+                                        <i class="fa-solid fa-arrow-right"></i><?php echo $name_sub ?>
+                                    </span>
+                                </a>
                             </li>
                             <?php endforeach; ?>
                         </ul>
@@ -75,3 +85,8 @@
         </ul>
     </div>
 </nav>
+<script>
+    $('.link-collapse').on('click', function() {
+        $('.icon-collapse', this).toggleClass('fa-caret-down fa-caret-up');
+    });
+</script>
