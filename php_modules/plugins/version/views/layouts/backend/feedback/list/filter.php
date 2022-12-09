@@ -2,15 +2,6 @@
     <div class="col-lg-11 col-sm-12">
         <div class="input-group input-group-navbar">
             <div class="pe-2">
-                <div class="row">
-                    <div class="col-auto">
-                        <button id="delete_selected" data-bs-placement="top" title="Delete Selected" data-bs-toggle="tooltip" class="btn border border-1" type="button">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="pe-2">
                 <?php $this->field('sort');  ?>
             </div>
             <div class="pe-2">
