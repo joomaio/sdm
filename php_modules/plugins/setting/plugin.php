@@ -108,6 +108,16 @@ class plugin extends PluginAbstract
                         'label' => 'Password Email:',
                         'formClass' => 'form-control',
                     ],
+                    'email_from' => [
+                        'email',
+                        'label' => 'From Email:',
+                        'formClass' => 'form-control',
+                    ],
+                    'email_from_name' => [
+                        'text',
+                        'label' => 'From Name:',
+                        'formClass' => 'form-control',
+                    ],
                 ],
             ]
         ];
