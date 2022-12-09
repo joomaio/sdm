@@ -15,9 +15,6 @@
 								<table id="datatables-buttons" class="table table-striped border-top border-1" style="width:100%">
 									<thead>
 										<tr>
-											<th width="10px">
-												<input type="checkbox" id="select_all">
-											</th>
 											<th>Title</th>
 											<th>Tags</th>
 											<th>Created At</th>
