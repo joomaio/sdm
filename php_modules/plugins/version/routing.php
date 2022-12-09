@@ -28,6 +28,7 @@ return [
         'version-feedback' => [
             'fnc' => [
                 'get' => 'version.feedback.list',
+                'post' => 'version.feedback.list',
             ],
             'parameters' => ['version_id'],
         ],
