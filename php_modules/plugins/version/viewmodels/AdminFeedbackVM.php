@@ -86,6 +86,7 @@ class AdminFeedbackVM extends ViewModel
         $this->set('url', $this->router->url(), true);
         $this->set('link_cancel', $this->router->url('admin/versions'), true);
         $this->set('title_page', 'Feeback Of Version ' . $version['name'], true);
+        $this->set('link_form', $this->router->url('admin/note'), true);
         $this->set('token', $this->app->getToken(), true);
     }
     public function getColumns()
