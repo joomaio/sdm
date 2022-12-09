@@ -16,8 +16,9 @@
                                 </div>
                             <?php } ?>
                         <?php } ?>
-                        <div class="row align-items-center ">
+                        <div class="row align-items-center">
                             <div class="col-xl-12 col-sm-12 text-center ">
+                                <a href="<?php echo $this->link_form; ?>" class="btn btn-outline-secondary">Cancel</a>
                                 <button type="submit" class="btn btn-outline-success">Save</button>
                             </div>
                         </div>

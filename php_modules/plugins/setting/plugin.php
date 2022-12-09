@@ -108,7 +108,7 @@ class plugin extends PluginAbstract
                         'label' => 'Password Email:',
                         'formClass' => 'form-control',
                     ],
-                    'email_from' => [
+                    'email_from_addr' => [
                         'email',
                         'label' => 'From Email:',
                         'formClass' => 'form-control',
