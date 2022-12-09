@@ -35,9 +35,9 @@ class AdminSettingVM extends ViewModel
             }
         }
         $form = new Form($this->getFormFields(), $data);
-        $fileds = $this->getFormFields();
+
         $title_page = 'Setting';
-        $this->view->set('fileds', $fileds, true);
+        $this->view->set('fields', $fields, true);
         $this->view->set('form', $form, true);
         $this->view->set('title_page', $title_page, true);
         $this->view->set('data', $data, true);
@@ -56,19 +56,19 @@ class AdminSettingVM extends ViewModel
                 $register = $plg->registerSetting();
                 if (is_array($register))
                 {
-                    $legend = [];
                     foreach ($register as $item)
                     {
+                        $legend = [];
                         $legend['label'] = $item['label'];
                         $legend['fields'] = [];
                         $fields = array_merge($fields, $item['fields']);
-                        $legend['fields'] = array_keys($fields);
+                        $legend['fields'] = array_keys($item['fields']);
                         $legends[] = $legend;
                     }
                 }
             }
         }
-        $this->set('legends', $legends);
+        $this->view->set('legends', $legends);
         return $fields;
     }
 }
