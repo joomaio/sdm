@@ -56,6 +56,12 @@ return [
             ],
             'parameters' => ['request_id'],
         ],
+        'detail-request' => [
+            'fnc' => [
+                'get' => 'milestone.request.detail_request',
+            ],
+            'parameters' => ['request_id'],
+        ],
         'document' => [
             'fnc' => [
                 'get' => 'milestone.document.detail',
