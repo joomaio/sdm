@@ -4,6 +4,6 @@
             <?php echo  $this->item['title']  ?>
         </a>
     </td>
-    <td><?php echo   $this->item['tags'];?></td>
+    <td><?= !empty($this->data_tags[$this->item['id']]) ? $this->data_tags[$this->item['id']] : '' ?></td>
     <td><?php echo   $this->item['created_at'] ? date('m-d-Y', strtotime($this->item['created_at'])) : '';  ?></td>
 </tr>
