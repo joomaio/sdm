@@ -19,6 +19,7 @@
                         <div class="row align-items-center">
                             <div class="col-xl-12 col-sm-12 text-center ">
                                 <a href="<?php echo $this->link_form; ?>" class="btn btn-outline-secondary">Cancel</a>
+                                <a id="test_mail" class="btn btn-outline-secondary" type="button">Test SMTP Mail</a>
                                 <button type="submit" class="btn btn-outline-success">Save</button>
                             </div>
                         </div>
@@ -31,3 +32,13 @@
         </div>
     </main>
 </div>
+<form id="form_mail_test" action="<?php echo $this->link_mail_test ?>" method="POST">
+</form>
+<script>
+    $(document).ready(function() {
+        $('#test_mail').click(function(){
+            $("#form_mail_test").submit();
+        });
+        
+    });
+</script>

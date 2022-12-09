@@ -30,6 +30,7 @@ class plugin extends PluginAbstract
             'models' => [
                 'alias' => [
                     'App\plugins\setting\models\OptionModel' => 'OptionModel',
+                    'App\plugins\setting\models\EmailModel' => 'EmailModel',
                 ],
             ],
             'entity' => [],

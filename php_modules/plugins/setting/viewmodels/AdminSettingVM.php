@@ -43,6 +43,7 @@ class AdminSettingVM extends ViewModel
         $this->view->set('data', $data, true);
         $this->view->set('url', $this->router->url(), true);
         $this->view->set('link_form', $this->router->url('admin/setting'));
+        $this->view->set('link_mail_test', $this->router->url('admin/setting/mail-test'));
     }
 
     public function getFormFields()

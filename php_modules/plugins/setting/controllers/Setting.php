@@ -69,10 +69,17 @@ class Setting extends MVController
         $this->isLoggedIn();
 
         $admin_mail = $this->OptionModel->get('admin_mail', '');
-        if ($admin_mail)
+        if (!$admin_mail)
         {
             $this->session->set('flashMsg', $msg);
             $this->app->redirect( $this->router->url('admin/setting'));
         }
+
+        $try = $this->EmailModel->send($admin_mail, 'Admin', 'This is mail test', 'Mail Test');
+        if ($try)
+        {
+            $this->session->set('flashMsg', 'Sent Mail Success');
+        }
+        $this->app->redirect( $this->router->url('admin/setting'));
     }
 }

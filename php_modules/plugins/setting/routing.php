@@ -9,5 +9,10 @@ return [
                 'post' => 'setting.setting.save',
             ],
         ],
+        'setting/mail-test'=>[
+            'fnc' => [
+                'post' => 'setting.setting.testMail',
+            ],
+        ],
     ],
 ];

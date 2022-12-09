@@ -10,6 +10,7 @@
 
 namespace App\plugins\setting\models;
 
+use PHPMailer\PHPMailer\PHPMailer;
 use SPT\JDIContainer\Base; 
 
 class EmailModel extends Base 
@@ -24,22 +25,21 @@ class EmailModel extends Base
 
         $mailer = new PHPMailer();
         
-        $mail->Mailer = 'smtp';		
-		$mail->ContentType = $content_type;		
-		$mail->From = $from_addr;
-		$mail->FromName = $from_name;
-		$mail->Host = $email_host;
-		$mail->Username = $email_username;
-		$mail->Password = $email_password;
-		$mail->SMTPAuth = true;
-		$mail->AddReplyTo($from_addr, $from_name);		
-		$mail->Subject = $subject;
-		$mail->Body = $body;
-		$mail->AddAddress($to_addr, $to_name);
+        $mailer->Mailer = 'smtp';		
+		$mailer->ContentType = $content_type;		
+		$mailer->From = $from_addr;
+		$mailer->FromName = $from_name;
+		$mailer->Host = $email_host;
+		$mailer->Username = $email_username;
+		$mailer->Password = $email_password;
+		$mailer->SMTPAuth = true;
+		$mailer->AddReplyTo($from_addr, $from_name);		
+		$mailer->Subject = $subject;
+		$mailer->Body = $body;
+		$mailer->AddAddress($to_addr, $to_name);
 
-        if(!$mail->Send()) {
-            echo 'Message could not be sent.';
-            $this->session('flashMsg', $mail->ErrorInfo);
+        if(!$mailer->Send()) {
+            $this->session->set('flashMsg', 'Error: '. $mailer->ErrorInfo);
             return false;
         }         
 
