@@ -4,6 +4,7 @@ $this->theme->prepareAssets([
     'bootstrap-css',
     'fontawesome-css',
     'admin-css',
+    'style-css',
     'js-bootstrap'
 ]);
 

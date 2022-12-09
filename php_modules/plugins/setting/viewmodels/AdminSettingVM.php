@@ -63,12 +63,12 @@ class AdminSettingVM extends ViewModel
                         $legend['fields'] = [];
                         $fields = array_merge($fields, $item['fields']);
                         $legend['fields'] = array_keys($fields);
+                        $legends[] = $legend;
                     }
                 }
             }
         }
         $this->set('legends', $legends);
-
         return $fields;
     }
 }

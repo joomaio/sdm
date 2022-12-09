@@ -1,3 +1,8 @@
 ul a.submenu-link{
     padding-left: 2rem;
 }
+
+.label-bold .form-label
+{
+    font-weight: bold;
+}
