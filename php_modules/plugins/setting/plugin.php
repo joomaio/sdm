@@ -79,7 +79,35 @@ class plugin extends PluginAbstract
     
     public function registerSetting()
     {
-        return [['setting#email'], 'setting#email', 'SMTP', ''];
+        return [[
+            'label' => 'SMTP Setting',
+            'fields' => [
+                'email_host' => [
+                    'text',
+                    'showLabel' => false,
+                    'label' => 'Email Host:',
+                    'formClass' => 'form-control',
+                ],
+                'email_port' => [
+                    'text',
+                    'showLabel' => false,
+                    'label' => 'Email Port:',
+                    'formClass' => 'form-control',
+                ],
+                'email_username' => [
+                    'email',
+                    'showLabel' => false,
+                    'label' => 'Email:',
+                    'formClass' => 'form-control',
+                ],
+                'email_password' => [
+                    'password',
+                    'showLabel' => false,
+                    'label' => 'Password Email:',
+                    'formClass' => 'form-control',
+                ],
+            ],
+        ]];
     }
 
     public function registerMenu()

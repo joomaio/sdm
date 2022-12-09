@@ -47,33 +47,27 @@ class AdminSettingVM extends ViewModel
 
     public function getFormFields()
     {
-        $fields = [
-            'email_host' => [
-                'text',
-                'showLabel' => false,
-                'label' => 'Email Host:',
-                'formClass' => 'form-control',
-            ],
-            'email_port' => [
-                'text',
-                'showLabel' => false,
-                'label' => 'Email Port:',
-                'formClass' => 'form-control',
-            ],
-            'email_username' => [
-                'email',
-                'showLabel' => false,
-                'label' => 'Email:',
-                'formClass' => 'form-control',
-            ],
-            'email_password' => [
-                'password',
-                'showLabel' => false,
-                'label' => 'Password Email:',
-                'formClass' => 'form-control',
-            ],
-           
-        ];
+        $fields = [];
+        $legends = [];
+        foreach ($this->plugin as $name => $plg)
+        {
+            if (method_exists($plg, 'registerSetting'))
+            {
+                $register = $plg->registerSetting();
+                if (is_array($register))
+                {
+                    $legend = [];
+                    foreach ($register as $item)
+                    {
+                        $legend['label'] = $item['label'];
+                        $legend['fields'] = [];
+                        $fields = array_merge($fields, $item['fields']);
+                        $legend['fields'] = array_keys($fields);
+                    }
+                }
+            }
+        }
+        $this->set('legends', $legends);
 
         return $fields;
     }
