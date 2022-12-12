@@ -21,6 +21,18 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row px-0">
+                        <div class="mb-3 col-12 mx-auto">
+                            <div class="row">
+                                <div class="col-3 d-flex align-items-center">
+                                    <label class="form-label fw-bold mb-0">Note</label>
+                                </div>
+                                <div class="col-9">
+                                <?php $this->field('note'); ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row g-3 align-items-center m-0">
                         <div class="modal-footer">
                             <?php $this->field('token'); ?>
