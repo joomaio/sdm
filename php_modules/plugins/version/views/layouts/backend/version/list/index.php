@@ -22,7 +22,7 @@
 												<input type="checkbox" id="select_all">
 											</th>
 											<th>Title</th>
-											<!-- <th>Note</th> -->
+											<th>Note</th>
 											<th>Created At</th>
 											<th>Action</th>
 										</tr>

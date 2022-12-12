@@ -49,6 +49,7 @@ class Version extends Admin
         //check title sprint
         $name = $this->request->post->get('name', '', 'string');
         $release_date = $this->request->post->get('release_date', '', 'string');
+        $note = $this->request->post->get('note', '', 'string');
         if (!$name)
         {
             $this->session->set('flashMsg', 'Error: Name can\'t empty! ');
@@ -69,6 +70,7 @@ class Version extends Admin
         $newId =  $this->VersionEntity->add([
             'name' => $name,
             'release_date' => $release_date,
+            'note' => $note,
             'status' => $this->request->post->get('status', 1, 'string'),
             'created_by' => $this->user->get('id'),
             'created_at' => date('Y-m-d H:i:s'),
@@ -110,6 +112,7 @@ class Version extends Admin
         {
             $name = $this->request->post->get('name', '', '');
             $release_date = $this->request->post->get('release_date', '', '');
+            $note = $this->request->post->get('note', '', '');
             $findOne = $this->VersionEntity->findOne(['name = "'. $name. '"', 'id <> '. $ids]);
             if ($findOne)
             {
@@ -122,6 +125,7 @@ class Version extends Admin
             $try = $this->VersionEntity->update([
                 'name' => $name,
                 'release_date' => $release_date,
+                'note' => $note,
                 'status' => $this->request->post->get('status', 0, 'string'),
                 'modified_by' => $this->user->get('id'),
                 'modified_at' => date('Y-m-d H:i:s'),

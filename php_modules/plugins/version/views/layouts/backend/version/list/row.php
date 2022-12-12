@@ -15,7 +15,7 @@
             <?php echo  $this->item['name']  ?>
         </a>
     </td>
-    <!-- <td><?php echo   $this->item['note'] ?></td> -->
+    <td><?php echo   $this->item['note'] ?></td>
     <td><?php echo   $this->item['created_at'] ? date('m-d-Y', strtotime($this->item['created_at'])) : '';  ?></td>
     <td>
         <a href="#" 

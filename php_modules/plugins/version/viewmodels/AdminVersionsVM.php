@@ -55,6 +55,7 @@ class AdminVersionsVM extends ViewModel
         }
 
         $list   = new Listing($result, $total, $limit, $this->getColumns() );
+        // var_dump($list);die;
         $this->set('list', $list, true);
         $this->set('page', $page, true);
         $this->set('start', $start, true);
