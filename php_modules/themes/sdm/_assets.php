@@ -18,6 +18,9 @@ return [
     'admin-css' => [
         ['__domain__/assets/css/app.css', '', 'admin-css'],
     ],
+    'style-css' => [
+        ['__domain__/assets/css/style.css', '', 'style-css'],
+    ],
     'select2-js' => [
         ['__domain__/assets/js/select2.full.min.js', '', 'media-select2-js' , ''],
     ],

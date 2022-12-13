@@ -25,7 +25,21 @@ class Setting extends MVController
     public function save()
     {
         $this->isLoggedIn();
-        $fields = $this->AdminSettingVM->getFormFields();
+        $fields = [];
+        foreach ($this->plugin as $name => $plg)
+        {
+            if (method_exists($plg, 'registerSetting'))
+            {
+                $register = $plg->registerSetting();
+                if (is_array($register))
+                {
+                    foreach ($register as $item)
+                    {
+                        $fields = array_merge($fields, $item['fields']);
+                    }
+                }
+            }
+        }
         $try = true;
         foreach ($fields as $key => $value)
         {
@@ -48,5 +62,24 @@ class Setting extends MVController
                 )
             );
         }
+    }
+
+    public function testMail()
+    {
+        $this->isLoggedIn();
+
+        $admin_mail = $this->OptionModel->get('admin_mail', '');
+        if (!$admin_mail)
+        {
+            $this->session->set('flashMsg', 'Error: Enter admin email before testing');
+            $this->app->redirect( $this->router->url('admin/setting'));
+        }
+
+        $try = $this->EmailModel->send($admin_mail, 'Admin', 'This is mail test', 'Mail Test');
+        if ($try)
+        {
+            $this->session->set('flashMsg', 'Sent Mail Success');
+        }
+        $this->app->redirect( $this->router->url('admin/setting'));
     }
 }

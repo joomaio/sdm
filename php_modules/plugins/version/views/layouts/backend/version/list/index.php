@@ -9,6 +9,9 @@
                         <div class="row align-items-center">
 								<?php echo $this->render('backend.version.list.filter');?>
 							</div>
+							<div class="row align-items-center">
+								<?php echo $this->render('backend.version.form');?>
+							</div>
 							<form action="<?php echo $this->link_list ?>" method="POST" id="formList">
 								<input type="hidden" value="<?php echo $this->token ?>" name="token">
             					<input type="hidden" value="DELETE" name="_method">

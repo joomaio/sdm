@@ -7,20 +7,19 @@
                 <div class="card-body">
                     <?php echo $this->render('message'); ?>
                     <form enctype='multipart/form-data' action="<?php echo  $this->link_form ?>" method="POST">
-                        <?php foreach ($this->fileds as $key => $value) {
-                            if ($key != 'token') { ?>
-                                <div class="mb-3 col-lg-12 col-sm-12 mx-auto">
-                                    <?php if ($value['label']) { ?>
-                                        <label class="form-label fs-5 fw-bold pt-2"><?php echo $value['label']; ?></label>
-                                    <?php } ?>
-
-                                    <?php $this->field($key); ?>
+                        <?php foreach ($this->legends as $index => $legend) { ?>
+                            <?php echo $index == 0 ? '' : '<hr class="mb-4 mt-4">';?>
+                            <h3 class="h3 mb-2 fw-bolder"><?php echo $legend['label']; ?></h3>
+                            <?php foreach($legend['fields'] as $value) { ?>
+                                <div class="mb-3 col-lg-12 col-sm-12 mx-auto label-bold">
+                                    <?php $this->field($value); ?>
                                 </div>
-                        <?php }
-                        } ?>
-
-                        <div class="row align-items-center ">
+                            <?php } ?>
+                        <?php } ?>
+                        <div class="row align-items-center">
                             <div class="col-xl-12 col-sm-12 text-center ">
+                                <a href="<?php echo $this->link_form; ?>" class="btn btn-outline-secondary">Cancel</a>
+                                <a id="test_mail" class="btn btn-outline-secondary" type="button">Test SMTP Mail</a>
                                 <button type="submit" class="btn btn-outline-success">Save</button>
                             </div>
                         </div>
@@ -33,3 +32,13 @@
         </div>
     </main>
 </div>
+<form id="form_mail_test" action="<?php echo $this->link_mail_test ?>" method="POST">
+</form>
+<script>
+    $(document).ready(function() {
+        $('#test_mail').click(function(){
+            $("#form_mail_test").submit();
+        });
+        
+    });
+</script>

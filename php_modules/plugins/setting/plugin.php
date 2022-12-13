@@ -30,6 +30,7 @@ class plugin extends PluginAbstract
             'models' => [
                 'alias' => [
                     'App\plugins\setting\models\OptionModel' => 'OptionModel',
+                    'App\plugins\setting\models\EmailModel' => 'EmailModel',
                 ],
             ],
             'entity' => [],
@@ -72,10 +73,61 @@ class plugin extends PluginAbstract
         }
     }
 
+    public function registerSetting()
+    {
+        return [
+            [
+                'label' => 'System Info',
+                'fields' => [
+                    'admin_mail' => [
+                        'text',
+                        'label' => 'Admin Mail:',
+                        'formClass' => 'form-control',
+                    ],
+                ],
+            ],
+            [
+                'label' => 'SMTP Setting',
+                'fields' => [
+                    'email_host' => [
+                        'text',
+                        'label' => 'Email Host:',
+                        'formClass' => 'form-control',
+                    ],
+                    'email_port' => [
+                        'text',
+                        'label' => 'Email Port:',
+                        'formClass' => 'form-control',
+                    ],
+                    'email_username' => [
+                        'email',
+                        'label' => 'Email:',
+                        'formClass' => 'form-control',
+                    ],
+                    'email_password' => [
+                        'password',
+                        'label' => 'Password Email:',
+                        'formClass' => 'form-control',
+                    ],
+                    'email_from_addr' => [
+                        'email',
+                        'label' => 'From Email:',
+                        'formClass' => 'form-control',
+                    ],
+                    'email_from_name' => [
+                        'text',
+                        'label' => 'From Name:',
+                        'formClass' => 'form-control',
+                    ],
+                ],
+            ]
+        ];
+    }
+
     public function registerMenu()
     {
         return [
-            [['setting', 'setting',], 'setting', 'Setting', '<i class="fa-solid fa-gear"></i>', ''],
+            [['setting', 'setting',], 'setting', 'Settings', '<i class="fa-solid fa-gear"></i>', ''],
         ];
     }
 }

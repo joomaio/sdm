@@ -28,13 +28,69 @@
                             break;
                         }
                     }
-                } ?>
-                <li class="sidebar-item <?php echo $active ? 'active' : ''; ?>">
-                    <a href="<?php echo $this->link_admin . $plural ?>" class="sidebar-link">
-                        <?php echo $icon ?> <span class="align-middle"><?php echo $name ?></span>
+                } 
+                $check_submenu_active = false;
+                if (is_array($submenu) && $submenu)
+                {
+                    $sub_actives = [];
+                    foreach($submenu as $key => $sub)
+                    {
+                        $sub_actives[$key] = false;
+                        list($allow_sub, $plural_sub, $name_sub, $icon_sub) = $sub;
+                        $plural_tmp = str_replace('/', '\/', $plural_sub); 
+                        preg_match('/^(\/admin\/' . $plural_tmp . ')(|\/)$/', $this->path_current, $match);
+                        if (is_array($match) && count($match)) {
+                            $sub_actives[$key] = true;
+                            $check_submenu_active = true;
+                        } else {
+                            foreach ($allow_sub as $single) {
+                                $single = str_replace('/', '\/', $single);
+                                preg_match('/^(\/admin\/' . $single . ')(|\/([0-9]*?))$/', $this->path_current, $match);
+                                if (is_array($match) && count($match)) {
+                                    $sub_actives[$key] = true;
+                                    break;
+                                }
+                            }
+                        } 
+                    }
+                }
+                ?>
+                <li class="sidebar-item <?php echo $active && !(is_array($submenu) && $submenu) ? 'active' : ''; ?>">
+                    <a href="<?php echo (is_array($submenu) && $submenu) ? '' : $this->link_admin . $plural ?>" 
+                        class="sidebar-link <?php echo (is_array($submenu) && $submenu) ? 'link-collapse' : '';?>" 
+                        <?php echo (is_array($submenu) && $submenu) ? 'data-bs-target="#'. $plural. '" data-bs-toggle="collapse" aria-expanded="true" ' : '' ?> 
+                    >
+                        <?php echo $icon ?> 
+                        <span class="align-middle">
+                            <?php echo $name ?>
+                            <?php if (is_array($submenu) && $submenu) : ?>
+                                <i id="icon" class="fa-solid  fa-caret-<?php echo $check_submenu_active ? 'up' : 'down'; ?> icon-collapse float-end mt-1"></i>
+                            <?php endif; ?>
+                        </span>
                     </a>
+                    <?php if (is_array($submenu) && $submenu) : ?>
+                        <ul id="<?php echo $plural; ?>" class="sidebar-dropdown list-unstyled collapse <?php echo $check_submenu_active ? 'show' : ''; ?>" >
+                            <?php foreach($submenu as $key => $sub) :
+                                list($allow_sub, $plural_sub, $name_sub, $icon_sub) = $sub;
+                             ?>
+                            <li class="sidebar-item <?php echo $sub_actives[$key] ? 'active' : ''; ?>">
+                                <a href="<?php echo $this->link_admin . $plural_sub; ?>" class="sidebar-link submenu-link">
+                                    <span class="align-middle">
+                                        <i class="fa-solid fa-arrow-right"></i><?php echo $name_sub ?>
+                                    </span>
+                                </a>
+                            </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    <?php endif; ?>
                 </li>
             <?php } ?>
         </ul>
     </div>
 </nav>
+<script>
+    $('.link-collapse').on('click', function() {
+        $('.icon-collapse', this).toggleClass('fa-caret-down fa-caret-up');
+    });
+    
+</script>

@@ -35,46 +35,41 @@ class AdminSettingVM extends ViewModel
             }
         }
         $form = new Form($this->getFormFields(), $data);
-        $fileds = $this->getFormFields();
+
         $title_page = 'Setting';
-        $this->view->set('fileds', $fileds, true);
+        $this->view->set('fields', $fields, true);
         $this->view->set('form', $form, true);
         $this->view->set('title_page', $title_page, true);
         $this->view->set('data', $data, true);
         $this->view->set('url', $this->router->url(), true);
         $this->view->set('link_form', $this->router->url('admin/setting'));
+        $this->view->set('link_mail_test', $this->router->url('admin/setting/mail-test'));
     }
 
     public function getFormFields()
     {
-        $fields = [
-            'email_host' => [
-                'text',
-                'showLabel' => false,
-                'label' => 'Email Host:',
-                'formClass' => 'form-control',
-            ],
-            'email_port' => [
-                'text',
-                'showLabel' => false,
-                'label' => 'Email Port:',
-                'formClass' => 'form-control',
-            ],
-            'email_username' => [
-                'email',
-                'showLabel' => false,
-                'label' => 'Email:',
-                'formClass' => 'form-control',
-            ],
-            'email_password' => [
-                'password',
-                'showLabel' => false,
-                'label' => 'Password Email:',
-                'formClass' => 'form-control',
-            ],
-           
-        ];
-
+        $fields = [];
+        $legends = [];
+        foreach ($this->plugin as $name => $plg)
+        {
+            if (method_exists($plg, 'registerSetting'))
+            {
+                $register = $plg->registerSetting();
+                if (is_array($register))
+                {
+                    foreach ($register as $item)
+                    {
+                        $legend = [];
+                        $legend['label'] = $item['label'];
+                        $legend['fields'] = [];
+                        $fields = array_merge($fields, $item['fields']);
+                        $legend['fields'] = array_keys($item['fields']);
+                        $legends[] = $legend;
+                    }
+                }
+            }
+        }
+        $this->view->set('legends', $legends);
         return $fields;
     }
 }
