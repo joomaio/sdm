@@ -66,7 +66,7 @@ class Task extends Admin
         
         if( !$newId )
         {
-            $msg = 'Error: Create Failed!';
+            $msg = 'Error: Create Task Failed!';
             $this->session->set('flashMsg', $msg);
             $this->app->redirect(
                 $this->router->url('admin/detail-request/'. $request_id .'/0')
@@ -74,7 +74,7 @@ class Task extends Admin
         }
         else
         {
-            $this->session->set('flashMsg', 'Create Success!');
+            $this->session->set('flashMsg', 'Create Task Success!');
             $this->app->redirect(
                 $this->router->url('admin/detail-request/'. $request_id)
             );
@@ -112,14 +112,14 @@ class Task extends Admin
             
             if($try) 
             {
-                $this->session->set('flashMsg', 'Edit Successfully');
+                $this->session->set('flashMsg', 'Edit Task Successfully');
                 $this->app->redirect(
                     $this->router->url('admin/detail-request/'. $request_id), 
                 );
             }
             else
             {
-                $msg = 'Error: Save Failed';
+                $msg = 'Error: Save Task Failed';
                 $this->session->set('flashMsg', $msg);
                 $this->app->redirect(
                     $this->router->url('admin/detail-request/'. $request_id .'/'. $ids)
