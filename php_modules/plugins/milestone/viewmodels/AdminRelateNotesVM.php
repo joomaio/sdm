@@ -49,7 +49,7 @@ class AdminRelateNotesVM extends ViewModel
         $start  = ($page-1) * $limit;
         $sort = $sort ? $sort : 'title asc';
 
-        $result = $this->RelateNoteEntity->list( $start, $limit, $where, $sort);
+        $result = $this->RelateNoteEntity->list( 0, 0, $where, 0);
         $total = $this->RelateNoteEntity->getListTotal();
         if (!$result)
         {

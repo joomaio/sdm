@@ -49,7 +49,7 @@ class AdminTasksVM extends ViewModel
         $start  = ($page-1) * $limit;
         $sort = $sort ? $sort : 'title asc';
 
-        $result = $this->TaskEntity->list( $start, $limit, $where, $sort);
+        $result = $this->TaskEntity->list( 0, 0, $where, 0);
         $total = $this->TaskEntity->getListTotal();
         if (!$result)
         {
