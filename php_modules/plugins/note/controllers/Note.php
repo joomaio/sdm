@@ -119,9 +119,9 @@ class Note extends Admin {
         }
         if(is_numeric($ids) && $ids)
         {
-            $title = $this->request->post->get('title', '');
+            $title = $this->request->post->get('title', '', 'string');
             $tags = $this->request->post->get('tags', '', 'string');
-            $html_editor = $this->request->post->get('html_editor', '');
+            $html_editor = $this->request->post->get('html_editor', '', 'string');
             $findOne = $this->NoteEntity->findOne(['title = "'. $title. '"', 'id <> '. $ids]);
             if ($findOne)
             {

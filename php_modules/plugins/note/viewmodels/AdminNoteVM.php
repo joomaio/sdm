@@ -53,8 +53,7 @@ class AdminNoteVM extends ViewModel
     {
         $fields = [
             'html_editor' => [
-                'textarea',
-                'placeholder' => 'HTML editor in simple mode',
+                'tinymce',
                 'showLabel' => false,
                 'formClass' => 'form-control',
             ],

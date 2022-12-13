@@ -4,54 +4,57 @@
             <?php echo $this->render('message'); ?>
             <form action="<?php echo $this->link_form . '/' . $this->id ?>" method="post">
                 <div class="row g-3 align-items-center">
+                    <div class="col-lg-8 col-sm-12">
+                        <div class="row">
+                            <div class="mb-3 col-lg-8 col-sm-12 mx-auto pt-3">
+                                <label class="form-label fw-bold">Title:</label>
+                                <?php $this->field('title'); ?>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="mb-3 col-lg-8 col-sm-12 mx-auto">
+                                <label class="form-label fw-bold">HTML Editor:</label>
+                                <?php $this->field('html_editor'); ?>
+                            </div>
+                        </div>
+                        <div class="row" style="display: none">
+                            <div class="mb-3 col-lg-8 col-sm-12 mx-auto pt-3">
+                                <label class="form-label fw-bold">Tags:</label>
+                                <?php $this->field('tags'); ?>
+                            </div>
+                        </div>
 
-                    <div class="row">
-                        <div class="mb-3 col-lg-6 col-sm-12 mx-auto">
-                            <label class="form-label fw-bold">HTML Editor:</label>
-                            <?php $this->field('html_editor'); ?>
+                        <div class="row">
+                            <div class="mb-3 col-lg-8 col-sm-12 mx-auto pt-3">
+                                <label class="form-label fw-bold">Tags:</label>
+                                <select class="js-example-tags" multiple id="select_tags">
+                                    <?php foreach ($this->data_tags as $item): ?>
+                                        <option selected="selected" value="<?=$item['id']?>"><?=$item['name']?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="mb-3 col-lg-6 col-sm-12 mx-auto pt-3">
-                            <label class="form-label fw-bold">File:</label>
-                            <?php $this->field('file'); ?>
+                    <div class="col-lg-4 col-sm-12">
+                        <div class="row">
+                            <div class="mb-3 col-lg-8 col-sm-12 mx-auto pt-3">
+                                <label class="form-label fw-bold">:</label>
+                                <?php $this->field('title'); ?>
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="mb-3 col-lg-6 col-sm-12 mx-auto pt-3">
-                            <label class="form-label fw-bold">Title:</label>
-                            <?php $this->field('title'); ?>
-                        </div>
+                    
+                </div>
+                <div class="row g-3 align-items-center m-0">
+                    <?php $this->field('token'); ?>
+                    <input class="form-control rounded-0 border border-1" type="hidden" name="_method" value="<?php echo $this->id ? 'PUT' : 'POST' ?>">
+                    <div class="col-xl-6 col-sm-6 text-end">
+                        <a href="<?php echo $this->link_list ?>">
+                            <button type="button" class="btn btn-outline-secondary">Cancel</button>
+                        </a>
                     </div>
-                    <div class="row" style="display: none">
-                        <div class="mb-3 col-lg-6 col-sm-12 mx-auto pt-3">
-                            <label class="form-label fw-bold">Tags:</label>
-                            <?php $this->field('tags'); ?>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="mb-3 col-lg-6 col-sm-12 mx-auto pt-3">
-                            <label class="form-label fw-bold">Tags:</label>
-                            <select class="js-example-tags" multiple id="select_tags">
-                                <?php foreach ($this->data_tags as $item): ?>
-                                    <option selected="selected" value="<?=$item['id']?>"><?=$item['name']?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="row g-3 align-items-center m-0">
-                        <?php $this->field('token'); ?>
-                        <input class="form-control rounded-0 border border-1" type="hidden" name="_method" value="<?php echo $this->id ? 'PUT' : 'POST' ?>">
-                        <div class="col-xl-6 col-sm-6 text-end">
-                            <a href="<?php echo $this->link_list ?>">
-                                <button type="button" class="btn btn-outline-secondary">Cancel</button>
-                            </a>
-                        </div>
-                        <div class="col-xl-3 col-sm-6 text-start ">
-                            <button type="submit" class="btn btn-outline-success">Save</button>
-                        </div>
+                    <div class="col-xl-3 col-sm-6 text-start ">
+                        <button type="submit" class="btn btn-outline-success">Save</button>
                     </div>
                 </div>
             </form>
