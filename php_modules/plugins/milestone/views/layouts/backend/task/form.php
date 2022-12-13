@@ -1,4 +1,4 @@
-<div class="modal fade" id="exampleModalToggle" aria-labelledby="exampleModalToggleLabel" tabindex="-1" aria-hidden="true" style="display: none;">
+<div class="modal fade" id="Popup_form_task" aria-labelledby="Popup Form Task" tabindex="-1" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-dialog-centered " style="max-width: 600px;">
         <div class="modal-content container px-5 pt-5">
             <?php echo $this->render('message'); ?>
