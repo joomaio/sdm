@@ -6,14 +6,9 @@
     if (window.history.replaceState) {
         window.history.replaceState(null, null, window.location.href);
     }
-    // document.getElementById('clear_filter').onclick = function() {
-    //     document.getElementById("search").value = "";
-    //     document.getElementById("sort").value = "title asc";
-    //     document.getElementById('filter_form').submit();
-    // };
     $(document).ready(function() {
         $("#select_all_relate_note").click( function(){
-            $('.checkbox-item').prop('checked', this.checked);
+            $('.checkbox-item-relate-note').prop('checked', this.checked);
         });
         $(".button_delete_item_relate_note").click(function() {
             var id = $(this).data('id');
