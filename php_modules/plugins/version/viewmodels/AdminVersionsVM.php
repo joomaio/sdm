@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SPT software - ViewModel
  * 
@@ -7,7 +8,8 @@
  * @description: Just a basic viewmodel
  * 
  */
-namespace App\plugins\version\viewmodels; 
+
+namespace App\plugins\version\viewmodels;
 
 use SPT\View\Gui\Form;
 use SPT\View\Gui\Listing;
@@ -36,30 +38,32 @@ class AdminVersionsVM extends ViewModel
         if ($page <= 0) $page = 1;
 
         $where = [];
-        
 
-        if( !empty($search) )
-        {
-            $where[] = "(`name` LIKE '%".$search."%')";
+
+        if (!empty($search)) {
+            $where[] = "(`name` LIKE '%" . $search . "%')";
         }
-        
-        $start  = ($page-1) * $limit;
-        $sort = $sort ? $sort : 'name asc';
 
-        $result = $this->VersionEntity->list( $start, $limit, $where, $sort);
+        $start  = ($page - 1) * $limit;
+        $sort = $sort ? $sort : 'created_at desc';
+
+        $result = $this->VersionEntity->list($start, $limit, $where, $sort);
+
+        $get_log = [];
+        $get_log = $this->VersionNoteEntity->list(0, 0, $where, 0);
+
         $total = $this->VersionEntity->getListTotal();
-        if (!$result)
-        {
+        if (!$result) {
             $result = [];
             $total = 0;
         }
 
-        $list   = new Listing($result, $total, $limit, $this->getColumns() );
-        // var_dump($list);die;
+        $list   = new Listing($result, $total, $limit, $this->getColumns());
         $this->set('list', $list, true);
         $this->set('page', $page, true);
         $this->set('start', $start, true);
         $this->set('sort', $sort, true);
+        $this->set('get_log', $get_log, true);
         $this->set('user_id', $this->user->get('id'), true);
         $this->set('url', $this->router->url(), true);
         $this->set('link_list', $this->router->url('admin/versions'), true);
@@ -83,7 +87,7 @@ class AdminVersionsVM extends ViewModel
     protected $_filter;
     public function filter()
     {
-        if( null === $this->_filter):
+        if (null === $this->_filter) :
             $data = [
                 'search' => $this->state('search', '', '', 'post', 'version.search'),
                 'limit' => $this->state('limit', 10, 'int', 'post', 'version.limit'),
@@ -94,7 +98,7 @@ class AdminVersionsVM extends ViewModel
             $this->set('form', ['filter' => $filter], true);
             $this->set('dataform', $data, true);
 
-            foreach($data as $k=>$v) $this->set($k, $v);
+            foreach ($data as $k => $v) $this->set($k, $v);
             $this->_filter = $filter;
         endif;
 
@@ -104,24 +108,29 @@ class AdminVersionsVM extends ViewModel
     public function getFilterFields()
     {
         return [
-            'search' => ['text',
+            'search' => [
+                'text',
                 'default' => '',
                 'showLabel' => false,
                 'formClass' => 'form-control h-full input_common w_full_475',
                 'placeholder' => 'Search..'
             ],
-            'limit' => ['option',
+            'limit' => [
+                'option',
                 'formClass' => 'form-select',
                 'default' => 10,
-                'options' => [ 5, 10, 20, 50],
+                'options' => [5, 10, 20, 50],
                 'showLabel' => false
             ],
-            'sort' => ['option',
+            'sort' => [
+                'option',
                 'formClass' => 'form-select',
-                'default' => 'name asc',
+                'default' => 'created_at desc',
                 'options' => [
                     ['text' => 'Name ascending', 'value' => 'name asc'],
                     ['text' => 'Name descending', 'value' => 'name desc'],
+                    ['text' => 'Date ascending', 'value' => 'created_at asc'],
+                    ['text' => 'Date descending', 'value' => 'created_at desc'],
                 ],
                 'showLabel' => false
             ]
