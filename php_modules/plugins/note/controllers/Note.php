@@ -50,6 +50,8 @@ class Note extends Admin {
         $title = $this->request->post->get('title', '', 'string');
         $tags = $this->request->post->get('tags', '', 'string');
         $html_editor = $this->request->post->get('html_editor', '', 'string');
+        $files = $this->request->file->get('files', [], 'array');
+
         if (!$title)
         {
             $this->session->set('flashMsg', 'Error: Title can\'t empty! ');
@@ -88,6 +90,28 @@ class Note extends Admin {
         }
         else
         {
+            if (is_array($files['name']) && $files['name'][0])
+            {
+                for ($i=0; $i < count($files['name']); $i++) 
+                { 
+                    $file = [
+                        'name' => $files['name'][$i],
+                        'full_path' => $files['full_path'][$i],
+                        'type' => $files['type'][$i],
+                        'tmp_name' => $files['tmp_name'][$i],
+                        'error' => $files['error'][$i],
+                        'size' => $files['size'][$i],
+                    ];
+
+                    $try = $this->AttachmentModel->upload($file, $newId);
+                    if (!$try)
+                    {
+                        $this->app->redirect(
+                            $this->router->url('admin/note/'. $newId)
+                        );
+                    }
+                }
+            }
             $this->session->set('flashMsg', 'Create Success!');
             $this->app->redirect(
                 $this->router->url('admin/note/'. $newId)
