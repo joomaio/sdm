@@ -1,4 +1,4 @@
-<form class="hidden" method="POST" id="form_delete">
+<form class="hidden" method="POST" id="form_delete_relate_note">
     <input type="hidden" value="<?php echo $this->token ?>" name="token">
     <input type="hidden" value="DELETE" name="_method">
 </form>
@@ -19,8 +19,8 @@
             var id = $(this).data('id');
             var result = confirm("You are going to delete 1 record(s). Are you sure ?");
             if (result) {
-                $('#form_delete').attr('action', '<?php echo $this->link_form;?>/' + id);
-                $('#form_delete').submit();
+                $('#form_delete_relate_note').attr('action', '<?php echo $this->link_form;?>/' + id);
+                $('#form_delete_relate_note').submit();
             }
             else
             {
@@ -34,7 +34,7 @@
             });
             var result = confirm("You are going to delete " + count + " record(s). Are you sure ?");
             if (result) {
-                $('#formList').submit();
+                $('#formListRelateNote').submit();
             }
             else
             {
