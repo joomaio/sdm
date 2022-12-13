@@ -77,7 +77,7 @@ class Note extends Admin
             $msg = 'Error: Create Failed!';
             $this->session->set('flashMsg', $msg);
             $this->app->redirect(
-                $this->router->url('admin/relate-note/'. $request_id .'/0')
+                $this->router->url('admin/detail-request/'. $request_id .'/0')
             );
         }
         else
@@ -137,7 +137,7 @@ class Note extends Admin
                 $msg = 'Error: Save Failed';
                 $this->session->set('flashMsg', $msg);
                 $this->app->redirect(
-                    $this->router->url('admin/relate-note/'. $request_id .'/'. $ids)
+                    $this->router->url('admin/detail-request/'. $request_id .'/'. $ids)
                 );
             }
         }
