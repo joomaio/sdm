@@ -34,7 +34,7 @@ class AdminDocumentVM extends ViewModel
         $form = new Form($this->getFormFields(), $data ? $data : []);
         $request = $this->RequestEntity->findByPK($request_id);
         $milestone = $request ? $this->MilestoneEntity->findByPK($request['milestone_id']) : ['title' => '', 'id' => 0];
-        $title_page = $request ? '<a href="'. $this->router->url('admin/requests/'. $milestone['id']).'" >'.$milestone['title'] .'</a> >> Request: '. $request['title'] .' - Document' : 'Document';
+        $title_page = 'Document';
 
         $history = $this->DocumentHistoryEntity->list(0,0,['document_id = '.$data['id']]);
         $discussion = $this->DiscussionEntity->list(0, 0, ['document_id = '. $data['id']], 'sent_at asc');
@@ -51,7 +51,7 @@ class AdminDocumentVM extends ViewModel
         $this->set('discussion', $discussion ? $discussion : []);
         $this->set('editor', $editor);
         $this->set('user_id', $this->user->get('id'));
-        $this->set('title_page', $title_page, true);
+        $this->set('title_page_document', $title_page, true);
         $this->set('url', $this->router->url(), true);
         $this->set('link_list', $this->router->url('admin/document/'. $request_id));
         $this->set('link_form', $this->router->url('admin/document/'. $request_id));

@@ -58,7 +58,8 @@ class AdminRelateNotesVM extends ViewModel
         }
         $request = $this->RequestEntity->findByPK($request_id);
         $milestone = $request ? $this->MilestoneEntity->findByPK($request['milestone_id']) : ['title' => '', 'id' => 0];
-        $title_page = $request ? '<a href="'. $this->router->url('admin/requests/'. $milestone['id']).'" >'.$milestone['title'] .'</a> >> Request: '. $request['title'] .' - Relate Note' : 'Relate Note';
+        $title_page_relate_note = 'Relate Note';
+        $title_page = '<a href="'.$this->router->url('admin/notes/').'">Notes</a> | <a href="'. $this->router->url('admin/requests/'. $milestone['id']).'" >'. $milestone['title'].'</a>';
 
         $note_exist = $this->container->exists('NoteEntity');
 
@@ -87,6 +88,7 @@ class AdminRelateNotesVM extends ViewModel
         $this->set('user_id', $this->user->get('id'), true);
         $this->set('url', $this->router->url(), true);
         $this->set('link_list', $this->router->url('admin/relate-notes/'. $request_id), true);
+        $this->set('title_page_relate_note', $title_page_relate_note, true);
         $this->set('title_page', $title_page, true);
         $this->set('link_form', $this->router->url('admin/relate-note/'. $request_id), true);
         $this->set('token', $this->app->getToken(), true);

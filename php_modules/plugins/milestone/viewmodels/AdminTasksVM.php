@@ -58,7 +58,7 @@ class AdminTasksVM extends ViewModel
         }
         $request = $this->RequestEntity->findByPK($request_id);
         $milestone = $request ? $this->MilestoneEntity->findByPK($request['milestone_id']) : ['title' => '', 'id' => 0];
-        $title_page = $request ? '<a href="'. $this->router->url('admin/requests/'. $milestone['id']).'" >'.$milestone['title'] .'</a> >> Request: '. $request['title'] .' - Task' : 'Task';
+        $title_page = 'Task';
 
         $list   = new Listing($result, $total, $limit, $this->getColumns() );
         $this->set('list', $list, true);
@@ -68,7 +68,7 @@ class AdminTasksVM extends ViewModel
         $this->set('user_id', $this->user->get('id'), true);
         $this->set('url', $this->router->url(), true);
         $this->set('link_list', $this->router->url('admin/tasks/'. $request_id), true);
-        $this->set('title_page', $title_page, true);
+        $this->set('title_page_task', $title_page, true);
         $this->set('link_form', $this->router->url('admin/task/'. $request_id), true);
         $this->set('token', $this->app->getToken(), true);
     }

@@ -34,13 +34,13 @@ class AdminVersionLatestVM extends ViewModel
         $list = $list ? $list : [];
         $request = $this->RequestEntity->findByPK($request_id);
         $milestone = $request ? $this->MilestoneEntity->findByPK($request['milestone_id']) : ['title' => '', 'id' => 0];
-        $title_page = $request ? '<a href="'. $this->router->url('admin/requests/'. $milestone['id']).'" >'.$milestone['title'] .'</a> >> Request: '. $request['title'] .' - Version' : 'Version';
+        $title_page = 'Version';
 
         $this->set('list', $list, true);
         $this->set('url', $this->router->url(), true);
         $this->set('link_list', $this->router->url('admin/request-version/'. $request_id), true);
         $this->set('link_cancel', $this->router->url('admin/detail-request/'. $request_id), true);
-        $this->set('title_page', $title_page, true);
+        $this->set('title_page_version', $title_page, true);
         $this->set('link_form', $this->router->url('admin/request-version/'. $request_id), true);
         $this->set('token', $this->app->getToken(), true);
     }
