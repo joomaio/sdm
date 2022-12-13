@@ -15,7 +15,17 @@
             <?php echo  $this->item['name']  ?>
         </a>
     </td>
-    <td><?php echo   $this->item['note'] ?></td>
+    <td>
+        <?php 
+        if($this->get_log){
+            foreach($this->get_log as $log)  {
+                if($log['version_id'] == $this->item['id']){
+                    echo '<span>'. '- ' . $log['log'] . '</span> <br>'; 
+                }
+            }
+        }
+        ?>
+    </td>
     <td><?php echo   $this->item['created_at'] ? date('m-d-Y', strtotime($this->item['created_at'])) : '';  ?></td>
     <td>
         <a href="#" 
