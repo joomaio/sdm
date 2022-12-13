@@ -51,10 +51,14 @@ class AttachmentModel extends Base
             ]);
     
             // TODO: create dynamice fieldName for file
-            if(file_exists(MEDIA_PATH. 'attachments/' . $file['name'])) {
-                $file['name'] = round(microtime(true)).'-'.$file['name'];
+            $index = 0;
+            $tmp_name = $file['name'];
+            while(file_exists(MEDIA_PATH. 'attachments/' . $file['name']))
+            {
+                $file['name'] = $index. "_". $tmp_name;
+                $index ++;
             }
-
+            
             if( false === $uploader->upload($file) )
             {
                 $this->session->set('flashMsg', 'Invalid attachment');
@@ -63,6 +67,7 @@ class AttachmentModel extends Base
             
             $try = $this->AttachmentEntity->add([
                 'note_id' => $note_id,
+                'name' => $file['name'],
                 'path' => 'media/attachments/' . $file['name'],
                 'uploaded_by' => $this->user->get('id'),
                 'uploaded_at' => date('Y-m-d H:i:s'),

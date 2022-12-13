@@ -28,10 +28,22 @@
                             <div class="mb-3 col-lg-10 col-sm-12 mx-auto pt-3">
                                 <label class="form-label fw-bold">Tags:</label>
                                 <select class="js-example-tags" multiple id="select_tags">
-                                    <?php foreach ($this->data_tags as $item): ?>
-                                        <option selected="selected" value="<?=$item['id']?>"><?=$item['name']?></option>
+                                    <?php foreach ($this->data_tags as $item) : ?>
+                                        <option selected="selected" value="<?= $item['id'] ?>"><?= $item['name'] ?></option>
                                     <?php endforeach; ?>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="row g-3 align-items-end m-0">
+                            <?php $this->field('token'); ?>
+                            <input class="form-control rounded-0 border border-1" type="hidden" name="_method" value="<?php echo $this->id ? 'PUT' : 'POST' ?>">
+                            <div class="col-xl-6 col-sm-6 text-end">
+                                <a href="<?php echo $this->link_list ?>">
+                                    <button type="button" class="btn btn-outline-secondary">Cancel</button>
+                                </a>
+                            </div>
+                            <div class="col-xl-3 col-sm-6 text-start ">
+                                <button type="submit" class="btn btn-outline-success">Save</button>
                             </div>
                         </div>
                     </div>
@@ -39,38 +51,46 @@
                         <label class="form-label fw-bold pt-3">Attachments:</label>
                         <input name="files[]" type="file" multiple id="file" class="form-control">
                         <div class="d-flex flex-wrap pt-4">
-                            <?php foreach($this->attachments as $item) :
+                            <?php foreach ($this->attachments as $item) :
                                 $extension = @end(explode('.', $item['path']));
-                                if (!file_exists(PUBLIC_PATH. $item['path']) )
-                                {
-                                    continue;
+                                if (in_array($extension, ['png', 'jpg', 'jpeg'])) {
+                                    $path = file_exists(PUBLIC_PATH . $item['path']) ? $this->url . $item['path'] : $this->url . 'media/default/default_image.png';
                                 }
-                                if (in_array($extension, ['png', 'jpg', 'jpeg']))
-                                { ?>
-                                    <div class="d-block">
-                                        <a href="<?php echo $this->url. $item['path']?>" class="d-block h-100 my-2 pe-2">
-                                            <img style="height: 120px;" src="<?php echo $this->url. $item['path']?>">
-                                        </a>
+                                elseif($extension == 'pdf')
+                                {
+                                    $path = $this->url . 'media/default/default_pdf.png';
+                                }
+                                elseif(in_array($extension, ['doc', 'docx']))
+                                {
+                                    $path = $this->url . 'media/default/default_doc.png';
+                                } 
+                                elseif(in_array($extension, ['xlsx', 'csv']))
+                                {
+                                    $path = $this->url . 'media/default/default_excel.png';
+                                }
+                                else
+                                {
+                                    $path = $this->url . 'media/default/default_file.png';
+                                }
+                                ?>
+                                <div class="card border shadow-none d-flex flex-column mx-2 justify-content-center" style="width: auto;">
+                                    <a href="<?php echo file_exists(PUBLIC_PATH. $item['path'] ) ? $this->url . $item['path'] : '' ?>" target="_blank" class="h-100 my-2 px-2 mx-auto" title="<?php echo $item['name']; ?>" style="">
+                                        <img style="height: 120px; max-width: 100%;" src="<?php echo $path ?>" alt="<?php echo $item['name']; ?>">
+                                    </a>
+                                    <div class="card-body d-flex">
+                                        <p class="card-text fw-bold m-0 me-2"><?php echo $item['name']; ?> </p>
+                                        <a href="" class="ms-auto"><i class="fa-solid fa-trash"></i></a>
                                     </div>
-                                <?php }?>
-                            
-                            <?php endforeach;?>
+                                </div>
+                                <div class="d-block">
+                                    
+                                </div>
+                            <?php endforeach; ?>
                         </div>
                     </div>
-                    
+
                 </div>
-                <div class="row g-3 align-items-cemultiplenter m-0">
-                    <?php $this->field('token'); ?>
-                    <input class="form-control rounded-0 border border-1" type="hidden" name="_method" value="<?php echo $this->id ? 'PUT' : 'POST' ?>">
-                    <div class="col-xl-6 col-sm-6 text-end">
-                        <a href="<?php echo $this->link_list ?>">
-                            <button type="button" class="btn btn-outline-secondary">Cancel</button>
-                        </a>
-                    </div>
-                    <div class="col-xl-3 col-sm-6 text-start ">
-                        <button type="submit" class="btn btn-outline-success">Save</button>
-                    </div>
-                </div>
+                
             </form>
 
         </div>
@@ -83,7 +103,7 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <style>
-    span.select2{
+    span.select2 {
         width: 100% !important;
     }
 </style>
@@ -92,22 +112,25 @@
     var new_tags = [];
     $(".js-example-tags").select2({
         tags: true,
-        createTag:newtag,
+        createTag: newtag,
         matcher: matchCustom,
         ajax: {
-            url: "<?=$this->link_tag?>",
+            url: "<?= $this->link_tag ?>",
             dataType: 'json',
             delay: 250,
-            data: function (params) {
+            data: function(params) {
                 return {
                     search: params.term
                 };
             },
-            processResults: function (data, params) {
+            processResults: function(data, params) {
                 let items = [];
                 if (data.data.length > 0) {
-                    data.data.forEach( function (item) {
-                        items.push({id: item.id, text: item.name})
+                    data.data.forEach(function(item) {
+                        items.push({
+                            id: item.id,
+                            text: item.name
+                        })
                     })
                 }
 
@@ -124,7 +147,7 @@
         minimumInputLength: 2,
     });
 
-    function newtag(params, data){
+    function newtag(params, data) {
         var term = $.trim(params.term);
         if (term === '') {
             return null;
@@ -137,21 +160,26 @@
         }
     }
 
-    $('.js-example-tags').on('select2:select', function (e) {
+    $('.js-example-tags').on('select2:select', function(e) {
         let tag = e.params.data;
         if (tag.newTag === true) {
-             $.post( "<?=$this->link_tag?>", { name: tag.text})
-                 .done(function( data ) {
-                     new_tags.push({id:data.data.id, text: data.data.name})
+            $.post("<?= $this->link_tag ?>", {
+                    name: tag.text
+                })
+                .done(function(data) {
+                    new_tags.push({
+                        id: data.data.id,
+                        text: data.data.name
+                    })
 
-                     setTags();
-                 });
+                    setTags();
+                });
         } else {
             setTags();
         }
     });
 
-    $('.js-example-tags').on('select2:unselect', function (e) {
+    $('.js-example-tags').on('select2:unselect', function(e) {
         setTags();
     });
 
@@ -172,13 +200,13 @@
 
     function setTags() {
         let tmp_tags = $('#select_tags').val();
-        if (tmp_tags.length > 0){
+        if (tmp_tags.length > 0) {
             var items = [];
 
-            if (new_tags.length > 0){
-                tmp_tags.forEach( function (item, key) {
+            if (new_tags.length > 0) {
+                tmp_tags.forEach(function(item, key) {
                     let ck = false;
-                    new_tags.forEach(function (item2, key2) {
+                    new_tags.forEach(function(item2, key2) {
 
                         if (item == item2.text)
                             ck = item2
@@ -186,7 +214,7 @@
 
                     if (ck === false)
                         items.push(item)
-                     else
+                    else
                         items.push(ck.id)
                 })
             } else items = tmp_tags

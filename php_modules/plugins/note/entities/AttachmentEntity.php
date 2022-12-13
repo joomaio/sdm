@@ -29,6 +29,10 @@ class AttachmentEntity extends Entity
                 'note_id' => [
                     'type' => 'int',
                 ],
+                'name' => [
+                    'type' => 'varchar',
+                    'limit' => 255,
+                ],
                 'path' => [
                     'type' => 'varchar',
                     'limit' => 255,

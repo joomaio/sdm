@@ -36,7 +36,7 @@ class AdminNoteVM extends ViewModel
             $where[] = "(`id` IN (".$data['tags'].") )";
             $data_tags = $this->TagEntity->list(0, 1000, $where);
         }
-        $attachments = $this->AttachmentEntity->list(0, 0, ['note_id', $id]);
+        $attachments = $this->AttachmentEntity->list(0, 0, ['note_id = '. $id]);
         $form = new Form($this->getFormFields(), $data);
 
         $this->set('form', $form, true);
