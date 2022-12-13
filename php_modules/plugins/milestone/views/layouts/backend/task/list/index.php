@@ -5,8 +5,9 @@
 				<div class="col-12 p-0">
 					<div class="card border-0 shadow-none">
 						<div class="card-body">
+						<h2 class="pb-4 border-bottom"><i class="fa-solid fa-list-check pe-2"></i><?php echo $this->title_page_task ?></h2>
 						<?php echo $this->render('message');?>
-                        <div class="row align-items-center">
+                        <div class="row align-items-center pt-3">
 								<?php echo $this->render('backend.task.list.filter');?>
 							</div>
 							<div class="row align-items-center">

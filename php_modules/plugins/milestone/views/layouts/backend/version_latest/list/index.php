@@ -5,8 +5,9 @@
 				<div class="col-12 p-0">
 					<div class="card border-0 shadow-none">
 						<div class="card-body">
+						<h2 class="pb-4 border-bottom"><i class="fa-solid fa-code-compare pe-2"></i><?php echo $this->title_page_version ?></h2>
 							<?php echo $this->render('message'); ?>
-							<div class="row align-items-center justify-content-center">
+							<div class="row align-items-center justify-content-center pt-3">
 								<div class="col-lg-8 col-12">
 									<?php foreach ($this->list as $item) : ?>
 										<form action="<?php echo $this->link_form . '/' . $item['id']; ?>" method="post">

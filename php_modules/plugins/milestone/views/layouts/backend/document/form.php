@@ -1,7 +1,8 @@
 <div class="container-fluid align-items-center row justify-content-center mx-auto pt-3 border-bottom border-3 border-dark">
     <div class="card shadow-none p-0 col-lg-12">
         <div class="card-body">
-            <div class="row">
+            <h2 class=" pb-4 border-bottom"><i class="fa-regular fa-folder-open pe-2"></i><?php echo $this->title_page_document ?></h2>
+            <div class="row pt-3">
                 <div class="col-lg-7 col-6 border-end">
                     <?php echo $this->render('message'); ?>
                     <h4>Document:</h4>
@@ -35,21 +36,21 @@
                     <h4>Discussion:</h4>
                     <ul id="list-discussion" class="list-unstyled pt-2" style="max-height: 60vh; overflow:auto;">
                         <?php foreach ($this->discussion as $item) : ?>
-                        <li class="d-flex <?php echo $this->user_id == $item['user_id'] ? 'ms-5 me-2 justify-content-end' : 'me-5 ms-2 justify-content-between'; ?>  mb-4">
-                            <div class="card">
-                                <div class="card-header d-flex justify-content-between p-3">
-                                    <p class="fw-bold mb-0"><?php echo $this->user_id == $item['user_id'] ? 'You' : $item['user']; ?></p>
-                                    <p class="ms-2 text-muted small mb-0 align-self-center"><i class="far fa-clock"></i> <?php echo $item['sent_at'] ?></p>
+                            <li class="d-flex <?php echo $this->user_id == $item['user_id'] ? 'ms-5 me-2 justify-content-end' : 'me-5 ms-2 justify-content-between'; ?>  mb-4">
+                                <div class="card">
+                                    <div class="card-header d-flex justify-content-between p-3">
+                                        <p class="fw-bold mb-0"><?php echo $this->user_id == $item['user_id'] ? 'You' : $item['user']; ?></p>
+                                        <p class="ms-2 text-muted small mb-0 align-self-center"><i class="far fa-clock"></i> <?php echo $item['sent_at'] ?></p>
+                                    </div>
+                                    <div class="card-body pt-0">
+                                        <p class="mb-0">
+                                            <?php echo nl2br($item['message']) ?>
+                                        </p>
+                                    </div>
                                 </div>
-                                <div class="card-body pt-0">
-                                    <p class="mb-0">
-                                        <?php echo nl2br($item['message']) ?>
-                                    </p>
-                                </div>
-                            </div>
-                        </li>
+                            </li>
                         <?php endforeach; ?>
-                        
+
                     </ul>
                     <form action="<?php echo $this->link_form_comment ?>" method="post">
                         <?php $this->field('token'); ?>
@@ -69,7 +70,7 @@
                     <h4>History:</h4>
                     <ul class="list-group list-group-flush">
                         <?php foreach ($this->history as $item) : ?>
-                            <li class="list-group-item">Edited at <?php echo $item['modified_at'];?></li>
+                            <li class="list-group-item">Edited at <?php echo $item['modified_at']; ?></li>
                         <?php endforeach; ?>
                     </ul>
                 </div>
