@@ -1,4 +1,4 @@
-<div class="main">
+<div class="main border-bottom border-3 border-dark" style="min-height: 30vh;">
 	<main class="content p-0 ">
 		<div class="container-fluid p-0">
 			<div class="row justify-content-center mx-auto">
@@ -19,7 +19,7 @@
 									<thead>
 										<tr>
 											<th width="10px">
-												<input type="checkbox" id="select_all">
+												<input type="checkbox" id="select_all_relate_note">
 											</th>
 											<th>Title</th>
 											<th>Note</th>
