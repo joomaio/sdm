@@ -27,7 +27,7 @@ class Note extends Admin
         {
             $this->session->set('flashMsg', "Invalid Relate Note");
             $this->app->redirect(
-                $this->router->url('admin/relate-notes/'. $request_id)
+                $this->router->url('admin/detail-request/'. $request_id)
             );
         }
         $this->app->set('layout', 'backend.relate_note.form');
@@ -59,7 +59,7 @@ class Note extends Admin
             {
                 $this->session->set('flashMsg', 'Error: Duplicate Relate Note');
                 $this->app->redirect(
-                    $this->router->url('admin/relate-notes/'. $request_id),
+                    $this->router->url('admin/detail-request/'. $request_id),
                 );
             }
         }
@@ -84,7 +84,7 @@ class Note extends Admin
         {
             $this->session->set('flashMsg', 'Create Success!');
             $this->app->redirect(
-                $this->router->url('admin/relate-notes/'. $request_id)
+                $this->router->url('admin/detail-request/'. $request_id)
             );
         }
     }
@@ -98,7 +98,7 @@ class Note extends Admin
         if( is_array($ids) && $ids != null)
         {
             $this->app->redirect(
-                $this->router->url('admin/relate-notes/'. $request_id)
+                $this->router->url('admin/detail-request/'. $request_id)
             );
         }
         if(is_numeric($ids) && $ids)
@@ -114,7 +114,7 @@ class Note extends Admin
                 {
                     $this->session->set('flashMsg', 'Error: Duplicate Relate Note');
                     $this->app->redirect(
-                        $this->router->url('admin/relate-notes/'. $request_id),
+                        $this->router->url('admin/detail-request/'. $request_id),
                     );
                 }
             }
@@ -129,7 +129,7 @@ class Note extends Admin
             {
                 $this->session->set('flashMsg', 'Edit Successfully');
                 $this->app->redirect(
-                    $this->router->url('admin/relate-notes/'. $request_id), 
+                    $this->router->url('admin/detail-request/'. $request_id), 
                 );
             }
             else
@@ -170,7 +170,7 @@ class Note extends Admin
 
         $this->session->set('flashMsg', $count.' deleted record(s)');
         $this->app->redirect(
-            $this->router->url('admin/relate-notes/'. $request_id), 
+            $this->router->url('admin/detail-request/'. $request_id), 
         );
     }
 
@@ -188,7 +188,7 @@ class Note extends Admin
 
             $this->session->set('flashMsg', 'Invalid Relate Note');
             $this->app->redirect(
-                $this->router->url('admin/relate-notes/'. $request_id),
+                $this->router->url('admin/detail-request/'. $request_id),
             );
         }
 
