@@ -99,7 +99,7 @@ class plugin extends PluginAbstract
             $request_id = (int) $urlVars['request_id'];
             
             $menu = [
-                [[], 'detail-request/'. $request_id.'#relate_note_link', 'Relate Notes', '<i class="fa-solid fa-link"></i>', ''],
+                [['detail-request/'. $request_id], 'detail-request/'. $request_id.'#relate_note_link', 'Relate Notes', '<i class="fa-solid fa-link"></i>', ''],
                 [[], 'detail-request/'. $request_id.'#document_link', 'Document', '<i class="fa-regular fa-folder-open"></i>', ''],
                 [[], 'detail-request/'. $request_id.'#task_link', 'Tasks', '<i class="fa-solid fa-list-check"></i>', ''],
             ];

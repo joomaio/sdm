@@ -29,6 +29,10 @@
 			var href = currLink.attr("href");
 			var refElement = $('#' + href.split('#')[1]);
 			var hash = window.location.hash.substring(1);
+			if (!hash)
+			{
+				hash = 'relate_note_link';
+			}
 			if (href.split('#')[1] == hash) {
 				$('li.sidebar-item  a.sidebar-link').removeClass("active");
 				currLink.parent('li.sidebar-item').addClass("active");
