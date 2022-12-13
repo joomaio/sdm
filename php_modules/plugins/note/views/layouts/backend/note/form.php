@@ -3,29 +3,29 @@
         <div class="card-body">
             <?php echo $this->render('message'); ?>
             <form action="<?php echo $this->link_form . '/' . $this->id ?>" method="post">
-                <div class="row g-3 align-items-center">
+                <div class="row g-3">
                     <div class="col-lg-8 col-sm-12">
                         <div class="row">
-                            <div class="mb-3 col-lg-8 col-sm-12 mx-auto pt-3">
+                            <div class="mb-3 col-lg-10 col-sm-12 mx-auto pt-3">
                                 <label class="form-label fw-bold">Title:</label>
                                 <?php $this->field('title'); ?>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="mb-3 col-lg-8 col-sm-12 mx-auto">
+                            <div class="mb-3 col-lg-10 col-sm-12 mx-auto">
                                 <label class="form-label fw-bold">HTML Editor:</label>
                                 <?php $this->field('html_editor'); ?>
                             </div>
                         </div>
                         <div class="row" style="display: none">
-                            <div class="mb-3 col-lg-8 col-sm-12 mx-auto pt-3">
+                            <div class="mb-3 col-lg-10 col-sm-12 mx-auto pt-3">
                                 <label class="form-label fw-bold">Tags:</label>
                                 <?php $this->field('tags'); ?>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="mb-3 col-lg-8 col-sm-12 mx-auto pt-3">
+                            <div class="mb-3 col-lg-10 col-sm-12 mx-auto pt-3">
                                 <label class="form-label fw-bold">Tags:</label>
                                 <select class="js-example-tags" multiple id="select_tags">
                                     <?php foreach ($this->data_tags as $item): ?>
@@ -36,12 +36,8 @@
                         </div>
                     </div>
                     <div class="col-lg-4 col-sm-12">
-                        <div class="row">
-                            <div class="mb-3 col-lg-8 col-sm-12 mx-auto pt-3">
-                                <label class="form-label fw-bold">:</label>
-                                <?php $this->field('title'); ?>
-                            </div>
-                        </div>
+                        <label class="form-label fw-bold pt-3">Attachments:</label>
+                        <input name="file" type="file" multiple id="file" class="form-control">
                     </div>
                     
                 </div>
