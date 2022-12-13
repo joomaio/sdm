@@ -79,7 +79,7 @@ class plugin extends PluginAbstract
         $entity = AppIns::factory('MilestoneEntity');
         $router = AppIns::factory('router');
         $path_current = $router->get('actualPath');
-        $str = ['relate-note', 'task', 'request-version', 'document'];
+        $str = ['detail-request'];
         $check = false;
         foreach ($str as $item)
         {
@@ -99,14 +99,14 @@ class plugin extends PluginAbstract
             $request_id = (int) $urlVars['request_id'];
             
             $menu = [
-                [['relate-notes/'. $request_id, 'relate-note/'. $request_id,], 'relate-notes/'. $request_id, 'Relate Notes', '<i class="fa-solid fa-link"></i>', ''],
-                [['document/'. $request_id], 'document/'. $request_id, 'Document', '<i class="fa-solid fa-file"></i>', ''],
-                [['tasks/'. $request_id, 'task/'. $request_id,], 'tasks/'. $request_id, 'Tasks', '<i class="fa-solid fa-list-check"></i>', ''],
+                [[], 'detail-request/'. $request_id.'#relate_note_link', 'Relate Notes', '<i class="fa-solid fa-link"></i>', ''],
+                [[], 'detail-request/'. $request_id.'#document_link', 'Document', '<i class="fa-regular fa-folder-open"></i>', ''],
+                [[], 'detail-request/'. $request_id.'#task_link', 'Tasks', '<i class="fa-solid fa-list-check"></i>', ''],
             ];
 
             if ($version instanceof Entity)
             {
-                $menu[] = [['request-version/'. $request_id,], 'request-version/'. $request_id, 'Versions', '<i class="fa-solid fa-code-branch"></i>', ''];
+                $menu[] = [[], 'detail-request/'. $request_id.'#version_link', 'Versions', '<i class="fa-solid fa-code-branch"></i>', ''];
             }
             return $menu;
         }
