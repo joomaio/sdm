@@ -37,6 +37,10 @@ class VersionEntity extends Entity
             'status' => [
                 'type' => 'tinyint',
             ],
+            'note' => [
+                'type' => 'text',
+                'null' => 'YES',
+            ],
             'created_at' => [
                 'type' => 'datetime',
                 'null' => 'YES',
