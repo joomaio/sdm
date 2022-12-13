@@ -54,6 +54,7 @@ class AdminNotesVM extends ViewModel
         $sort = $sort ? $sort : 'title asc';
 
         $result = $this->NoteEntity->list( $start, $limit, $where, $sort);
+        $total = $this->NoteEntity->getListTotal();
         $data_tags = [];
         foreach ($result as $item){
             if (!empty($item['tags'])){
@@ -66,7 +67,6 @@ class AdminNotesVM extends ViewModel
                 $data_tags[$item['id']] = implode(',', $t1);
             }
         }
-        $total = $this->NoteEntity->getListTotal();
         if (!$result)
         {
             $result = [];
