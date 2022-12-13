@@ -2,7 +2,7 @@
     <div class="card shadow-none p-0 col-lg-12">
         <div class="card-body">
             <?php echo $this->render('message'); ?>
-            <form action="<?php echo $this->link_form . '/' . $this->id ?>" method="post">
+            <form action="<?php echo $this->link_form . '/' . $this->id ?>" method="post" enctype="multipart/form-data">
                 <div class="row g-3 align-items-center">
 
                     <div class="row">
@@ -13,7 +13,7 @@
                     </div>
                     <div class="row">
                         <div class="mb-3 col-lg-6 col-sm-12 mx-auto pt-3">
-                            <label class="form-label fw-bold">File:</label>
+                            <label class="form-label fw-bold">File: <?= $this->data['file'] ?></label>
                             <?php $this->field('file'); ?>
                         </div>
                     </div>
@@ -53,6 +53,7 @@
                             <button type="submit" class="btn btn-outline-success">Save</button>
                         </div>
                     </div>
+                    <input type="hidden" name="change_file" id="change_file" value="0">
                 </div>
             </form>
 
@@ -64,6 +65,7 @@
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.3.1/tinymce.min.js" referrerpolicy="origin"></script>
 
 <style>
     span.select2{
@@ -179,4 +181,25 @@
             $('#tags').val('')
         }
     }
+
+    $(document).ready(function(){
+        tinymce.init({
+            selector: '#html_editor',
+            plugins: [
+                'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+                'anchor', 'searchreplace', 'visualblocks', 'fullscreen',
+                'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
+            ],
+        });
+
+        $('#file').attr("accept", "text/html");
+        $('#file').change(function () {
+            if (this.files[0].type != 'text/html'){
+                $('#change_file').val('0')
+                alert('Please upload file .html');
+                return false;
+            }
+            $('#change_file').val('1')
+        });
+    });
 </script>

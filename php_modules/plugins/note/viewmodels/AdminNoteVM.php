@@ -36,7 +36,7 @@ class AdminNoteVM extends ViewModel
             $where[] = "(`id` IN (".$data['tags'].") )";
             $data_tags = $this->TagEntity->list(0, 1000, $where);
         }
-       
+        if (!empty($data['html_editor'])) $data['html_editor'] = base64_decode($data['html_editor']);
         $form = new Form($this->getFormFields(), $data);
 
         $this->set('form', $form, true);

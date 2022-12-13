@@ -90,4 +90,7 @@ composer.phar
 # Build related
 RoboFile.ini
 
+key_ssh_github
+key_ssh_github.pub
+
 log
