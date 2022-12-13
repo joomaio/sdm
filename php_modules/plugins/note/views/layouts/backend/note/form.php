@@ -1,3 +1,8 @@
+<?php
+$this->theme->add( $this->url .'assets/css/select2.min.css', '', 'select2-css');
+$this->theme->add( $this->url .'assets/css/select2_custom.css', '', 'select2-custom-css');
+$this->theme->add( $this->url. 'assets/js/select2.full.min.js', '', 'bootstrap-select2');
+?>
 <div class="container-fluid align-items-center row justify-content-center mx-auto pt-3">
     <div class="card shadow-none p-0 col-lg-12">
         <div class="card-body">
@@ -79,7 +84,7 @@
                                     </a>
                                     <div class="card-body d-flex">
                                         <p class="card-text fw-bold m-0 me-2"><?php echo $item['name']; ?> </p>
-                                        <a href="" class="ms-auto"><i class="fa-solid fa-trash"></i></a>
+                                        <a data-id="<?php echo $item['id']?>" class="ms-auto button_delete_item"><i class="fa-solid fa-trash"></i></a>
                                     </div>
                                 </div>
                                 <div class="d-block">
@@ -96,26 +101,24 @@
         </div>
     </div>
 </div>
-
-
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
+<form class="hidden" method="POST" id="form_delete">
+    <input type="hidden" value="<?php echo $this->token ?>" name="token">
+    <input type="hidden" value="DELETE" name="_method">
+</form>
 <style>
     span.select2 {
         width: 100% !important;
     }
 </style>
-
-<script>
+<?php
+$js = <<<Javascript
     var new_tags = [];
     $(".js-example-tags").select2({
         tags: true,
         createTag: newtag,
         matcher: matchCustom,
         ajax: {
-            url: "<?= $this->link_tag ?>",
+            url: "{$this->link_tag}",
             dataType: 'json',
             delay: 250,
             data: function(params) {
@@ -163,7 +166,7 @@
     $('.js-example-tags').on('select2:select', function(e) {
         let tag = e.params.data;
         if (tag.newTag === true) {
-            $.post("<?= $this->link_tag ?>", {
+            $.post("{$this->link_tag}", {
                     name: tag.text
                 })
                 .done(function(data) {
@@ -224,4 +227,23 @@
             $('#tags').val('')
         }
     }
-</script>
+
+    $(document).ready(function() {
+        $("#html_editor").attr('rows', 18);
+        $(".button_delete_item").click(function() {
+            var id = $(this).data('id');
+            var result = confirm("You are going to delete 1 file(s) attchament. Are you sure ?");
+            if (result) {
+                $('#form_delete').attr('action', '{$this->link_form_attachment}' + id);
+                $('#form_delete').submit();
+            }
+            else
+            {
+                return false;
+            }
+        });
+    });
+Javascript;
+
+$this->theme->addInline('js', $js);
+?>

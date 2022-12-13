@@ -47,6 +47,7 @@ class AdminNoteVM extends ViewModel
         $this->set('url', $this->router->url(), true);
         $this->set('link_list', $this->router->url('admin/notes'));
         $this->set('link_form', $this->router->url('admin/note'));
+        $this->set('link_form_attachment', $this->router->url('admin/attachment'));
         $this->set('link_tag', $this->router->url('admin/tag'));
     }
 

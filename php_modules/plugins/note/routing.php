@@ -10,6 +10,12 @@ return [
                 'delete' => 'note.note.delete'
             ]
         ],
+        'attachment' => [
+            'fnc' => [
+                'delete' => 'note.attachment.delete'
+            ],
+            'parameters' => ['id'],
+        ],
         'note' => [
             'fnc' => [
                 'get' => 'note.note.detail',
