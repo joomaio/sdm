@@ -63,9 +63,7 @@
                             <input class="form-control rounded-0 border border-1" id="mile_stone" type="hidden" name="_method" value="POST">
                             <div class="row">
                                 <div class="col-6 text-end pe-0">
-                                    <a href="<?php echo $this->link_list ?>">
-                                        <button type="button" class="btn btn-outline-secondary fs-4">Cancel</button>
-                                    </a>
+                                    <button type="button" class="btn btn-outline-secondary fs-4" data-bs-dismiss="modal">Cancel</button>
                                 </div>
                                 <div class="col-6 text-end pe-0 ">
                                     <button type="submit" class="btn btn-outline-success fs-4">Save</button>
