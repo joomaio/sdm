@@ -1,4 +1,4 @@
-<div class="container-fluid align-items-center row justify-content-center mx-auto pt-3">
+<div class="container-fluid align-items-center row justify-content-center mx-auto pt-3 border-bottom border-3 border-dark">
     <div class="card shadow-none p-0 col-lg-12">
         <div class="card-body">
             <div class="row">
