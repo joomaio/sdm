@@ -10,7 +10,7 @@
             data-url="<?php echo   $this->item['url'] ?>" 
             data-bs-placement="top" 
             data-bs-toggle="modal" 
-            data-bs-target="#exampleModalToggle">
+            data-bs-target="#Popup_form_task">
             <?php echo  $this->item['title']  ?>
         </a>
     </td>
@@ -24,7 +24,7 @@
             data-url="<?php echo   $this->item['url']?>"
             data-bs-placement="top" 
             data-bs-toggle="modal" 
-            data-bs-target="#exampleModalToggle">
+            data-bs-target="#Popup_form_task">
             <i class="fa-solid fa-pen-to-square"></i>
         </a>
         <a data-id="<?php echo  $this->item['id'] ?>" style="color:#3b7ddd;" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete" class="delete fs-4 ps-1 border-0 bg-transparent button_delete_item"><i class="fa-solid fa-trash"></i></a>
