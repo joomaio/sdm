@@ -38,6 +38,24 @@
                     <div class="col-lg-4 col-sm-12">
                         <label class="form-label fw-bold pt-3">Attachments:</label>
                         <input name="files[]" type="file" multiple id="file" class="form-control">
+                        <div class="d-flex flex-wrap pt-4">
+                            <?php foreach($this->attachments as $item) :
+                                $extension = @end(explode('.', $item['path']));
+                                if (!file_exists(PUBLIC_PATH. $item['path']) )
+                                {
+                                    continue;
+                                }
+                                if (in_array($extension, ['png', 'jpg', 'jpeg']))
+                                { ?>
+                                    <div class="d-block">
+                                        <a href="<?php echo $this->url. $item['path']?>" class="d-block h-100 my-2 pe-2">
+                                            <img style="height: 120px;" src="<?php echo $this->url. $item['path']?>">
+                                        </a>
+                                    </div>
+                                <?php }?>
+                            
+                            <?php endforeach;?>
+                        </div>
                     </div>
                     
                 </div>

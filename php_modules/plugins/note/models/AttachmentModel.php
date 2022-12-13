@@ -36,10 +36,8 @@ class AttachmentModel extends Base
                 }
             }
             // check extension
-            var_dump(isset($this->config->extension_allow)); die;
-            if (isset( $this->config->extension_allow) &&  is_array($this->config->extension_allow))
+            if ($this->config->exists('extension_allow') &&  is_array($this->config->extension_allow))
             {
-                var_dump($true); die;
                 $extension = end(explode('.', $file['name']));
                 if (!in_array($extension, $this->config->extension_allow))
                 {
