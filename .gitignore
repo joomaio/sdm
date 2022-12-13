@@ -45,6 +45,7 @@ phpdoc-*
 /composer.lock
 /php_modules/config.php
 /public/media/*
+!/public/media/default
 
 # Languages #
 administrator/language/*
