@@ -51,7 +51,10 @@ class plugin extends PluginAbstract
 
     public function loadFile(Container $container)
     {
-        $container->set('file', new File());
+        if (!$container->exists('file'))
+        {
+            $container->set('file', new File());
+        }
     }
 
     public function loadEntity(Container $container)

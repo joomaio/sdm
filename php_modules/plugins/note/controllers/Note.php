@@ -90,7 +90,7 @@ class Note extends Admin {
         {
             $this->session->set('flashMsg', 'Create Success!');
             $this->app->redirect(
-                $this->router->url('admin/notes')
+                $this->router->url('admin/note/'. $newId)
             );
         }
     }
@@ -123,6 +123,8 @@ class Note extends Admin {
             $tags = $this->request->post->get('tags', '', 'string');
             $html_editor = $this->request->post->get('html_editor', '', 'string');
             $findOne = $this->NoteEntity->findOne(['title = "'. $title. '"', 'id <> '. $ids]);
+            $files = $this->request->file->get('files', [], 'array');
+
             if ($findOne)
             {
                 $this->session->set('flashMsg', 'Error: Title is already in use! ');
@@ -142,9 +144,25 @@ class Note extends Admin {
 
             if($try)
             {
+                if ($files['name'])
+                {
+                    for ($i=0; $i < count($files['name']); $i++) 
+                    { 
+                        $file = [
+                            'name' => $files['name'][$i],
+                            'full_path' => $files['full_path'][$i],
+                            'type' => $files['type'][$i],
+                            'tmp_name' => $files['tmp_name'][$i],
+                            'error' => $files['error'][$i],
+                            'size' => $files['size'][$i],
+                        ];
+
+                        $try = $this->AttachmentModel->upload($file);
+                    }
+                } 
                 $this->session->set('flashMsg', 'Edit Successfully');
                 $this->app->redirect(
-                    $this->router->url('admin/notes')
+                    $this->router->url('admin/note/'. $ids)
                 );
             }
             else

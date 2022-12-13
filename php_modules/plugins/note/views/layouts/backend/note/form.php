@@ -2,7 +2,7 @@
     <div class="card shadow-none p-0 col-lg-12">
         <div class="card-body">
             <?php echo $this->render('message'); ?>
-            <form action="<?php echo $this->link_form . '/' . $this->id ?>" method="post">
+            <form enctype="multipart/form-data" action="<?php echo $this->link_form . '/' . $this->id ?>" method="post">
                 <div class="row g-3">
                     <div class="col-lg-8 col-sm-12">
                         <div class="row">
@@ -37,11 +37,11 @@
                     </div>
                     <div class="col-lg-4 col-sm-12">
                         <label class="form-label fw-bold pt-3">Attachments:</label>
-                        <input name="file" type="file" multiple id="file" class="form-control">
+                        <input name="files[]" type="file" multiple id="file" class="form-control">
                     </div>
                     
                 </div>
-                <div class="row g-3 align-items-center m-0">
+                <div class="row g-3 align-items-cemultiplenter m-0">
                     <?php $this->field('token'); ?>
                     <input class="form-control rounded-0 border border-1" type="hidden" name="_method" value="<?php echo $this->id ? 'PUT' : 'POST' ?>">
                     <div class="col-xl-6 col-sm-6 text-end">
