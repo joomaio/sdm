@@ -16,6 +16,12 @@ return [
             ],
             'parameters' => ['id'],
         ],
+        'download/attachment' => [
+            'fnc' => [
+                'delete' => 'note.attachment.download'
+            ],
+            'parameters' => ['id'],
+        ],
         'note' => [
             'fnc' => [
                 'get' => 'note.note.detail',

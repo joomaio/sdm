@@ -84,7 +84,8 @@ $this->theme->add( $this->url. 'assets/js/select2.full.min.js', '', 'bootstrap-s
                                     </a>
                                     <div class="card-body d-flex">
                                         <p class="card-text fw-bold m-0 me-2"><?php echo $item['name']; ?> </p>
-                                        <a data-id="<?php echo $item['id']?>" class="ms-auto button_delete_item"><i class="fa-solid fa-trash"></i></a>
+                                        <a data-id="<?php echo $item['id']?>" class="ms-auto me-2 button_download_item fs-4"><i class="fa-solid fa-download"></i></a>
+                                        <a data-id="<?php echo $item['id']?>" class="ms-auto button_delete_item fs-4"><i class="fa-solid fa-trash"></i></a>
                                     </div>
                                 </div>
                                 <div class="d-block">
@@ -104,6 +105,10 @@ $this->theme->add( $this->url. 'assets/js/select2.full.min.js', '', 'bootstrap-s
 <form class="hidden" method="POST" id="form_delete">
     <input type="hidden" value="<?php echo $this->token ?>" name="token">
     <input type="hidden" value="DELETE" name="_method">
+</form>
+<form class="hidden" method="POST" id="form_download">
+    <input type="hidden" value="<?php echo $this->token ?>" name="token">
+    <input type="hidden" value="POST" name="_method">
 </form>
 <style>
     span.select2 {
@@ -235,6 +240,17 @@ $js = <<<Javascript
             var result = confirm("You are going to delete 1 file(s) attchament. Are you sure ?");
             if (result) {
                 $('#form_delete').attr('action', '{$this->link_form_attachment}' + id);
+                $('#form_delete').submit();
+            }
+            else
+            {
+                return false;
+            }
+        });
+        $(".button_download_item").click(function() {
+            var id = $(this).data('id');
+            if (id) {
+                $('#form_delete').attr('action', '{$this->link_form_download_attachment}' + id);
                 $('#form_delete').submit();
             }
             else
