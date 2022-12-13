@@ -1,4 +1,4 @@
-<div class="main border-bottom border-3 border-dark" style="min-height: 30vh;">
+<div class="main border-bottom border-3 border-dark" style="min-height: 30vh;" id="task_link">
 	<main class="content p-0 ">
 		<div class="container-fluid p-0">
 			<div class="row justify-content-center mx-auto">
@@ -35,9 +35,6 @@
 								?>
 								</table>
 							</form>
-							<div class="row g-3 align-items-center">
-								<?php echo $this->render('pagination'); ?>
-							</div>
 						</div>
 					</div>
 				</div>

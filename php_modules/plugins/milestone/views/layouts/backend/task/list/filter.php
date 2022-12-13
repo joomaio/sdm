@@ -28,10 +28,5 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-1 col-sm-12 text-end pe-0 pb-1 ">
-        <div class="d-flex justify-content-end">
-            <?php $this->field('limit');  ?>
-        </div>
-    </div>
 </form>
 <?php echo $this->render('backend.task.list.javascript'); ?>

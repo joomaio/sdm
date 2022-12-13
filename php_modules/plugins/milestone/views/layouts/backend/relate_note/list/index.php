@@ -1,11 +1,11 @@
-<div class="main border-bottom border-3 border-dark" style="min-height: 30vh;">
+<div class="main border-bottom border-3 border-dark" style="min-height: 30vh;" id="relate_note_link">
 	<main class="content p-0 ">
 		<div class="container-fluid p-0">
 			<div class="row justify-content-center mx-auto">
 				<div class="col-12 p-0">
 					<div class="card border-0 shadow-none">
 						<div class="card-body">
-						<h2 class="pb-4 border-bottom"><i class="fa-solid fa-notes-medical pe-2"></i><?php echo $this->title_page_relate_note ?></h2>
+						<h2 class="pb-4 border-bottom"><i class="fa-solid fa-link pe-2"></i><?php echo $this->title_page_relate_note ?></h2>
 						<?php echo $this->render('message');?>
                         <div class="row align-items-center pt-3">
 								<?php echo $this->render('backend.relate_note.list.filter');?>
@@ -34,9 +34,6 @@
 								?>
 								</table>
 							</form>
-							<div class="row g-3 align-items-center">
-								<?php echo $this->render('pagination'); ?>
-							</div>
 						</div>
 					</div>
 				</div>

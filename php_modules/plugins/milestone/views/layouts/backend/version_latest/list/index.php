@@ -1,11 +1,11 @@
-<div class="main">
+<div class="main" id="version_link">
 	<main class="content p-0 ">
 		<div class="container-fluid p-0">
 			<div class="row justify-content-center mx-auto">
 				<div class="col-12 p-0">
 					<div class="card border-0 shadow-none">
 						<div class="card-body">
-						<h2 class="pb-4 border-bottom"><i class="fa-solid fa-code-compare pe-2"></i><?php echo $this->title_page_version ?></h2>
+						<h2 class="pb-4 border-bottom"><i class="fa-solid fa-code-branch pe-2"></i><?php echo $this->title_page_version ?></h2>
 							<?php echo $this->render('message'); ?>
 							<div class="row align-items-center justify-content-center pt-3">
 								<div class="col-lg-8 col-12">
