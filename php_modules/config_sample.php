@@ -17,4 +17,5 @@ return [
         'database' => '',
         'prefix' => '',
     ],
+    'extension_allow' => ['png', 'jpg', 'jpeg', 'pdf', 'txt', 'doc', 'docx', 'xlsx'],
 ];

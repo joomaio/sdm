@@ -30,6 +30,7 @@ class plugin extends PluginAbstract
             'models' => [
                 'alias' => [
                     'App\plugins\note\models\NoteModel' => 'NoteModel',
+                    'App\plugins\note\models\AttachmentModel' => 'AttachmentModel',
                 ],
             ],
             'entity' => [],
