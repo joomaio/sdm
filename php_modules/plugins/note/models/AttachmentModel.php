@@ -19,6 +19,34 @@ class AttachmentModel extends Base
     {
         if($file['name']) 
         {
+            if (!file_exists(MEDIA_PATH))
+            {
+                if (!mkdir(MEDIA_PATH))
+                {
+                    $this->session->set('flashMsg', 'Upload Fail');
+                    return false;
+                }
+            }
+            if (!file_exists(MEDIA_PATH.'attachments'))
+            {
+                if (!mkdir(MEDIA_PATH.'attachments'))
+                {
+                    $this->session->set('flashMsg', 'Upload Fail');
+                    return false;
+                }
+            }
+            // check extension
+            var_dump(isset($this->config->extension_allow)); die;
+            if (isset( $this->config->extension_allow) &&  is_array($this->config->extension_allow))
+            {
+                var_dump($true); die;
+                $extension = end(explode('.', $file['name']));
+                if (!in_array($extension, $this->config->extension_allow))
+                {
+                    $this->session->set('flashMsg', '.'.$extension.' files are not allowed to upload');
+                    return false;
+                }
+            }
             $uploader = $this->file->setOptions([
                 'overwrite' => true,
                 'targetDir' => MEDIA_PATH . 'attachments/'
@@ -36,7 +64,7 @@ class AttachmentModel extends Base
             }
             
             $try = $this->AttachmentEntity->add([
-                'node_id' => $note_id,
+                'note_id' => $note_id,
                 'path' => 'media/attachments/' . $file['name'],
                 'uploaded_by' => $this->user->get('id'),
                 'uploaded_at' => date('Y-m-d H:i:s'),

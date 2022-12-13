@@ -144,7 +144,7 @@ class Note extends Admin {
 
             if($try)
             {
-                if ($files['name'])
+                if (is_array($files['name']) && $files['name'][0])
                 {
                     for ($i=0; $i < count($files['name']); $i++) 
                     { 
@@ -157,7 +157,13 @@ class Note extends Admin {
                             'size' => $files['size'][$i],
                         ];
 
-                        $try = $this->AttachmentModel->upload($file);
+                        $try = $this->AttachmentModel->upload($file, $ids);
+                        if (!$try)
+                        {
+                            $this->app->redirect(
+                                $this->router->url('admin/note/'. $ids)
+                            );
+                        }
                     }
                 } 
                 $this->session->set('flashMsg', 'Edit Successfully');
