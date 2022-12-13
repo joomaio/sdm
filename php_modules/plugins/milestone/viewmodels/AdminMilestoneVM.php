@@ -25,21 +25,9 @@ class AdminMilestoneVM extends ViewModel
 
     public function form()
     {
-        $urlVars = $this->request->get('urlVars');
-        $id = (int) $urlVars['id'];
-        $this->set('id', $id, true);
-
-        $data = $id ? $this->MilestoneEntity->findByPK($id) : [];
-        if ($data)
-        {
-            $data['start_date'] = $data['start_date'] ? date('Y-m-d', strtotime($data['start_date'])) : '';
-            $data['end_date'] = $data['end_date'] ? date('Y-m-d', strtotime($data['end_date'])) : '';
-        }
-        $form = new Form($this->getFormFields(), $data);
+        $form = new Form($this->getFormFields(), []);
 
         $this->set('form', $form, true);
-        $this->set('data', $data, true);
-        $this->set('title_page', $data ? 'Edit Milestone' : 'New Milestone', true);
         $this->set('url', $this->router->url(), true);
         $this->set('link_list', $this->router->url('admin/milestones'));
         $this->set('link_form', $this->router->url('admin/milestone'));
@@ -51,31 +39,31 @@ class AdminMilestoneVM extends ViewModel
             'id' => ['hidden'],
             'title' => [
                 'text',
-                'placeholder' => 'Enter Title',
+                'placeholder' => 'New Milestone',
                 'showLabel' => false,
-                'formClass' => 'form-control',
-                'required' => 'required'
+                'formClass' => 'form-control h-50-px fw-bold rounded-0 fs-3',
+                'required' => 'required',
             ],
             'note' => ['textarea',
                 'placeholder' => 'Enter Note',
                 'showLabel' => false,
-                'formClass' => 'form-control',
+                'formClass' => 'form-control rounded-0 border border-1 py-1 fs-4-5',
                 'required' => 'required',
             ],
             'start_date' => ['date',
                 'showLabel' => false,
-                'formClass' => 'form-control',
+                'formClass' => 'form-control rounded-0 border border-1 py-1 fs-4-5',
                 'required' => 'required',
             ],
             'end_date' => ['date',
                 'showLabel' => false,
-                'formClass' => 'form-control',
+                'formClass' => 'form-control rounded-0 border border-1 py-1 fs-4-5',
                 'required' => 'required',
             ],
             'status' => ['option',
                 'showLabel' => false,
-                'type' => 'radio',
-                'formClass' => '',
+                'type' => 'radio_inline',
+                'formClass' => 'd-flex',
                 'default' => 1,
                 'options' => [
                     ['text'=>'Show', 'value'=>1],

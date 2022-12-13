@@ -1,13 +1,17 @@
-<div class="main">
+<div class="main border-bottom border-3 border-dark" style="min-height: 30vh;" id="task_link">
 	<main class="content p-0 ">
 		<div class="container-fluid p-0">
 			<div class="row justify-content-center mx-auto">
 				<div class="col-12 p-0">
 					<div class="card border-0 shadow-none">
 						<div class="card-body">
+						<h2 class="pb-4 border-bottom"><i class="fa-solid fa-list-check pe-2"></i><?php echo $this->title_page_task ?></h2>
 						<?php echo $this->render('message');?>
-                        <div class="row align-items-center">
+                        <div class="row align-items-center pt-3">
 								<?php echo $this->render('backend.task.list.filter');?>
+							</div>
+							<div class="row align-items-center">
+								<?php echo $this->render('backend.task.form');?>
 							</div>
 							<form action="<?php echo $this->link_list ?>" method="POST" id="formList">
 								<input type="hidden" value="<?php echo $this->token ?>" name="token">
@@ -31,9 +35,6 @@
 								?>
 								</table>
 							</form>
-							<div class="row g-3 align-items-center">
-								<?php echo $this->render('pagination'); ?>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -41,7 +42,4 @@
 
 		</div>
 	</main>
-
-
-</div>
 </div>

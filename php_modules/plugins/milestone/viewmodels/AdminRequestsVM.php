@@ -70,7 +70,7 @@ class AdminRequestsVM extends ViewModel
             $user_tmp = $this->UserEntity->findByPK($item['created_by']);
             $item['creator'] = $user_tmp ? $user_tmp['name'] : '';
         }
-
+        
         $list   = new Listing($result, $total, $limit, $this->getColumns() );
         $this->set('list', $list, true);
         $this->set('page', $page, true);
@@ -81,7 +81,7 @@ class AdminRequestsVM extends ViewModel
         $this->set('link_list', $this->router->url('admin/requests/'. $milestone_id), true);
         $this->set('title_page', $title_page, true);
         $this->set('link_form', $this->router->url('admin/request/'. $milestone_id), true);
-        $this->set('link_detail', $this->router->url('admin/relate-notes'), true);
+        $this->set('link_detail', $this->router->url('admin/detail-request'), true);
         $this->set('token', $this->app->getToken(), true);
     }
 

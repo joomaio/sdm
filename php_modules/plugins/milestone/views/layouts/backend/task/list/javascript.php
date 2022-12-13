@@ -6,11 +6,6 @@
     if (window.history.replaceState) {
         window.history.replaceState(null, null, window.location.href);
     }
-    document.getElementById('clear_filter').onclick = function() {
-        document.getElementById("search").value = "";
-        document.getElementById("sort").value = "title asc";
-        document.getElementById('filter_form').submit();
-    };
     $(document).ready(function() {
         $("#select_all").click( function(){
             $('.checkbox-item').prop('checked', this.checked);
@@ -43,6 +38,21 @@
         });
         $('#limit').on("change", function (e) {
             $('#filter_form').submit()
+        });
+        $(".show_data").click(function() {
+            var id = $(this).data('id');
+            var title = $(this).data('title');
+            var url = $(this).data('url');
+
+            $('#title').val(title);
+            $('#url').val(url);
+
+            $('#form_task').attr('action', '<?php echo $this->link_form;?>/' + id);
+            if(id) {
+                $('#task').val('PUT');
+            } else {
+                $('#task').val('POST');
+            }
         });
     });
 </script>

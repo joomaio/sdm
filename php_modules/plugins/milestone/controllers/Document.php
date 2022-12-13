@@ -50,10 +50,10 @@ class Document extends Admin
 
         if( !$newId )
         {
-            $msg = 'Error: Update Failed!';
+            $msg = 'Error: Update Document Failed!';
             $this->session->set('flashMsg', $msg);
             $this->app->redirect(
-                $this->router->url('admin/document/'. $request_id)
+                $this->router->url('admin/detail-request/'. $request_id)
             );
         }
         else
@@ -63,9 +63,9 @@ class Document extends Admin
                 'modified_by' => $this->user->get('id'),
                 'modified_at' => date('Y-m-d H:i:s')
             ]);
-            $this->session->set('flashMsg', 'Update Success!');
+            $this->session->set('flashMsg', 'Update Document Success!');
             $this->app->redirect(
-                $this->router->url('admin/document/'. $request_id)
+                $this->router->url('admin/detail-request/'. $request_id)
             );
         }
     }
@@ -79,7 +79,7 @@ class Document extends Admin
         {
             $this->session->set('flashMsg', 'Invalid Document');
             $this->app->redirect(
-                $this->router->url('admin/document/'. $request_id)
+                $this->router->url('admin/detail-request/'. $request_id)
             );
         }
         $description = $this->request->post->get('description', '', 'string');
@@ -98,17 +98,17 @@ class Document extends Admin
                 'modified_by' => $this->user->get('id'),
                 'modified_at' => date('Y-m-d H:i:s')
             ]);
-            $this->session->set('flashMsg', 'Update Successfully');
+            $this->session->set('flashMsg', 'Update Document Successfully');
             $this->app->redirect(
-                $this->router->url('admin/document/'. $request_id)
+                $this->router->url('admin/detail-request/'. $request_id)
             );
         }
         else
         {
-            $msg = 'Error: Update Failed';
+            $msg = 'Error: Update Document Failed';
             $this->session->set('flashMsg', $msg);
             $this->app->redirect(
-                $this->router->url('admin/document/'. $request_id)
+                $this->router->url('admin/detail-request/'. $request_id)
             );
         }
     }
