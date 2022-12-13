@@ -1,5 +1,5 @@
-<div class="main border-bottom border-3 border-dark" style="min-height: 30vh;" id="relate_note_link">
-	<main class="content p-0 ">
+<div class="main " style="min-height: 30vh;" id="relate_note_link">
+	<main class="content p-0 border-bottom border-3 border-dark">
 		<div class="container-fluid p-0">
 			<div class="row justify-content-center mx-auto">
 				<div class="col-12 p-0">

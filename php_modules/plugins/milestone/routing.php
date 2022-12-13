@@ -31,8 +31,6 @@ return [
         ],
         'tasks' => [
             'fnc' => [
-                'get' => 'milestone.task.list',
-                'post' => 'milestone.task.list',
                 'put' => 'milestone.task.update',
                 'delete' => 'milestone.task.delete'
             ],
@@ -49,8 +47,6 @@ return [
         ],
         'relate-notes' => [
             'fnc' => [
-                'get' => 'milestone.note.list',
-                'post' => 'milestone.note.list',
                 'put' => 'milestone.note.update',
                 'delete' => 'milestone.note.delete'
             ],
@@ -64,7 +60,6 @@ return [
         ],
         'document' => [
             'fnc' => [
-                'get' => 'milestone.document.detail',
                 'post' => 'milestone.document.add',
                 'put' => 'milestone.document.update',
             ],
@@ -96,7 +91,6 @@ return [
         ],
         'request-version' => [
             'fnc' => [
-                'get' => 'milestone.version.list',
                 'post' => 'milestone.version.add',
                 'put' => 'milestone.version.update',
                 'delete' => 'milestone.version.delete',
