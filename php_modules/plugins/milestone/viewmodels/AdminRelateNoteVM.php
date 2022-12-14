@@ -31,8 +31,8 @@ class AdminRelateNoteVM extends ViewModel
 
         $this->set('form', $form, true);
         $this->set('url', $this->router->url(), true);
-        $this->set('link_list', $this->router->url('admin/relate-notes/'. $request_id));
-        $this->set('link_form', $this->router->url('admin/relate-note/'. $request_id));
+        $this->set('link_list', $this->router->url('relate-notes/'. $request_id));
+        $this->set('link_form', $this->router->url('relate-note/'. $request_id));
     }
 
     public function getFormFields()

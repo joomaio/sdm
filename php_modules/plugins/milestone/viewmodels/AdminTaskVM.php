@@ -33,8 +33,8 @@ class AdminTaskVM extends ViewModel
 
         $this->set('form', $form, true);
         $this->set('url', $this->router->url(), true);
-        $this->set('link_list', $this->router->url('admin/tasks/'. $request_id));
-        $this->set('link_form', $this->router->url('admin/task/'. $request_id));
+        $this->set('link_list', $this->router->url('tasks/'. $request_id));
+        $this->set('link_form', $this->router->url('task/'. $request_id));
     }
 
     public function getFormFields()

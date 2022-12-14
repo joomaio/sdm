@@ -71,7 +71,10 @@ class AdminNotesVM extends ViewModel
         {
             $result = [];
             $total = 0;
-            $this->session->set('flashMsg', 'Not Found Note');
+            if( !empty($search) )
+            {
+                $this->session->set('flashMsg', 'Not Found Note');
+            }
         }
 
         $list   = new Listing($result, $total, $limit, $this->getColumns() );

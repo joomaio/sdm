@@ -42,7 +42,7 @@ class AdminMilestonesVM extends ViewModel
         if( !empty($search) )
         {
             $where[] = "(`title` LIKE '%".$search."%' ".
-                "OR `note` LIKE '%".$search."%' )";
+                "OR `description` LIKE '%".$search."%' )";
         }
         if(is_numeric($status))
         {
@@ -58,7 +58,10 @@ class AdminMilestonesVM extends ViewModel
         {
             $result = [];
             $total = 0;
-            $this->session->set('flashMsg', 'Not Found Milestone');
+            if( !empty($search) )
+            {
+                $this->session->set('flashMsg', 'Not Found Milestone');
+            }
         }
 
         $list   = new Listing($result, $total, $limit, $this->getColumns() );
@@ -68,9 +71,9 @@ class AdminMilestonesVM extends ViewModel
         $this->set('sort', $sort, true);
         $this->set('user_id', $this->user->get('id'), true);
         $this->set('url', $this->router->url(), true);
-        $this->set('link_list', $this->router->url('admin/milestones'), true);
+        $this->set('link_list', $this->router->url('milestones'), true);
         $this->set('title_page', 'Milestone Manager', true);
-        $this->set('link_form', $this->router->url('admin/milestone'), true);
+        $this->set('link_form', $this->router->url('milestone'), true);
         $this->set('token', $this->app->getToken(), true);
     }
 

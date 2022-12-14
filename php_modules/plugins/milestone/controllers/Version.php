@@ -37,7 +37,7 @@ class Version extends Admin
             $msg = 'Error: Invalid Version!';
             $this->session->set('flashMsg', $msg);
             $this->app->redirect(
-                $this->router->url('admin/detail-request/'. $request_id)
+                $this->router->url('detail-request/'. $request_id)
             );
         }
         // TODO: validate new add
@@ -56,14 +56,14 @@ class Version extends Admin
             $msg = 'Error: Create Version Failed!';
             $this->session->set('flashMsg', $msg);
             $this->app->redirect(
-                $this->router->url('admin/detail-request/'. $request_id)
+                $this->router->url('detail-request/'. $request_id)
             );
         }
         else
         {
             $this->session->set('flashMsg', 'Create Version Success!');
             $this->app->redirect(
-                $this->router->url('admin/detail-request/'. $request_id)
+                $this->router->url('detail-request/'. $request_id)
             );
         }
     }
@@ -78,7 +78,7 @@ class Version extends Admin
         {
             $this->session->set('flashMsg', 'Invalid Version Note');
             $this->app->redirect(
-                $this->router->url('admin/detail-request/'. $request_id)
+                $this->router->url('detail-request/'. $request_id)
             );
         }
         if(is_numeric($ids) && $ids)
@@ -96,7 +96,7 @@ class Version extends Admin
             {
                 $this->session->set('flashMsg', 'Edit Version Successfully');
                 $this->app->redirect(
-                    $this->router->url('admin/detail-request/'. $request_id)
+                    $this->router->url('detail-request/'. $request_id)
                 );
             }
             else
@@ -104,7 +104,7 @@ class Version extends Admin
                 $msg = 'Error: Save Version Failed';
                 $this->session->set('flashMsg', $msg);
                 $this->app->redirect(
-                    $this->router->url('admin/detail-request/'. $request_id)
+                    $this->router->url('detail-request/'. $request_id)
                 );
             }
         }
@@ -137,7 +137,7 @@ class Version extends Admin
 
         $this->session->set('flashMsg', $count.' deleted record(s)');
         $this->app->redirect(
-            $this->router->url('admin/detail-request/'. $request_id), 
+            $this->router->url('detail-request/'. $request_id), 
         );
     }
 
@@ -156,7 +156,7 @@ class Version extends Admin
 
             $this->session->set('flashMsg', 'Invalid Task');
             $this->app->redirect(
-                $this->router->url('admin/detail-request/'. $request_id),
+                $this->router->url('detail-request/'. $request_id),
             );
         }
 
@@ -174,7 +174,7 @@ class Version extends Admin
         {
             $this->session->set('flashMsg', 'Invalid Request');
             $this->app->redirect(
-                $this->router->url('admin/milestones'),
+                $this->router->url('milestones'),
             );
         }
 

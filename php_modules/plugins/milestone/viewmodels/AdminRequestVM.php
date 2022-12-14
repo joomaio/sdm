@@ -31,8 +31,8 @@ class AdminRequestVM extends ViewModel
         $form = new Form($this->getFormFields(), []);
         $this->set('form', $form, true);
         $this->set('url', $this->router->url(), true);
-        $this->set('link_list', $this->router->url('admin/requests/'. $milestone_id));
-        $this->set('link_form', $this->router->url('admin/request/'. $milestone_id));
+        $this->set('link_list', $this->router->url('requests/'. $milestone_id));
+        $this->set('link_form', $this->router->url('request/'. $milestone_id));
     }
 
     public function getFormFields()

@@ -24,7 +24,7 @@ class Discussion extends Admin
         {
             $this->session->set('flashMsg', 'Message discussion can\'t empty!');
             $this->app->redirect(
-                $this->router->url('admin/detail-request/'. $request_id)
+                $this->router->url('detail-request/'. $request_id)
             );
         }
 
@@ -41,7 +41,7 @@ class Discussion extends Admin
             $msg = $newId ? 'Comment Success' : 'Comment Fail';
             $this->session->set('flashMsg', $msg);
             $this->app->redirect(
-                $this->router->url('admin/detail-request/'. $request_id)
+                $this->router->url('detail-request/'. $request_id)
             );
         }
 
@@ -59,7 +59,7 @@ class Discussion extends Admin
             $msg = 'Comment Fail';
             $this->session->set('flashMsg', $msg);
             $this->app->redirect(
-                $this->router->url('admin/detail-request/'. $request_id)
+                $this->router->url('detail-request/'. $request_id)
             );
         }
         
@@ -74,7 +74,7 @@ class Discussion extends Admin
         $msg = $newId ? 'Comment Success' : 'Comment Fail';
         $this->session->set('flashMsg', $msg);
         $this->app->redirect(
-            $this->router->url('admin/detail-request/'. $request_id)
+            $this->router->url('detail-request/'. $request_id)
         );
 
     }
@@ -90,7 +90,7 @@ class Discussion extends Admin
         {
             $this->session->set('flashMsg', 'Invalid Request');
             $this->app->redirect(
-                $this->router->url('admin/milestones'),
+                $this->router->url('milestones'),
             );
         }
 

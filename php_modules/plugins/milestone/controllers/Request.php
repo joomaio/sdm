@@ -27,7 +27,7 @@ class Request extends Admin
         {
             $this->session->set('flashMsg', "Invalid Request");
             $this->app->redirect(
-                $this->router->url('admin/requests/'. $milestone_id)
+                $this->router->url('requests/'. $milestone_id)
             );
         }
         $this->app->set('layout', 'backend.request.form');
@@ -49,7 +49,7 @@ class Request extends Admin
         {   
             $this->session->set('flashMsg', "Invalid Request");
             $this->app->redirect(
-                $this->router->url('admin/requests/'. $milestone_id)
+                $this->router->url('requests/'. $milestone_id)
             );
         }
 
@@ -77,7 +77,7 @@ class Request extends Admin
         {
             $this->session->set('flashMsg', 'Error: Title can\'t empty! ');
             $this->app->redirect(
-                $this->router->url('admin/requests/'. $milestone_id)
+                $this->router->url('requests/'. $milestone_id)
             );
         }
 
@@ -98,14 +98,14 @@ class Request extends Admin
             $msg = 'Error: Create Failed!';
             $this->session->set('flashMsg', $msg);
             $this->app->redirect(
-                $this->router->url('admin/requests/'. $milestone_id)
+                $this->router->url('requests/'. $milestone_id)
             );
         }
         else
         {
             $this->session->set('flashMsg', 'Create Success!');
             $this->app->redirect(
-                $this->router->url('admin/requests/'. $milestone_id)
+                $this->router->url('requests/'. $milestone_id)
             );
         }
     }
@@ -129,7 +129,7 @@ class Request extends Admin
             }
             $this->session->set('flashMsg', $count.' changed record(s)');
             $this->app->redirect(
-                $this->router->url('admin/requests/'. $milestone_id)
+                $this->router->url('requests/'. $milestone_id)
             );
         }
         if(is_numeric($ids) && $ids)
@@ -151,7 +151,7 @@ class Request extends Admin
             {
                 $this->session->set('flashMsg', 'Edit Successfully');
                 $this->app->redirect(
-                    $this->router->url('admin/requests/'. $milestone_id)
+                    $this->router->url('requests/'. $milestone_id)
                 );
             }
             else
@@ -159,7 +159,7 @@ class Request extends Admin
                 $msg = 'Error: Save Failed';
                 $this->session->set('flashMsg', $msg);
                 $this->app->redirect(
-                    $this->router->url('admin/requests/'. $milestone_id .'/'. $ids)
+                    $this->router->url('requests/'. $milestone_id .'/'. $ids)
                 );
             }
         }
@@ -192,7 +192,7 @@ class Request extends Admin
 
         $this->session->set('flashMsg', $count.' deleted record(s)');
         $this->app->redirect(
-            $this->router->url('admin/requests/'. $milestone_id), 
+            $this->router->url('requests/'. $milestone_id), 
         );
     }
 
@@ -210,7 +210,7 @@ class Request extends Admin
 
             $this->session->set('flashMsg', 'Invalid request');
             $this->app->redirect(
-                $this->router->url('admin/requests/'. $milestone_id),
+                $this->router->url('requests/'. $milestone_id),
             );
         }
 
@@ -229,7 +229,7 @@ class Request extends Admin
         {
             $this->session->set('flashMsg', 'Invalid Milestone');
             $this->app->redirect(
-                $this->router->url('admin/milestones'),
+                $this->router->url('milestones'),
             );
         }
 
