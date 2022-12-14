@@ -53,9 +53,9 @@ class AdminDocumentVM extends ViewModel
         $this->set('user_id', $this->user->get('id'));
         $this->set('title_page_document', $title_page, true);
         $this->set('url', $this->router->url(), true);
-        $this->set('link_list', $this->router->url('admin/detail-request/'. $request_id));
-        $this->set('link_form', $this->router->url('admin/document/'. $request_id));
-        $this->set('link_form_comment', $this->router->url('admin/discussion/'. $request_id));
+        $this->set('link_list', $this->router->url('detail-request/'. $request_id));
+        $this->set('link_form', $this->router->url('document/'. $request_id));
+        $this->set('link_form_comment', $this->router->url('discussion/'. $request_id));
     }
 
     public function getFormFields()

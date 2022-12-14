@@ -67,9 +67,9 @@ class AdminTasksVM extends ViewModel
         $this->set('sort', $sort, true);
         $this->set('user_id', $this->user->get('id'), true);
         $this->set('url', $this->router->url(), true);
-        $this->set('link_list', $this->router->url('admin/tasks/'. $request_id), true);
+        $this->set('link_list', $this->router->url('tasks/'. $request_id), true);
         $this->set('title_page_task', $title_page, true);
-        $this->set('link_form', $this->router->url('admin/task/'. $request_id), true);
+        $this->set('link_form', $this->router->url('task/'. $request_id), true);
         $this->set('token', $this->app->getToken(), true);
     }
 

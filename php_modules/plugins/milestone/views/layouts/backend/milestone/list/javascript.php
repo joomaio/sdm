@@ -51,13 +51,13 @@
             var status = $(this).data('status');
             var start_date = $(this).data('start_date');
             var end_date = $(this).data('end_date');
-            var note = $(this).data('note');
+            var description = $(this).data('description');
 
             $('#title').val(title);
             $('input[name=status][value='+ status +']').prop("checked", true); 
             $('#end_date').val(end_date);
             $('#start_date').val(start_date);
-            $('#note').val(note);
+            $('#description').val(description);
 
             $('#form_milestone').attr('action', '<?php echo $this->link_form;?>/' + id);
             if(id) {
