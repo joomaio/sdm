@@ -35,8 +35,8 @@ $this->theme->add( $this->url. 'assets/js/select2.full.min.js', '', 'bootstrap-s
                         </div>
                         <div class="row">
                             <div class="mb-3 col-lg-12 col-sm-12 mx-auto">
-                                <label class="form-label fw-bold">HTML Editor:</label>
-                                <?php $this->field('html_editor'); ?>
+                                <label class="form-label fw-bold">Description:</label>
+                                <?php $this->field('description'); ?>
                             </div>
                         </div>
                         
@@ -235,7 +235,7 @@ $js = <<<Javascript
     }
 
     $(document).ready(function() {
-        $("#html_editor").attr('rows', 18);
+        $("#description").attr('rows', 18);
         $(".button_delete_item").click(function() {
             var id = $(this).data('id');
             var result = confirm("You are going to delete 1 file(s) attchament. Are you sure ?");

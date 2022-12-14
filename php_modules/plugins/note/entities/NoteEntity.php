@@ -35,7 +35,7 @@ class NoteEntity extends Entity
                     'limit' => 255,
                     'null' => 'YES',
                 ],
-                'html_editor' => [
+                'description' => [
                     'type' => 'text',
                     'null' => 'YES',
                 ],
