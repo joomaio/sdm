@@ -42,14 +42,13 @@ class Request extends Admin
         $urlVars = $this->request->get('urlVars');
         $id = (int) $urlVars['request_id'];
         
-        $milestone_id = $this->validateMilestoneID();
         $exist = $this->RequestEntity->findByPK($id);
 
         if(!empty($id) && !$exist) 
         {   
             $this->session->set('flashMsg', "Invalid Request");
             $this->app->redirect(
-                $this->router->url('admin/requests/'. $milestone_id)
+                $this->router->url('admin/milestones/')
             );
         }
 
@@ -70,7 +69,8 @@ class Request extends Admin
     {
         $this->isLoggedIn();
         $milestone_id = $this->validateMilestoneID();
-        //check title sprint
+        $exist = $this->MilestoneEntity->findByPK($milestone_id);
+
         $title = $this->request->post->get('title', '', 'string');
         $note = $this->request->post->get('note', '', 'string');
         if (!$title)
@@ -80,7 +80,12 @@ class Request extends Admin
                 $this->router->url('admin/requests/'. $milestone_id)
             );
         }
-
+        if(!$exist) {
+            $this->session->set('flashMsg', 'Invalid Milestone');
+            $this->app->redirect(
+                $this->router->url('admin/milestones')
+            );
+        }
         // TODO: validate new add
         $newId =  $this->RequestEntity->add([
             'milestone_id' => $milestone_id,
@@ -222,9 +227,8 @@ class Request extends Admin
         $this->isLoggedIn();
 
         $urlVars = $this->request->get('urlVars');
-        // var_dump($urlVars);die;
-        $id = (int) $urlVars['request_id'];
 
+        $id = (int) $urlVars['milestone_id'];
         if(empty($id))
         {
             $this->session->set('flashMsg', 'Invalid Milestone');
