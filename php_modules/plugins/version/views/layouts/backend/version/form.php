@@ -21,15 +21,25 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row px-0">
+                        <div class="mb-3 col-12 mx-auto">
+                            <div class="row">
+                                <div class="col-3 d-flex align-items-center">
+                                    <label class="form-label fw-bold mb-0">Note</label>
+                                </div>
+                                <div class="col-9">
+                                <?php $this->field('note'); ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row g-3 align-items-center m-0">
                         <div class="modal-footer">
                             <?php $this->field('token'); ?>
                             <input class="form-control rounded-0 border border-1" id="version" type="hidden" name="_method" value="POST">
                             <div class="row">
                                 <div class="col-6 text-end pe-0">
-                                    <a href="<?php echo $this->link_list ?>">
-                                        <button type="button" class="btn btn-outline-secondary fs-4">Cancel</button>
-                                    </a>
+                                    <button type="button" class="btn btn-outline-secondary fs-4" data-bs-dismiss="modal">Cancel</button>
                                 </div>
                                 <div class="col-6 text-end pe-0 ">
                                     <button type="submit" class="btn btn-outline-success fs-4">Save</button>

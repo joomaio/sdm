@@ -44,9 +44,8 @@ phpdoc-*
 /vendor
 /composer.lock
 /php_modules/config.php
-/media/images2
-/media/images1
-/media/images
+/public/media/*
+!/public/media/default/*
 
 # Languages #
 administrator/language/*
