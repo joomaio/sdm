@@ -40,7 +40,21 @@ class AdminRelateNoteVM extends ViewModel
         $notes = [];
         if ($this->container->exists('NoteEntity'))
         {
-            $notes = $this->NoteEntity->list(0 , 0);
+            $urlVars = $this->request->get('urlVars');
+            $id = (int) $urlVars['request_id'];
+            $where = [];
+            if ($id)
+            {
+                $relate_note = $this->RelateNoteEntity->list(0, 0, ['request_id = '. $id]);
+                if ($relate_note)
+                {
+                    foreach ($relate_note as $note)
+                    {
+                        $where[] = 'id <> '. $note['note_id'];
+                    }
+                }
+            }
+            $notes = $this->NoteEntity->list(0 , 0, $where);
         }
         $options = [[
             'text' => 'Select Note',

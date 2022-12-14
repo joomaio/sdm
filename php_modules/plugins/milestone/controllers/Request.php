@@ -72,7 +72,7 @@ class Request extends Admin
         $exist = $this->MilestoneEntity->findByPK($milestone_id);
 
         $title = $this->request->post->get('title', '', 'string');
-        $note = $this->request->post->get('note', '', 'string');
+        $description = $this->request->post->get('description', '', 'string');
         if (!$title)
         {
             $this->session->set('flashMsg', 'Error: Title can\'t empty! ');
@@ -83,14 +83,14 @@ class Request extends Admin
         if(!$exist) {
             $this->session->set('flashMsg', 'Invalid Milestone');
             $this->app->redirect(
-                $this->router->url('admin/milestone/'. $milestone_id)
+                $this->router->url('milestones')
             );
         }
         // TODO: validate new add
         $newId =  $this->RequestEntity->add([
             'milestone_id' => $milestone_id,
             'title' => $title,
-            'note' => $note,
+            'description' => $description,
             'status' => $this->request->post->get('status', ''),
             'created_by' => $this->user->get('id'),
             'created_at' => date('Y-m-d H:i:s'),
@@ -139,13 +139,13 @@ class Request extends Admin
         }
         if(is_numeric($ids) && $ids)
         {
-            $title = $this->request->post->get('title', '');
-            $note = $this->request->post->get('note', '');
+            $title = $this->request->post->get('title', '', 'string');
+            $description = $this->request->post->get('description', '', 'string');
 
             $try = $this->RequestEntity->update([
                 'milestone_id' => $milestone_id,
                 'title' => $title,
-                'note' => $note,
+                'description' => $description,
                 'status' => $this->request->post->get('status', ''),
                 'modified_by' => $this->user->get('id'),
                 'modified_at' => date('Y-m-d H:i:s'),

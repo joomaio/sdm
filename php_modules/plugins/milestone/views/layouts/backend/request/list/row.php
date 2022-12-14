@@ -12,7 +12,7 @@
             data-id="<?php echo  $this->item['id'] ?>" 
             data-title="<?php echo  $this->item['title']  ?>" 
             data-status="<?php echo   $this->item['status']?>"
-            data-note="<?php echo ($this->item['note']); ?>" 
+            data-description="<?php echo ($this->item['description']); ?>" 
             data-bs-placement="top" 
             data-bs-toggle="modal" 
             data-bs-target="#exampleModalToggle">

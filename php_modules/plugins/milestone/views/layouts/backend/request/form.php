@@ -19,10 +19,10 @@
                     </div>
                     <div class="row px-0 mb-3">
                         <div class="col-3 d-flex align-items-center">
-                            <label class="form-label fw-bold mb-0">Note</label>
+                            <label class="form-label fw-bold mb-0">Description</label>
                         </div>
                         <div class="col-9">
-                            <?php $this->field('note'); ?>
+                            <?php $this->field('description'); ?>
                         </div>
                     </div>
                     <div class="row g-3 align-items-center m-0">

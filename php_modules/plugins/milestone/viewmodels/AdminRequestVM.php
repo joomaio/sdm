@@ -46,8 +46,8 @@ class AdminRequestVM extends ViewModel
                 'formClass' => 'form-control h-50-px fw-bold rounded-0 fs-3',
                 'required' => 'required'
             ],
-            'note' => ['textarea',
-                'placeholder' => 'Enter Note',
+            'description' => ['textarea',
+                'placeholder' => 'Enter description',
                 'showLabel' => false,
                 'formClass' => 'form-control rounded-0 border border-1 py-1 fs-4-5',
                 'required' => 'required',
