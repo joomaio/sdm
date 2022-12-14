@@ -18,13 +18,34 @@ class RequestModel extends Base
     public function remove($id)
     {
         $tasks = $this->TaskEntity->list(0, 0, ['request_id = '. $id]);
-        $relate_notes = $this->Relate->list(0, 0, ['request_id = '. $id]);
+        $relate_notes = $this->RelateNoteEntity->list(0, 0, ['request_id = '. $id]);
+        $document = $this->DocumentEntity->list(0, 0, ['request_id = '. $id]);
+        $version_notes = [];
+        if (!$this->container->exists('VersionEntity'))
+        {
+            $version_notes = $this->VersionNoteEntity->list(0, 0, ['request_id = '. $id]);
+        }
         $try = $this->RequestEntity->remove($id);
         if ($try)
         {
-            foreach ($requests as $request)
+            foreach ($tasks as $task)
             {
-                $this->RequestModel->remove($id);
+                $this->TaskEntity->remove($task['id']);
+            }
+
+            foreach ($relate_notes as $note)
+            {
+                $this->RelateNoteEntity->remove($note['id']);
+            }
+
+            foreach ($version_notes as $note)
+            {
+                $this->VersionNoteEntity->remove($note['id']);
+            }
+
+            foreach ($document as $item)
+            {
+                $this->DocumentModel->remove($item['id']);
             }
         }
 

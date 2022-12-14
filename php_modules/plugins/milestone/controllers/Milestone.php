@@ -170,7 +170,7 @@ class Milestone extends Admin
             foreach($ids as $id)
             {
                 //Delete file in source
-                if( $this->MilestoneEntity->remove( $id ) )
+                if( $this->MilestoneModel->remove( $id ) )
                 {
                     $count++;
                 }
@@ -178,7 +178,7 @@ class Milestone extends Admin
         }
         elseif( is_numeric($ids) )
         {
-            if( $this->MilestoneEntity->remove($ids ) )
+            if( $this->MilestoneModel->remove($ids ) )
             {
                 $count++;
             }

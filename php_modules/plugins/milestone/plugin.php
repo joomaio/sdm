@@ -39,6 +39,8 @@ class plugin extends PluginAbstract
             'models' => [
                 'alias' => [
                     'App\plugins\milestone\models\MilestoneModel' => 'MilestoneModel',
+                    'App\plugins\milestone\models\RequestModel' => 'RequestModel',
+                    'App\plugins\milestone\models\DocumentModel' => 'DocumentModel',
                 ],
             ],
             'entity' => [],
