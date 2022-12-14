@@ -12,13 +12,14 @@ namespace App\plugins\milestone\models;
 
 use SPT\JDIContainer\Base; 
 
-class MilestoneModel extends Base 
+class RequestModel extends Base 
 { 
     // Write your code here
     public function remove($id)
     {
-        $requests = $this->RequestEntity->list(0, 0, ['milestone_id = '. $id]);
-        $try = $this->MilestoneEntity->remove($id);
+        $tasks = $this->TaskEntity->list(0, 0, ['request_id = '. $id]);
+        $relate_notes = $this->Relate->list(0, 0, ['request_id = '. $id]);
+        $try = $this->RequestEntity->remove($id);
         if ($try)
         {
             foreach ($requests as $request)
