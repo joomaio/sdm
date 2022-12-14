@@ -83,7 +83,7 @@ class Request extends Admin
         if(!$exist) {
             $this->session->set('flashMsg', 'Invalid Milestone');
             $this->app->redirect(
-                $this->router->url('admin/milestone/'. $milestone_id)
+                $this->router->url('admin/milestones')
             );
         }
         // TODO: validate new add
