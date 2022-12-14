@@ -84,9 +84,9 @@ class AdminGroupsVM extends ViewModel
         $this->set('sort', $sort, true);
         $this->set('user_id', $this->user->get('id'), true);
         $this->set('url', $this->router->url(), true);
-        $this->set('link_list', $this->router->url('admin/user-groups'), true);
+        $this->set('link_list', $this->router->url('user-groups'), true);
         $this->set('title_page', 'User Group Manager', true);
-        $this->set('link_form', $this->router->url('admin/user-group'), true);
+        $this->set('link_form', $this->router->url('user-group'), true);
         $this->set('token', $this->app->getToken(), true);
     }
 
