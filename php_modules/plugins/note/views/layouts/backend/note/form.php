@@ -11,26 +11,20 @@ $this->theme->add( $this->url. 'assets/js/select2.full.min.js', '', 'bootstrap-s
                 <div class="row g-3">
                     <div class="col-lg-8 col-sm-12">
                         <div class="row">
-                            <div class="mb-3 col-lg-10 col-sm-12 mx-auto pt-3">
+                            <div class="mb-3 col-lg-12 col-sm-12 mx-auto pt-3">
                                 <label class="form-label fw-bold">Title:</label>
                                 <?php $this->field('title'); ?>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="mb-3 col-lg-10 col-sm-12 mx-auto">
-                                <label class="form-label fw-bold">HTML Editor:</label>
-                                <?php $this->field('html_editor'); ?>
-                            </div>
-                        </div>
                         <div class="row" style="display: none">
-                            <div class="mb-3 col-lg-10 col-sm-12 mx-auto pt-3">
+                            <div class="mb-3 col-lg-12 col-sm-12 mx-auto">
                                 <label class="form-label fw-bold">Tags:</label>
                                 <?php $this->field('tags'); ?>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="mb-3 col-lg-10 col-sm-12 mx-auto pt-3">
+                            <div class="mb-3 col-lg-12 col-sm-12 mx-auto">
                                 <label class="form-label fw-bold">Tags:</label>
                                 <select class="js-example-tags" multiple id="select_tags">
                                     <?php foreach ($this->data_tags as $item) : ?>
@@ -39,6 +33,13 @@ $this->theme->add( $this->url. 'assets/js/select2.full.min.js', '', 'bootstrap-s
                                 </select>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="mb-3 col-lg-12 col-sm-12 mx-auto">
+                                <label class="form-label fw-bold">HTML Editor:</label>
+                                <?php $this->field('html_editor'); ?>
+                            </div>
+                        </div>
+                        
                         <div class="row g-3 align-items-end m-0">
                             <?php $this->field('token'); ?>
                             <input class="form-control rounded-0 border border-1" type="hidden" name="_method" value="<?php echo $this->id ? 'PUT' : 'POST' ?>">
@@ -78,7 +79,7 @@ $this->theme->add( $this->url. 'assets/js/select2.full.min.js', '', 'bootstrap-s
                                     $path = $this->url . 'media/default/default_file.png';
                                 }
                                 ?>
-                                <div class="card border shadow-none d-flex flex-column mx-2 justify-content-center" style="width: auto;">
+                                <div class="card border shadow-none d-flex flex-column me-2 justify-content-center" style="width: auto;">
                                     <a href="<?php echo file_exists(PUBLIC_PATH. $item['path'] ) ? $this->url . $item['path'] : '' ?>" target="_blank" class="h-100 my-2 px-2 mx-auto" title="<?php echo $item['name']; ?>" style="">
                                         <img style="height: 120px; max-width: 100%;" src="<?php echo $path ?>" alt="<?php echo $item['name']; ?>">
                                     </a>
