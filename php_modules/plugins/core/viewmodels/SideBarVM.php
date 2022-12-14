@@ -42,8 +42,8 @@ class SideBarVM extends ViewModel
         }
 
         $this->set('path_current', $this->router->get('actualPath')); 
-        $this->set('logout_link', $this->router->url('admin/logout')); 
-        $this->set('link_admin', $this->router->url('admin/')); 
+        $this->set('logout_link', $this->router->url('logout')); 
+        $this->set('link_admin', $this->router->url('')); 
         $this->set('url', $this->router->url(), true);
         $this->set('menu', $menu);
         $this->set('u_type', $this->user->get('u_type'), true);

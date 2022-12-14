@@ -26,7 +26,7 @@ class Note extends Admin {
         {
             $this->session->set('flashMsg', "Invalid Note");
             $this->app->redirect(
-                $this->router->url('admin/notes')
+                $this->router->url('notes')
             );
         }
         $this->app->set('layout', 'backend.note.form');
@@ -56,7 +56,7 @@ class Note extends Admin {
         {
             $this->session->set('flashMsg', 'Error: Title can\'t empty! ');
             $this->app->redirect(
-                $this->router->url('admin/note/0')
+                $this->router->url('note/0')
             );
         }
 
@@ -65,7 +65,7 @@ class Note extends Admin {
         {
             $this->session->set('flashMsg', 'Error: Title is already in use! ');
             $this->app->redirect(
-                $this->router->url('admin/note/0')
+                $this->router->url('note/0')
             );
         }
 
@@ -85,7 +85,7 @@ class Note extends Admin {
             $msg = 'Error: Create Failed!';
             $this->session->set('flashMsg', $msg);
             $this->app->redirect(
-                $this->router->url('admin/note/0')
+                $this->router->url('note/0')
             );
         }
         else
@@ -107,14 +107,14 @@ class Note extends Admin {
                     if (!$try)
                     {
                         $this->app->redirect(
-                            $this->router->url('admin/note/'. $newId)
+                            $this->router->url('note/'. $newId)
                         );
                     }
                 }
             }
             $this->session->set('flashMsg', 'Create Success!');
             $this->app->redirect(
-                $this->router->url('admin/note/'. $newId)
+                $this->router->url('note/'. $newId)
             );
         }
     }
@@ -138,7 +138,7 @@ class Note extends Admin {
             }
             $this->session->set('flashMsg', $count.' changed record(s)');
             $this->app->redirect(
-                $this->router->url('admin/notes')
+                $this->router->url('notes')
             );
         }
         if(is_numeric($ids) && $ids)
@@ -153,7 +153,7 @@ class Note extends Admin {
             {
                 $this->session->set('flashMsg', 'Error: Title is already in use! ');
                 $this->app->redirect(
-                    $this->router->url('admin/note/'. $ids)
+                    $this->router->url('note/'. $ids)
                 );
             }
 
@@ -185,14 +185,14 @@ class Note extends Admin {
                         if (!$try)
                         {
                             $this->app->redirect(
-                                $this->router->url('admin/note/'. $ids)
+                                $this->router->url('note/'. $ids)
                             );
                         }
                     }
                 } 
                 $this->session->set('flashMsg', 'Edit Successfully');
                 $this->app->redirect(
-                    $this->router->url('admin/note/'. $ids)
+                    $this->router->url('note/'. $ids)
                 );
             }
             else
@@ -200,7 +200,7 @@ class Note extends Admin {
                 $msg = 'Error: Save Failed';
                 $this->session->set('flashMsg', $msg);
                 $this->app->redirect(
-                    $this->router->url('admin/note/'. $ids)
+                    $this->router->url('note/'. $ids)
                 );
             }
         }
@@ -233,7 +233,7 @@ class Note extends Admin {
 
         $this->session->set('flashMsg', $count.' deleted record(s)');
         $this->app->redirect(
-            $this->router->url('admin/notes'),
+            $this->router->url('notes'),
         );
     }
 
@@ -251,7 +251,7 @@ class Note extends Admin {
 
             $this->session->set('flashMsg', 'Invalid Note');
             $this->app->redirect(
-                $this->router->url('admin/notes'),
+                $this->router->url('notes'),
             );
         }
 

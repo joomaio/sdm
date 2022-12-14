@@ -45,11 +45,11 @@ class AdminNoteVM extends ViewModel
         $this->set('attachments', $attachments);
         $this->set('title_page', $data ? 'Edit Note' : 'New Milestone', true);
         $this->set('url', $this->router->url(), true);
-        $this->set('link_list', $this->router->url('admin/notes'));
-        $this->set('link_form', $this->router->url('admin/note'));
-        $this->set('link_form_attachment', $this->router->url('admin/attachment'));
-        $this->set('link_form_download_attachment', $this->router->url('admin/download/attachment'));
-        $this->set('link_tag', $this->router->url('admin/tag'));
+        $this->set('link_list', $this->router->url('notes'));
+        $this->set('link_form', $this->router->url('note'));
+        $this->set('link_form_attachment', $this->router->url('attachment'));
+        $this->set('link_form_download_attachment', $this->router->url('download/attachment'));
+        $this->set('link_tag', $this->router->url('tag'));
     }
 
     public function getFormFields()
