@@ -34,10 +34,10 @@ class AdminVersionNotesVM extends ViewModel
 
         $this->set('list', $list, true);
         $this->set('url', $this->router->url(), true);
-        $this->set('link_list', $this->router->url('admin/version-notes/'. $version_id), true);
-        $this->set('link_cancel', $this->router->url('admin/versions'), true);
+        $this->set('link_list', $this->router->url('version-notes/'. $version_id), true);
+        $this->set('link_cancel', $this->router->url('versions'), true);
         $this->set('title_page', 'Version Change Log', true);
-        $this->set('link_form', $this->router->url('admin/version-note/'. $version_id), true);
+        $this->set('link_form', $this->router->url('version-note/'. $version_id), true);
         $this->set('token', $this->app->getToken(), true);
     }
 }

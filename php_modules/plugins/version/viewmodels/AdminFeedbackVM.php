@@ -96,14 +96,14 @@ class AdminFeedbackVM extends ViewModel
 
         $list = new Listing($result, $total, $limit, $this->getColumns());
         $version = $version ? $version : ['name' => ''];
-        $title_page = $version['name'] ? '<a href="'. $this->router->url('admin/versions/').'" >Version: '.$version['name'].'</a> >> Feedback ' : 'Feedback';
+        $title_page = $version['name'] ? '<a href="'. $this->router->url('versions/').'" >Version: '.$version['name'].'</a> >> Feedback ' : 'Feedback';
 
         $this->set('list', $list, true);
         $this->set('url', $this->router->url(), true);
         $this->set('data_tags', $data_tags, true);
-        $this->set('link_cancel', $this->router->url('admin/versions'), true);
+        $this->set('link_cancel', $this->router->url('versions'), true);
         $this->set('title_page', $title_page, true);
-        $this->set('link_form', $this->router->url('admin/note'), true);
+        $this->set('link_form', $this->router->url('note'), true);
         $this->set('token', $this->app->getToken(), true);
     }
     public function getColumns()
