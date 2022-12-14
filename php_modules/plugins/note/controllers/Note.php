@@ -49,7 +49,7 @@ class Note extends Admin {
         //check title sprint
         $title = $this->request->post->get('title', '', 'string');
         $tags = $this->request->post->get('tags', '', 'string');
-        $html_editor = $this->request->post->get('html_editor', '', 'string');
+        $description = $this->request->post->get('description', '', 'string');
         $files = $this->request->file->get('files', [], 'array');
 
         if (!$title)
@@ -73,7 +73,7 @@ class Note extends Admin {
         $newId =  $this->NoteEntity->add([
             'title' => $title,
             'tags' => $tags,
-            'html_editor' => $html_editor,
+            'description' => $description,
             'created_by' => $this->user->get('id'),
             'created_at' => date('Y-m-d H:i:s'),
             'modified_by' => $this->user->get('id'),
@@ -145,7 +145,7 @@ class Note extends Admin {
         {
             $title = $this->request->post->get('title', '', 'string');
             $tags = $this->request->post->get('tags', '', 'string');
-            $html_editor = $this->request->post->get('html_editor', '', 'string');
+            $description = $this->request->post->get('description', '', 'string');
             $findOne = $this->NoteEntity->findOne(['title = "'. $title. '"', 'id <> '. $ids]);
             $files = $this->request->file->get('files', [], 'array');
 
@@ -160,7 +160,7 @@ class Note extends Admin {
             $try = $this->NoteEntity->update([
                 'title' => $title,
                 'tags' => $tags,
-                'html_editor' => $html_editor,
+                'description' => $description,
                 'modified_by' => $this->user->get('id'),
                 'modified_at' => date('Y-m-d H:i:s'),
                 'id' => $ids,

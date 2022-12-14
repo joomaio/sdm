@@ -55,7 +55,7 @@ class AdminNoteVM extends ViewModel
     public function getFormFields()
     {
         $fields = [
-            'html_editor' => [
+            'description' => [
                 'tinymce',
                 'showLabel' => false,
                 'formClass' => 'form-control',

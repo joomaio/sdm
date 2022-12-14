@@ -1,44 +1,42 @@
 <?php 
 
 return [
-    'admin' => [
-        'versions'=>[
-            'fnc' => [
-                'get' => 'version.version.list',
-                'post' => 'version.version.list',
-                'put' => 'version.version.update',
-                'delete' => 'version.version.delete'
-            ],
+    'versions'=>[
+        'fnc' => [
+            'get' => 'version.version.list',
+            'post' => 'version.version.list',
+            'put' => 'version.version.update',
+            'delete' => 'version.version.delete'
         ],
-        'version' => [
-            'fnc' => [
-                'get' => 'version.version.detail',
-                'post' => 'version.version.add',
-                'put' => 'version.version.update',
-                'delete' => 'version.version.delete'
-            ],
-            'parameters' => ['id'],
+    ],
+    'version' => [
+        'fnc' => [
+            'get' => 'version.version.detail',
+            'post' => 'version.version.add',
+            'put' => 'version.version.update',
+            'delete' => 'version.version.delete'
         ],
-        'version-notes' => [
-            'fnc' => [
-                'get' => 'version.note.list',
-            ],
-            'parameters' => ['version_id'],
+        'parameters' => ['id'],
+    ],
+    'version-notes' => [
+        'fnc' => [
+            'get' => 'version.note.list',
         ],
-        'version-feedback' => [
-            'fnc' => [
-                'get' => 'version.feedback.list',
-                'post' => 'version.feedback.list',
-            ],
-            'parameters' => ['version_id'],
+        'parameters' => ['version_id'],
+    ],
+    'version-feedback' => [
+        'fnc' => [
+            'get' => 'version.feedback.list',
+            'post' => 'version.feedback.list',
         ],
-        'version-note' => [
-            'fnc' => [
-                'post' => 'version.note.add',
-                'put' => 'version.note.update',
-                'delete' => 'version.note.delete'
-            ],
-            'parameters' => ['version_id','id'],
+        'parameters' => ['version_id'],
+    ],
+    'version-note' => [
+        'fnc' => [
+            'post' => 'version.note.add',
+            'put' => 'version.note.update',
+            'delete' => 'version.note.delete'
         ],
-    ]
+        'parameters' => ['version_id','id'],
+    ],
 ];
