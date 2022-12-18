@@ -61,6 +61,7 @@ class AdminSettingVM extends ViewModel
                     {
                         $legend = [];
                         $legend['label'] = $item['label'];
+                        $legend['ext'] = !empty($item['ext']) ? $item['ext'] : '';
                         $legend['fields'] = [];
                         $fields = array_merge($fields, $item['fields']);
                         $legend['fields'] = array_keys($item['fields']);

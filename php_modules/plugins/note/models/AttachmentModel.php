@@ -10,7 +10,9 @@
 
 namespace App\plugins\note\models;
 
-use SPT\JDIContainer\Base; 
+use SPT\JDIContainer\Base;
+use Google\Client;
+use Google\Service\Drive;
 
 class AttachmentModel extends Base
 { 
@@ -19,6 +21,12 @@ class AttachmentModel extends Base
     {
         if($file['name']) 
         {
+            $type_file = 0; // 0: upload my serve | 1: Upload google drive
+            $client_id = $this->OptionModel->get('client_id', '');
+            $client_secret = $this->OptionModel->get('client_secret', '');
+            $access_token = $this->OptionModel->get('access_token', '');
+            $folder_id = $this->OptionModel->get('folder_id', '');
+
             if (!file_exists(MEDIA_PATH))
             {
                 if (!mkdir(MEDIA_PATH))
@@ -49,6 +57,36 @@ class AttachmentModel extends Base
                 'overwrite' => true,
                 'targetDir' => MEDIA_PATH . 'attachments/'
             ]);
+
+            if (!empty($client_id) && !empty($client_secret) && !empty($access_token)){
+                $type_file = 1;
+                $client = new Client();
+                $client->setClientId($client_id);
+                $client->setAccessToken($access_token);
+                $client->setClientSecret($client_secret);
+
+                $client->addScope(Drive::DRIVE);
+                $driveService = new Drive($client);
+                $fileMetadata = new Drive\DriveFile(array(
+                    'name' => time(). '_' .$file['name'],
+                    'parents' => [$folder_id]
+                ));
+                $content = file_get_contents($file['tmp_name']);
+                $file_upload = $driveService->files->create($fileMetadata, array(
+                    'data' => $content,
+                    'mimeType' => $file['type'],
+                    'uploadType' => 'multipart',
+                    'fields' => 'id'));
+
+                if (empty($file_upload->id)){
+                    $this->session->set('flashMsg', 'Invalid config Google Drive');
+                    return false;
+                }
+                $path = 'https://drive.google.com/open?id='.$file_upload->id;
+                $file_name = time(). '_' .$file['name'];
+
+                goto upload;
+            }
     
             // TODO: create dynamice fieldName for file
             $index = 0;
@@ -64,11 +102,15 @@ class AttachmentModel extends Base
                 $this->session->set('flashMsg', 'Invalid attachment');
                 return false;
             }
-            
+            $file_name = $file['name'];
+            $path = 'media/attachments/' . $file['name'];
+
+            upload:
             $try = $this->AttachmentEntity->add([
                 'note_id' => $note_id,
-                'name' => $file['name'],
-                'path' => 'media/attachments/' . $file['name'],
+                'name' => $file_name,
+                'path' => $path,
+                'type_file' => $type_file,
                 'uploaded_by' => $this->user->get('id'),
                 'uploaded_at' => date('Y-m-d H:i:s'),
             ]);

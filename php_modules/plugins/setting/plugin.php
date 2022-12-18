@@ -84,6 +84,37 @@ class plugin extends PluginAbstract
                         'label' => 'Admin Mail:',
                         'formClass' => 'form-control',
                     ],
+                    'key_google' => [
+                        'text',
+                        'label' => 'API KEY Google:',
+                        'formClass' => 'form-control',
+                    ],
+                ],
+            ],
+            [
+                'label' => 'Google Drive API',
+                'ext' => '<a href="https://github.com/ivanvermeyen/laravel-google-drive-demo/tree/master/README">Instruction of getting configuration</a>',
+                'fields' => [
+                    'folder_id' => [
+                        'text',
+                        'label' => 'Folder ID:',
+                        'formClass' => 'form-control',
+                    ],
+                    'client_id' => [
+                        'text',
+                        'label' => 'Client ID:',
+                        'formClass' => 'form-control',
+                    ],
+                    'client_secret' => [
+                        'text',
+                        'label' => 'Client secret',
+                        'formClass' => 'form-control',
+                    ],
+                    'access_token' => [
+                        'text',
+                        'label' => 'Access Token',
+                        'formClass' => 'form-control',
+                    ],
                 ],
             ],
             [

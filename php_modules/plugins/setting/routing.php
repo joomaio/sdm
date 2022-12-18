@@ -14,5 +14,10 @@ return [
                 'post' => 'setting.setting.testMail',
             ],
         ],
+        'setting/set_token_google'=>[
+            'fnc' => [
+                'get' => 'setting.setting.setTokenGoogle',
+            ],
+        ],
     ],
 ];

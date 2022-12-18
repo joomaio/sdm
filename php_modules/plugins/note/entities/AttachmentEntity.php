@@ -37,6 +37,10 @@ class AttachmentEntity extends Entity
                     'type' => 'varchar',
                     'limit' => 255,
                 ],
+                'type_file' => [
+                    'type' => 'tinyint',
+                    'limit' => 255,
+                ],
                 'uploaded_at' => [
                     'type' => 'datetime',
                     'null' => 'YES',
