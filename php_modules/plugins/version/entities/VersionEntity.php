@@ -37,7 +37,7 @@ class VersionEntity extends Entity
             'status' => [
                 'type' => 'tinyint',
             ],
-            'note' => [
+            'description' => [
                 'type' => 'text',
                 'null' => 'YES',
             ],

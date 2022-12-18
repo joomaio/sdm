@@ -38,7 +38,7 @@ class MilestoneEntity extends Entity
                     'type' => 'datetime',
                     'null' => 'YES',
                 ],
-                'note' => [
+                'description' => [
                     'type' => 'text',
                     'null' => 'YES',
                 ],

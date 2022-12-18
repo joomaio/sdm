@@ -23,7 +23,7 @@ class Document extends Admin
         {
             $this->session->set('flashMsg', 'Invalid Request');
             $this->app->redirect(
-                $this->router->url('admin/milestones')
+                $this->router->url('milestones')
             );
         }
         $this->app->set('layout', 'backend.document.form');
@@ -53,7 +53,7 @@ class Document extends Admin
             $msg = 'Error: Update Document Failed!';
             $this->session->set('flashMsg', $msg);
             $this->app->redirect(
-                $this->router->url('admin/detail-request/'. $request_id)
+                $this->router->url('detail-request/'. $request_id)
             );
         }
         else
@@ -65,7 +65,7 @@ class Document extends Admin
             ]);
             $this->session->set('flashMsg', 'Update Document Success!');
             $this->app->redirect(
-                $this->router->url('admin/detail-request/'. $request_id)
+                $this->router->url('detail-request/'. $request_id)
             );
         }
     }
@@ -79,7 +79,7 @@ class Document extends Admin
         {
             $this->session->set('flashMsg', 'Invalid Document');
             $this->app->redirect(
-                $this->router->url('admin/detail-request/'. $request_id)
+                $this->router->url('detail-request/'. $request_id)
             );
         }
         $description = $this->request->post->get('description', '', 'string');
@@ -100,7 +100,7 @@ class Document extends Admin
             ]);
             $this->session->set('flashMsg', 'Update Document Successfully');
             $this->app->redirect(
-                $this->router->url('admin/detail-request/'. $request_id)
+                $this->router->url('detail-request/'. $request_id)
             );
         }
         else
@@ -108,7 +108,7 @@ class Document extends Admin
             $msg = 'Error: Update Document Failed';
             $this->session->set('flashMsg', $msg);
             $this->app->redirect(
-                $this->router->url('admin/detail-request/'. $request_id)
+                $this->router->url('detail-request/'. $request_id)
             );
         }
     }
@@ -129,7 +129,7 @@ class Document extends Admin
         {
             $this->session->set('flashMsg', 'Invalid Request');
             $this->app->redirect(
-                $this->router->url('admin/milestones'),
+                $this->router->url('milestones'),
             );
         }
 

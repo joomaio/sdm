@@ -29,8 +29,8 @@ class AdminMilestoneVM extends ViewModel
 
         $this->set('form', $form, true);
         $this->set('url', $this->router->url(), true);
-        $this->set('link_list', $this->router->url('admin/milestones'));
-        $this->set('link_form', $this->router->url('admin/milestone'));
+        $this->set('link_list', $this->router->url('milestones'));
+        $this->set('link_form', $this->router->url('milestone'));
     }
 
     public function getFormFields()
@@ -44,8 +44,8 @@ class AdminMilestoneVM extends ViewModel
                 'formClass' => 'form-control h-50-px fw-bold rounded-0 fs-3',
                 'required' => 'required',
             ],
-            'note' => ['textarea',
-                'placeholder' => 'Enter Note',
+            'description' => ['textarea',
+                'placeholder' => 'Enter Description',
                 'showLabel' => false,
                 'formClass' => 'form-control rounded-0 border border-1 py-1 fs-4-5',
                 'required' => 'required',

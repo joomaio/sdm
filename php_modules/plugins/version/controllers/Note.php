@@ -45,14 +45,14 @@ class Note extends Admin
             $msg = 'Error: Create Failed!';
             $this->session->set('flashMsg', $msg);
             $this->app->redirect(
-                $this->router->url('admin/version-notes/'. $version_id)
+                $this->router->url('version-notes/'. $version_id)
             );
         }
         else
         {
             $this->session->set('flashMsg', 'Create Success!');
             $this->app->redirect(
-                $this->router->url('admin/version-notes/'. $version_id)
+                $this->router->url('version-notes/'. $version_id)
             );
         }
     }
@@ -67,7 +67,7 @@ class Note extends Admin
         {
             $this->session->set('flashMsg', 'Invalid Version Note');
             $this->app->redirect(
-                $this->router->url('admin/version-note/'. $version_id)
+                $this->router->url('version-note/'. $version_id)
             );
         }
         if(is_numeric($ids) && $ids)
@@ -85,7 +85,7 @@ class Note extends Admin
             {
                 $this->session->set('flashMsg', 'Edit Successfully');
                 $this->app->redirect(
-                    $this->router->url('admin/version-notes/'. $version_id)
+                    $this->router->url('version-notes/'. $version_id)
                 );
             }
             else
@@ -93,7 +93,7 @@ class Note extends Admin
                 $msg = 'Error: Save Failed';
                 $this->session->set('flashMsg', $msg);
                 $this->app->redirect(
-                    $this->router->url('admin/version-notes/'. $version_id)
+                    $this->router->url('version-notes/'. $version_id)
                 );
             }
         }
@@ -126,7 +126,7 @@ class Note extends Admin
 
         $this->session->set('flashMsg', $count.' deleted record(s)');
         $this->app->redirect(
-            $this->router->url('admin/version-notes/'. $version_id), 
+            $this->router->url('version-notes/'. $version_id), 
         );
     }
 
@@ -144,7 +144,7 @@ class Note extends Admin
 
             $this->session->set('flashMsg', 'Invalid Version');
             $this->app->redirect(
-                $this->router->url('admin/versions'),
+                $this->router->url('versions'),
             );
         }
 
@@ -162,7 +162,7 @@ class Note extends Admin
         {
             $this->session->set('flashMsg', 'Invalid Version');
             $this->app->redirect(
-                $this->router->url('admin/versions'),
+                $this->router->url('versions'),
             );
         }
 

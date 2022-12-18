@@ -90,9 +90,9 @@ class AdminUsersVM extends ViewModel
         $this->set('sort', $sort, true);
         $this->set('user_id', $this->user->get('id'), true);
         $this->set('url', $this->router->url(), true);
-        $this->set('link_list', $this->router->url('admin/users'), true);
+        $this->set('link_list', $this->router->url('users'), true);
         $this->set('title_page', 'User Manager', true);
-        $this->set('link_form', $this->router->url('admin/user'), true);
+        $this->set('link_form', $this->router->url('user'), true);
         $this->set('token', $this->app->getToken(), true);
     }
 

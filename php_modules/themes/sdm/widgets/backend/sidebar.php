@@ -15,14 +15,14 @@
             foreach ($this->menu as $row) {
                 list($allow, $plural, $name, $icon, $submenu) = $row;
                 $plural_tmp = str_replace('/', '\/', $plural); 
-                preg_match('/^(\/admin\/' . $plural_tmp . ')(|\/)$/', $this->path_current, $match);
+                preg_match('/^(\/' . $plural_tmp . ')(|\/)$/', $this->path_current, $match);
                 if (is_array($match) && count($match)) {
                     $active = true;
                 } else {
                     $active = false;
                     foreach ($allow as $single) {
                         $single = str_replace('/', '\/', $single);
-                        preg_match('/^(\/admin\/' . $single . ')(|\/([0-9]*?))$/', $this->path_current, $match);
+                        preg_match('/^(\/' . $single . ')(|\/([0-9]*?))$/', $this->path_current, $match);
                         if (is_array($match) && count($match)) {
                             $active = true;
                             break;
@@ -38,14 +38,14 @@
                         $sub_actives[$key] = false;
                         list($allow_sub, $plural_sub, $name_sub, $icon_sub) = $sub;
                         $plural_tmp = str_replace('/', '\/', $plural_sub); 
-                        preg_match('/^(\/admin\/' . $plural_tmp . ')(|\/)$/', $this->path_current, $match);
+                        preg_match('/^(\/' . $plural_tmp . ')(|\/)$/', $this->path_current, $match);
                         if (is_array($match) && count($match)) {
                             $sub_actives[$key] = true;
                             $check_submenu_active = true;
                         } else {
                             foreach ($allow_sub as $single) {
                                 $single = str_replace('/', '\/', $single);
-                                preg_match('/^(\/admin\/' . $single . ')(|\/([0-9]*?))$/', $this->path_current, $match);
+                                preg_match('/^(\/' . $single . ')(|\/([0-9]*?))$/', $this->path_current, $match);
                                 if (is_array($match) && count($match)) {
                                     $sub_actives[$key] = true;
                                     break;

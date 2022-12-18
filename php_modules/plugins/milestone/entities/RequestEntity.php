@@ -34,7 +34,7 @@ class RequestEntity extends Entity
                     'type' => 'varchar',
                     'limit' => 255,
                 ],
-                'note' => [
+                'description' => [
                     'type' => 'text',
                     'null' => 'YES',
                 ],

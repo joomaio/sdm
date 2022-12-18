@@ -44,7 +44,7 @@ class Usergroup extends Admin
             $msg = $this->session->get('validate', '');
             $this->session->set('flashMsg', $msg);
             $this->app->redirect(
-                $this->router->url('admin/user-group/0')
+                $this->router->url('user-group/0')
             );
         }
         // TODO: validate new add
@@ -65,14 +65,14 @@ class Usergroup extends Admin
             $msg = 'Error: Creat Failed';
             $this->session->set('flashMsg', $msg);
             $this->app->redirect(
-                $this->router->url('admin/user-group/0')
+                $this->router->url('user-group/0')
             );
         }
         else
         {
             $this->session->set('flashMsg', 'Creat Success');
             $this->app->redirect(
-                $this->router->url('admin/user-groups')
+                $this->router->url('user-groups')
             );
         }
     }
@@ -96,7 +96,7 @@ class Usergroup extends Admin
            }
 
             $this->session->set('flashMsg', $count.' changed record(s)');
-            $this->app->redirect( $this->router->url('admin/user-groups'));
+            $this->app->redirect( $this->router->url('user-groups'));
 
         }
         elseif( is_numeric($sth) )
@@ -107,7 +107,7 @@ class Usergroup extends Admin
                 $msg = $this->session->get('validate', '');
                 $this->session->set('flashMsg', $msg);
                 $this->app->redirect(
-                    $this->router->url('admin/user-group/'.$sth)
+                    $this->router->url('user-group/'.$sth)
                 );
             }
 
@@ -129,13 +129,13 @@ class Usergroup extends Admin
             if ($try)
             {
                 $this->app->redirect(
-                    $this->router->url('admin/user-groups')
+                    $this->router->url('user-groups')
                 );
             }
             else
             {
                 $this->app->redirect(
-                    $this->router->url('admin/user-group/'.$sth)
+                    $this->router->url('user-group/'.$sth)
                 );
             }
             
@@ -143,7 +143,7 @@ class Usergroup extends Admin
 
             $this->session->set('flashMsg', 'Error: Invalid request');
             $this->app->redirect(
-            $this->router->url('admin/user-groups')
+            $this->router->url('user-groups')
         );
     }
 
@@ -172,7 +172,7 @@ class Usergroup extends Admin
         }  
 
         $this->session->set('flashMsg', $count.' deleted record(s)');
-        $this->app->redirect( $this->router->url('admin/user-groups'));
+        $this->app->redirect( $this->router->url('user-groups'));
     }
 
     public function validateID()
@@ -187,7 +187,7 @@ class Usergroup extends Admin
 
             $this->session->set('flashMsg', 'Invalid user group');
             $this->app->redirect(
-                $this->router->url('admin/user-groups')
+                $this->router->url('user-groups')
             );
         }
 

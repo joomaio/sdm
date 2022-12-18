@@ -27,7 +27,7 @@ class AdminUserVM extends ViewModel
     public function login()
     {
         $this->set('url', $this->router->url(), true);
-        $this->set('link_login', $this->router->url('admin/login'), true);
+        $this->set('link_login', $this->router->url('login'), true);
     }
 
     public function form()
@@ -52,8 +52,8 @@ class AdminUserVM extends ViewModel
         $this->set('data', $data, true);
         $this->set('title_page', $data ? 'New User' : 'Update User', true);
         $this->set('url', $this->router->url(), true);
-        $this->set('link_list', $this->router->url('admin/users'));
-        $this->set('link_form', $this->router->url('admin/user'));
+        $this->set('link_list', $this->router->url('users'));
+        $this->set('link_form', $this->router->url('user'));
     }
 
     public function getFormFields()

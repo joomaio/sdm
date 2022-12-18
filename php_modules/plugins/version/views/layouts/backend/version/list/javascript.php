@@ -48,11 +48,11 @@
             var id = $(this).data('id');
             var name = $(this).data('name');
             var release_date = $(this).data('release_date');
-            var note = $(this).data('note');
+            var description = $(this).data('description');
             console.log('test' + release_date)
             $('#name').val(name);
             $('#release_date').val(release_date);
-            $('#note').val(note);
+            $('#description').val(description);
 
             $('#form_version').attr('action', '<?php echo $this->link_form;?>/' + id);
             if(id) {

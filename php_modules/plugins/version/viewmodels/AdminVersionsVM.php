@@ -66,10 +66,10 @@ class AdminVersionsVM extends ViewModel
         $this->set('get_log', $get_log, true);
         $this->set('user_id', $this->user->get('id'), true);
         $this->set('url', $this->router->url(), true);
-        $this->set('link_list', $this->router->url('admin/versions'), true);
+        $this->set('link_list', $this->router->url('versions'), true);
         $this->set('title_page', 'Version Manager', true);
-        $this->set('link_form', $this->router->url('admin/version'), true);
-        $this->set('link_form_detail', $this->router->url('admin/version-notes'), true);
+        $this->set('link_form', $this->router->url('version'), true);
+        $this->set('link_form_detail', $this->router->url('version-notes'), true);
         $this->set('token', $this->app->getToken(), true);
     }
 

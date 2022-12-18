@@ -50,11 +50,11 @@
             var id = $(this).data('id');
             var title = $(this).data('title');
             var status = $(this).data('status');
-            var note = $(this).data('note');
+            var description = $(this).data('description');
 
             $('#title').val(title);
             $('input[name=status][value='+ status +']').prop("checked", true); 
-            $('#note').val(note);
+            $('#description').val(description);
 
             $('#form_request').attr('action', '<?php echo $this->link_form;?>/' + id);
             if(id) {

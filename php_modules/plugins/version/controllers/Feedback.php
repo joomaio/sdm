@@ -34,7 +34,7 @@ class Feedback extends Admin
         {
             $this->session->set('flashMsg', 'Invalid Version');
             $this->app->redirect(
-                $this->router->url('admin/versions'),
+                $this->router->url('versions'),
             );
         }
 

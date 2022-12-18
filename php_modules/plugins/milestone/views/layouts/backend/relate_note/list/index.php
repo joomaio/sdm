@@ -23,7 +23,7 @@
 												<input type="checkbox" id="select_all_relate_note">
 											</th>
 											<th>Title</th>
-											<th>Note</th>
+											<th>Description</th>
 											<th>Action</th>
 										</tr>
 									</thead>

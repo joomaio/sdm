@@ -40,8 +40,8 @@ class AdminGroupVM extends ViewModel
         $this->set('data', $data, true);
         $this->set('title_page', $data ? 'New User Group' : 'Update User Group', true);
         $this->set('url', $this->router->url(), true);
-        $this->set('link_list', $this->router->url('admin/user-groups'));
-        $this->set('link_form', $this->router->url('admin/user-group'));
+        $this->set('link_list', $this->router->url('user-groups'));
+        $this->set('link_form', $this->router->url('user-group'));
     }
 
     public function getFormFields()

@@ -49,10 +49,10 @@
                         <div class="mb-3 col-12 mx-auto">
                             <div class="row">
                                 <div class="col-3 d-flex align-items-center">
-                                    <label class="form-label fw-bold mb-0">Note</label>
+                                    <label class="form-label fw-bold mb-0">Description</label>
                                 </div>
                                 <div class="col-9">
-                                    <?php $this->field('note'); ?>
+                                    <?php $this->field('description'); ?>
                                 </div>
                             </div>
                         </div>

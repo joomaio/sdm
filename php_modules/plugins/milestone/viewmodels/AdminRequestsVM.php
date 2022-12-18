@@ -60,7 +60,10 @@ class AdminRequestsVM extends ViewModel
         {
             $result = [];
             $total = 0;
-            $this->session->set('flashMsg', 'Not Found Request');
+            if( !empty($search) )
+            {
+                $this->session->set('flashMsg', 'Not Found Request');
+            }
         }
         $milestone = $this->MilestoneEntity->findByPK($milestone_id);
         $title_page = $milestone ? $milestone['title'] .' - Request List' : 'Request List';
@@ -78,10 +81,10 @@ class AdminRequestsVM extends ViewModel
         $this->set('sort', $sort, true);
         $this->set('user_id', $this->user->get('id'), true);
         $this->set('url', $this->router->url(), true);
-        $this->set('link_list', $this->router->url('admin/requests/'. $milestone_id), true);
+        $this->set('link_list', $this->router->url('requests/'. $milestone_id), true);
         $this->set('title_page', $title_page, true);
-        $this->set('link_form', $this->router->url('admin/request/'. $milestone_id), true);
-        $this->set('link_detail', $this->router->url('admin/detail-request'), true);
+        $this->set('link_form', $this->router->url('request/'. $milestone_id), true);
+        $this->set('link_detail', $this->router->url('detail-request'), true);
         $this->set('token', $this->app->getToken(), true);
     }
 

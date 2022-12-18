@@ -29,8 +29,8 @@ class AdminVersionVM extends ViewModel
 
         $this->set('form', $form, true);
         $this->set('url', $this->router->url(), true);
-        $this->set('link_list', $this->router->url('admin/versions'));
-        $this->set('link_form', $this->router->url('admin/versions'));
+        $this->set('link_list', $this->router->url('versions'));
+        $this->set('link_form', $this->router->url('versions'));
     }
 
     public function getFormFields()
@@ -49,8 +49,8 @@ class AdminVersionVM extends ViewModel
                 'formClass' => 'form-control rounded-0 border border-1 py-1 fs-4-5',
                 'required' => 'required',
             ],
-            'note' => ['textarea',
-                'placeholder' => 'Enter Note',
+            'description' => ['textarea',
+                'placeholder' => 'Enter Description',
                 'showLabel' => false,
                 'formClass' => 'form-control rounded-0 border border-1 py-1 fs-4-5',
                 'required' => 'required',

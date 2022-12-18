@@ -20,7 +20,7 @@ class Admin extends MVController
         {
             $this->app->redirect(
                 $this->router->url(
-                    'admin/login'
+                    'login'
                 )
             );
         }
