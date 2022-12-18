@@ -78,9 +78,14 @@ $this->theme->add( $this->url. 'assets/js/select2.full.min.js', '', 'bootstrap-s
                                 {
                                     $path = $this->url . 'media/default/default_file.png';
                                 }
+                                if ($item['type_file'] == 1){
+                                    $url_file = $item['path'];
+                                } else {
+                                    $url_file = file_exists(PUBLIC_PATH. $item['path'] ) ? $this->url . $item['path'] : '';
+                                }
                                 ?>
                                 <div class="card border shadow-none d-flex flex-column me-2 justify-content-center" style="width: auto;">
-                                    <a href="<?php echo file_exists(PUBLIC_PATH. $item['path'] ) ? $this->url . $item['path'] : '' ?>" target="_blank" class="h-100 my-2 px-2 mx-auto" title="<?php echo $item['name']; ?>" style="">
+                                    <a href="<?= $url_file ?>" target="_blank" class="h-100 my-2 px-2 mx-auto" title="<?php echo $item['name']; ?>" style="">
                                         <img style="height: 120px; max-width: 100%;" src="<?php echo $path ?>" alt="<?php echo $item['name']; ?>">
                                     </a>
                                     <div class="card-body d-flex">

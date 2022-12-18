@@ -59,7 +59,7 @@ class AttachmentModel extends Base
             ]);
 
             if (!empty($client_id) && !empty($client_secret) && !empty($access_token)){
-                $type_file = 1;
+
                 $client = new Client();
                 $client->setClientId($client_id);
                 $client->setAccessToken($access_token);
@@ -84,6 +84,7 @@ class AttachmentModel extends Base
                 }
                 $path = 'https://drive.google.com/open?id='.$file_upload->id;
                 $file_name = time(). '_' .$file['name'];
+                $type_file = 1;
 
                 goto upload;
             }

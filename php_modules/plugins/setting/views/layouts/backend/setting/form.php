@@ -6,9 +6,6 @@
             <div class="card shadow-none col-lg-12">
                 <div class="card-body">
                     <?php echo $this->render('message'); ?>
-                    <?php
-                        echo "<pre>";var_dump($this->legends);echo "</pre>";die();
-                    ?>
                     <form enctype='multipart/form-data' action="<?php echo  $this->link_form ?>" method="POST">
                         <?php foreach ($this->legends as $index => $legend) { ?>
                             <?php echo $index == 0 ? '' : '<hr class="mb-4 mt-4">';?>
