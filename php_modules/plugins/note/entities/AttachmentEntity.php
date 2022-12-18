@@ -38,8 +38,7 @@ class AttachmentEntity extends Entity
                     'limit' => 255,
                 ],
                 'type_file' => [
-                    'type' => 'tinyint',
-                    'limit' => 255,
+                    'type' => 'tinyint'
                 ],
                 'uploaded_at' => [
                     'type' => 'datetime',
