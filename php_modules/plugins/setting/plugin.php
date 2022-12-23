@@ -127,7 +127,7 @@ class plugin extends PluginAbstract
     public function registerMenu()
     {
         return [
-            [['setting', 'setting',], 'setting', 'Settings', '<i class="fa-solid fa-gear"></i>', ''],
+            [['setting', 'setting',], 'setting', 'Settings', '<i class="fa-solid fa-gear"></i>', '', ''],
         ];
     }
 }

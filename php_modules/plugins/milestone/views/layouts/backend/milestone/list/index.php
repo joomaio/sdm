@@ -26,7 +26,6 @@
 											<th>Status</th>
 											<th>Start Date</th>
 											<th>End Date</th>
-											<th>Created At</th>
 											<th>Action</th>
 										</tr>
 									</thead>

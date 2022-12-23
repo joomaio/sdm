@@ -79,7 +79,7 @@ class plugin extends PluginAbstract
     public function registerMenu()
     {
         return [
-            [['notes', 'note',], 'notes', 'Notes', '<i class="fa-solid fa-business-time"></i>', ''],
+            [['notes', 'note',], 'notes', 'Notes', '<i class="fa-solid fa-business-time"></i>', '', ''],
         ];
     }
 }

@@ -13,7 +13,7 @@
         <ul class="sidebar-nav fs-4">
             <?php
             foreach ($this->menu as $row) {
-                list($allow, $plural, $name, $icon, $submenu) = $row;
+                list($allow, $plural, $name, $icon, $submenu, $class) = $row;
                 $plural_tmp = str_replace('/', '\/', $plural); 
                 preg_match('/^(\/' . $plural_tmp . ')(|\/)$/', $this->path_current, $match);
                 if (is_array($match) && count($match)) {
@@ -57,9 +57,12 @@
                 ?>
                 <li class="sidebar-item <?php echo $active && !(is_array($submenu) && $submenu) ? 'active' : ''; ?>">
                     <a href="<?php echo (is_array($submenu) && $submenu) ? '' : $this->link_admin . $plural ?>" 
-                        class="sidebar-link <?php echo (is_array($submenu) && $submenu) ? 'link-collapse' : '';?>" 
+                        class="sidebar-link <?php echo $class;  echo (is_array($submenu) && $submenu) ? 'link-collapse' : '';?>" 
                         <?php echo (is_array($submenu) && $submenu) ? 'data-bs-target="#'. $plural. '" data-bs-toggle="collapse" aria-expanded="true" ' : '' ?> 
                     >
+                <?php 
+                ?>
+
                         <?php echo $icon ?> 
                         <span class="align-middle">
                             <?php echo $name ?>

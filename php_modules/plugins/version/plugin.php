@@ -71,7 +71,7 @@ class plugin extends PluginAbstract
     public function registerMenu()
     {
         $menu = [
-            [['versions', 'version', 'version-notes', 'version-feedback'], 'versions', 'Versions', '<i class="fa-solid fa-code-branch"></i>', ''],
+            [['versions', 'version', 'version-notes', 'version-feedback'], 'versions', 'Versions', '<i class="fa-solid fa-code-branch"></i>', '', ''],
         ];
         return $menu;
     }

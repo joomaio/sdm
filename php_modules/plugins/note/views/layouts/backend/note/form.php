@@ -5,34 +5,12 @@ $this->theme->add( $this->url. 'assets/js/select2.full.min.js', '', 'bootstrap-s
 ?>
 <div class="container-fluid align-items-center row justify-content-center mx-auto pt-3">
     <div class="card shadow-none p-0 col-lg-12">
-        <div class="card-body">
+        <div class="card-body pt-0">
             <?php echo $this->render('message'); ?>
             <form enctype="multipart/form-data" action="<?php echo $this->link_form . '/' . $this->id ?>" method="post">
                 <div class="row g-3">
                     <div class="col-lg-8 col-sm-12">
-                        <div class="row">
-                            <div class="mb-3 col-lg-12 col-sm-12 mx-auto pt-3">
-                                <label class="form-label fw-bold">Title:</label>
-                                <?php $this->field('title'); ?>
-                            </div>
-                        </div>
-                        <div class="row" style="display: none">
-                            <div class="mb-3 col-lg-12 col-sm-12 mx-auto">
-                                <label class="form-label fw-bold">Tags:</label>
-                                <?php $this->field('tags'); ?>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="mb-3 col-lg-12 col-sm-12 mx-auto">
-                                <label class="form-label fw-bold">Tags:</label>
-                                <select class="js-example-tags" multiple id="select_tags">
-                                    <?php foreach ($this->data_tags as $item) : ?>
-                                        <option selected="selected" value="<?= $item['id'] ?>"><?= $item['name'] ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                        </div>
+                        <input id="input_title" type="hidden" name="title">
                         <div class="row">
                             <div class="mb-3 col-lg-12 col-sm-12 mx-auto">
                                 <label class="form-label fw-bold">Description:</label>
@@ -54,6 +32,23 @@ $this->theme->add( $this->url. 'assets/js/select2.full.min.js', '', 'bootstrap-s
                         </div>
                     </div>
                     <div class="col-lg-4 col-sm-12">
+                        <div class="row pt-3" style="display: none">
+                            <div class="mb-3 col-lg-12 col-sm-12 mx-auto">
+                                <label class="form-label fw-bold">Tags:</label>
+                                <?php $this->field('tags'); ?>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="mb-3 col-lg-12 col-sm-12 mx-auto">
+                                <label class="form-label fw-bold">Tags:</label>
+                                <select class="js-example-tags" multiple id="select_tags">
+                                    <?php foreach ($this->data_tags as $item) : ?>
+                                        <option selected="selected" value="<?= $item['id'] ?>"><?= $item['name'] ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
                         <label class="form-label fw-bold pt-3">Attachments:</label>
                         <input name="files[]" type="file" multiple id="file" class="form-control">
                         <div class="d-flex flex-wrap pt-4">
@@ -116,6 +111,11 @@ $this->theme->add( $this->url. 'assets/js/select2.full.min.js', '', 'bootstrap-s
         width: 100% !important;
     }
 </style>
+<script>
+    $('form').submit(function() {
+        $('input#input_title').val($('input#title').val());
+    });
+</script>
 <?php
 $js = <<<Javascript
     var new_tags = [];
