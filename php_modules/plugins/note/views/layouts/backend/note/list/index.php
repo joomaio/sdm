@@ -19,9 +19,7 @@
 												<input type="checkbox" id="select_all">
 											</th>
 											<th>Title</th>
-											<th>Description</th>
 											<th>Tags</th>
-											<th>Action</th>
 										</tr>
 									</thead>
 									<tbody>
