@@ -33,7 +33,11 @@ class AdminNoteVM extends ViewModel
         $this->set('id', $id, true);
 
         $data = $id ? $this->NoteEntity->findByPK($id) : [];
-        
+        if ($data)
+        {
+            $data['description_sheetjs'] = base64_decode($data['description']);
+        }
+
         $data_tags = [];
         if (!empty($data['tags'])){
             $where[] = "(`id` IN (".$data['tags'].") )";
@@ -63,6 +67,11 @@ class AdminNoteVM extends ViewModel
                 'showLabel' => false,
                 'formClass' => 'form-control',
             ],
+            'note' => [
+                'textarea',
+                'showLabel' => false,
+                'formClass' => 'form-control',
+            ],
             'file' => [
                 'file',
                 'showLabel' => false,
@@ -85,21 +94,6 @@ class AdminNoteVM extends ViewModel
                 'default' => $this->app->getToken(),
             ],
         ];
-
-        if($this->view->id)
-        {
-            $fields['modified_at'] = ['readonly'];
-            $fields['modified_by'] = ['readonly'];
-            $fields['created_at'] = ['readonly'];
-            $fields['created_by'] = ['readonly'];
-        }
-        else
-        {
-            $fields['modified_at'] = ['hidden'];
-            $fields['modified_by'] = ['hidden'];
-            $fields['created_at'] = ['hidden'];
-            $fields['created_by'] = ['hidden'];
-        }
 
         return $fields;
     }

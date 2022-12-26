@@ -76,6 +76,8 @@ class Note extends Admin {
         $newId =  $this->NoteEntity->add([
             'title' => $title,
             'tags' => $tags,
+            'note' => $note,
+            'editor' => $editor,
             'description' => $description,
             'created_by' => $this->user->get('id'),
             'created_at' => date('Y-m-d H:i:s'),
@@ -139,7 +141,12 @@ class Note extends Admin {
             $save_close = $this->request->post->get('save_close', '', 'string');
             $note = $this->request->post->get('note', '', 'string');
             $editor = $this->request->post->get('editor', 'html', 'string');
-    
+
+            if ($editor == 'sheetjs')
+            {
+                $description = base64_decode($description);
+            }
+            
             if ($findOne)
             {
                 $this->session->set('flashMsg', 'Error: Title is already in use! ');

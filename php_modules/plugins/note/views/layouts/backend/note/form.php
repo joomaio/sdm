@@ -47,6 +47,12 @@ $this->theme->add($this->url . 'assets/sheetjs/js/xlsxspread.min.js', '', 'sheet
                 </div>
             </div>
             <div class="col-lg-4 col-sm-12">
+                <div class="row">
+                    <div class="mb-3 col-lg-12 col-sm-12 mx-auto">
+                        <label class="form-label fw-bold">Note:</label>
+                        <?php $this->field('note'); ?>
+                    </div>
+                </div>
                 <div class="row pt-3" style="display: none">
                     <div class="mb-3 col-lg-12 col-sm-12 mx-auto">
                         <label class="form-label fw-bold">Tags:</label>
@@ -130,7 +136,7 @@ $this->theme->add($this->url . 'assets/sheetjs/js/xlsxspread.min.js', '', 'sheet
     var sheet_editor = x_spreadsheet(document.getElementById("sheet_editor"));
     
     $(document).ready(function(e) {
-        var ab = `<?php echo $this->data['description']; ?>`;
+        var ab = `<?php echo $this->data['description_sheetjs']; ?>`;
         sheet_editor.loadData(stox(XLSX.read(ab)));
 
         $('#form_submit').submit(function(e) {
