@@ -11,7 +11,15 @@ $this->theme->add( $this->url. 'assets/js/select2.full.min.js', '', 'bootstrap-s
                 <input id="input_title" type="hidden" name="title">
                 <div class="row">
                     <div class="mb-3 col-lg-12 col-sm-12 mx-auto">
-                        <label class="form-label fw-bold">Description:</label>
+                        <div class="fw-bold d-flex">
+                            <span class="me-auto">Description:</span> 
+                            <span>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="sheetToogle">
+                                    <label class="form-check-label" for="sheetToogle">Sheet Editor</label>
+                                </div>
+                            </span>
+                        </div>
                         <?php $this->field('description'); ?>
                     </div>
                 </div>
