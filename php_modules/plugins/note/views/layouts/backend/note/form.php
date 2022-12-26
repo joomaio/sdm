@@ -2,6 +2,10 @@
 $this->theme->add( $this->url .'assets/css/select2.min.css', '', 'select2-css');
 $this->theme->add( $this->url .'assets/css/select2_custom.css', '', 'select2-custom-css');
 $this->theme->add( $this->url. 'assets/js/select2.full.min.js', '', 'bootstrap-select2');
+$this->theme->add($this->url . 'assets/sheetjs/css/xspreadsheet.css', '', 'sheetjs-xspreadsheet-css');
+$this->theme->add($this->url . 'assets/sheetjs/js/xspreadsheet.js', '', 'sheetjs-xspreadsheet-js', 'top');
+$this->theme->add($this->url . 'assets/sheetjs/dist/xlsx.full.min.js', '', 'sheetjs-xlsx-js', 'top');
+$this->theme->add($this->url . 'assets/sheetjs/js/xlsxspread.min.js', '', 'sheetjs-xlsxspread-js', 'top');
 ?>
 <?php echo $this->render('notification'); ?>
 <div class="container-fluid align-items-center row justify-content-center mx-auto pt-3">
@@ -21,6 +25,7 @@ $this->theme->add( $this->url. 'assets/js/select2.full.min.js', '', 'bootstrap-s
                             </span>
                         </div>
                         <?php $this->field('description'); ?>
+                        <div class="d-flex" id="sheet_editor"></div>
                     </div>
                 </div>
                 
@@ -121,6 +126,26 @@ $this->theme->add( $this->url. 'assets/js/select2.full.min.js', '', 'bootstrap-s
 <script>
     $('form').submit(function() {
         $('input#input_title').val($('input#title').val());
+    });
+    var sheet_editor = x_spreadsheet(document.getElementById("sheet_editor"));
+    
+    $(document).ready(function(e) {
+        (async () => {
+            <?php if ($this->id) : ?>
+            const ab = '<?php echo $this->data['description']; ?>';
+            sheet_editor.loadData(stox(XLSX.read(ab, {type: 'base64'})));
+            <?php endif; ?>
+        })();
+        
+        $('#form_submit_button').click(function(e) {
+            const file_content = XLSX.write(xtos(sheet_editor.getData()), {type: 'base64', bookType: 'xlsx'});
+            $("#file_content").val(file_content);
+            if($("#name").val())
+            {
+                $('#detail_form').submit();
+
+            }
+        });
     });
 </script>
 <?php
