@@ -136,7 +136,7 @@ $this->theme->add($this->url . 'assets/sheetjs/js/xlsxspread.min.js', '', 'sheet
     var sheet_editor = x_spreadsheet(document.getElementById("sheet_editor"));
     
     $(document).ready(function(e) {
-        var ab = `<?php echo $this->data['description_sheetjs']; ?>`;
+        var ab = '<?php echo $this->data ? base64_encode($this->data['description']) : ''; ?>';
         sheet_editor.loadData(stox(XLSX.read(ab)));
 
         $('#form_submit').submit(function(e) {

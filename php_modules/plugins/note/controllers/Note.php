@@ -142,11 +142,6 @@ class Note extends Admin {
             $note = $this->request->post->get('note', '', 'string');
             $editor = $this->request->post->get('editor', 'html', 'string');
 
-            if ($editor == 'sheetjs')
-            {
-                $description = base64_decode($description);
-            }
-            
             if ($findOne)
             {
                 $this->session->set('flashMsg', 'Error: Title is already in use! ');

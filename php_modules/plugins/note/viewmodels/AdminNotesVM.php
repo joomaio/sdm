@@ -44,7 +44,9 @@ class AdminNotesVM extends ViewModel
         if( !empty($search) )
         {
             $tags = $this->TagEntity->list(0, 0, ["`name` LIKE '%". $search ."%' "]);
-            $where = ["(`description` LIKE '%". $search ."%')", "(`title` LIKE '%". $search ."%')"];
+            $where[] = "(`description` LIKE '%". $search ."%')";
+            $where[] = "(TO_BASE64(`description`) LIKE '%". $search ."%' AND 'editor' LIKE 'sheetjs')";
+            $where[] = "(`title` LIKE '%". $search ."%')";
             if ($tags)
             {
                 foreach ($tags as $tag)
