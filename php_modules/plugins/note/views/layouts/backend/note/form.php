@@ -19,7 +19,7 @@ $this->theme->add($this->url . 'assets/sheetjs/js/xlsxspread.min.js', '', 'sheet
                             <span class="me-auto">Description:</span> 
                             <span>
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="sheetToogle">
+                                    <input class="form-check-input" type="checkbox" name="editor" id="sheetToogle" value="sheetjs">
                                     <label class="form-check-label" for="sheetToogle">Sheet Editor</label>
                                 </div>
                             </span>

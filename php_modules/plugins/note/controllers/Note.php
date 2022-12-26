@@ -52,6 +52,8 @@ class Note extends Admin {
         $description = $this->request->post->get('description', '', 'string');
         $save_close = $this->request->post->get('save_close', '', 'string');
         $files = $this->request->file->get('files', [], 'array');
+        $note = $this->request->post->get('note', '', 'string');
+        $editor = $this->request->post->get('editor', 'html', 'string');
 
         if (!$title)
         {
@@ -127,22 +129,6 @@ class Note extends Admin {
 
         // TODO valid the request input
 
-        if( is_array($ids) && $ids != null)
-        {
-            // publishment
-            $count = 0;
-            $action = $this->request->post->get('status', 0, 'string');
-
-            foreach($ids as $id)
-            {
-                $toggle = $this->NoteEntity->toggleStatus($id, $action);
-                $count++;
-            }
-            $this->session->set('flashMsg', $count.' changed record(s)');
-            $this->app->redirect(
-                $this->router->url('notes')
-            );
-        }
         if(is_numeric($ids) && $ids)
         {
             $title = $this->request->post->get('title', '', 'string');
@@ -151,7 +137,9 @@ class Note extends Admin {
             $findOne = $this->NoteEntity->findOne(['title = "'. $title. '"', 'id <> '. $ids]);
             $files = $this->request->file->get('files', [], 'array');
             $save_close = $this->request->post->get('save_close', '', 'string');
-
+            $note = $this->request->post->get('note', '', 'string');
+            $editor = $this->request->post->get('editor', 'html', 'string');
+    
             if ($findOne)
             {
                 $this->session->set('flashMsg', 'Error: Title is already in use! ');
@@ -163,6 +151,8 @@ class Note extends Admin {
             $try = $this->NoteEntity->update([
                 'title' => $title,
                 'tags' => $tags,
+                'note' => $note,
+                'editor' => $editor,
                 'description' => $description,
                 'modified_by' => $this->user->get('id'),
                 'modified_at' => date('Y-m-d H:i:s'),
