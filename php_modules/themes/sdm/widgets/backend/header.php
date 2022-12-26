@@ -3,7 +3,7 @@
         <i class="hamburger align-self-center"></i>
     </a>
     <?php if ($this->title_page_edit) { ?>
-        <h2 class="m-0">
+        <h2 class="m-0 w-100">
             <?php echo $this->field('title'); ?>
         </h2>
     <?php } else { ?>
