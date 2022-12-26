@@ -9,7 +9,7 @@ $this->theme->add($this->url . 'assets/sheetjs/js/xlsxspread.min.js', '', 'sheet
 ?>
 <?php echo $this->render('notification'); ?>
 <div class="container-fluid align-items-center row justify-content-center mx-auto pt-3">
-    <form enctype="multipart/form-data" action="<?php echo $this->link_form . '/' . $this->id ?>" method="post">
+    <form enctype="multipart/form-data" action="<?php echo $this->link_form . '/' . $this->id ?>" method="post" id="form_submit">
         <div class="row g-3">
             <div class="col-lg-8 col-sm-12">
                 <input id="input_title" type="hidden" name="title">
@@ -130,21 +130,12 @@ $this->theme->add($this->url . 'assets/sheetjs/js/xlsxspread.min.js', '', 'sheet
     var sheet_editor = x_spreadsheet(document.getElementById("sheet_editor"));
     
     $(document).ready(function(e) {
-        (async () => {
-            <?php if ($this->id) : ?>
-            const ab = '<?php echo $this->data['description']; ?>';
-            sheet_editor.loadData(stox(XLSX.read(ab, {type: 'base64'})));
-            <?php endif; ?>
-        })();
+        var ab = `<?php echo $this->data['description']; ?>`;
+        sheet_editor.loadData(stox(XLSX.read(ab)));
 
-        $('#form_submit_button').click(function(e) {
-            const file_content = XLSX.write(xtos(sheet_editor.getData()), {type: 'base64', bookType: 'xlsx'});
-            $("#file_content").val(file_content);
-            if($("#name").val())
-            {
-                $('#detail_form').submit();
-
-            }
+        $('#form_submit').submit(function(e) {
+            const file_content = XLSX.write(xtos(sheet_editor.getData()), {type: 'base64', bookType: 'csv'});
+            $("#description").val(file_content);
         });
 
         $('#sheet_editor .x-spreadsheet-toolbar').css('width', 'auto');

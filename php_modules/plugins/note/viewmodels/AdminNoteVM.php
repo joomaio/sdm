@@ -59,7 +59,7 @@ class AdminNoteVM extends ViewModel
     {
         $fields = [
             'description' => [
-                'tinymce',
+                'textarea',
                 'showLabel' => false,
                 'formClass' => 'form-control',
             ],
