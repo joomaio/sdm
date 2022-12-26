@@ -22,3 +22,8 @@ ul a.submenu-link{
 {
     background: #35414e;
 }
+
+#sheet_editor{
+    /* overflow: hidden; */
+    border-right: 1px solid #f5f6f7;
+}

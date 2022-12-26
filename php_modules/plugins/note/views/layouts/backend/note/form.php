@@ -25,7 +25,7 @@ $this->theme->add($this->url . 'assets/sheetjs/js/xlsxspread.min.js', '', 'sheet
                             </span>
                         </div>
                         <?php $this->field('description'); ?>
-                        <div class="d-flex" id="sheet_editor"></div>
+                        <div id="sheet_editor"></div>
                     </div>
                 </div>
                 
@@ -136,7 +136,7 @@ $this->theme->add($this->url . 'assets/sheetjs/js/xlsxspread.min.js', '', 'sheet
             sheet_editor.loadData(stox(XLSX.read(ab, {type: 'base64'})));
             <?php endif; ?>
         })();
-        
+
         $('#form_submit_button').click(function(e) {
             const file_content = XLSX.write(xtos(sheet_editor.getData()), {type: 'base64', bookType: 'xlsx'});
             $("#file_content").val(file_content);
@@ -146,6 +146,10 @@ $this->theme->add($this->url . 'assets/sheetjs/js/xlsxspread.min.js', '', 'sheet
 
             }
         });
+
+        $('#sheet_editor .x-spreadsheet-toolbar').css('width', 'auto');
+        $('#sheet_editor .x-spreadsheet-sheet').css('width', 'auto');
+        $('#sheet_editor .x-spreadsheet-bottombar').css('width', 'auto');
     });
 </script>
 <?php
