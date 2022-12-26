@@ -43,12 +43,21 @@ class AdminNotesVM extends ViewModel
 
         if( !empty($search) )
         {
-            $where[] = "(`title` LIKE '%".$search."%' )";
+            $tags = $this->TagEntity->list(0, 0, ["`name` LIKE '%". $search ."%' "]);
+            $where = ["(`description` LIKE '%". $search ."%')", "(`title` LIKE '%". $search ."%')"];
+            if ($tags)
+            {
+                foreach ($tags as $tag)
+                {
+                    $where[] = "(`tags` = '" . $tag['id'] . "'" .
+                    " OR `tags` LIKE '%" . ',' . $tag['id'] . "'" .
+                    " OR `tags` LIKE '" . $tag['id'] . ',' . "%'" .
+                    " OR `tags` LIKE '%" . ',' . $tag['id'] . ',' . "%' )";
+                }
+
+                $where = [implode(" OR ", $where)];
+            }
         }
-//        if(is_numeric($status))
-//        {
-//            $where[] = '`status`='. $status;
-//        }
 
         $start  = ($page-1) * $limit;
         $sort = $sort ? $sort : 'title asc';
