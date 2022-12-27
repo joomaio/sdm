@@ -48,11 +48,11 @@ class AdminVersionsVM extends ViewModel
         $sort = $sort ? $sort : 'created_at desc';
 
         $result = $this->VersionEntity->list($start, $limit, $where, $sort);
+        $total = $this->VersionEntity->getListTotal();
 
         $get_log = [];
         $get_log = $this->VersionNoteEntity->list(0, 0, $where, 0);
 
-        $total = $this->VersionEntity->getListTotal();
         if (!$result) {
             $result = [];
             $total = 0;

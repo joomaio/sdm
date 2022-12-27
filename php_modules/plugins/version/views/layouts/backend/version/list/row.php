@@ -38,18 +38,6 @@
         <?php  echo $this->item['feedback']?>
     </td>
     <td>
-        <a href="#" 
-            class="fs-4 me-1 show_data" 
-            data-id="<?php echo  $this->item['id'] ?>" 
-            data-name="<?php echo  $this->item['name']  ?>" 
-            data-description="<?php echo  $this->item['description']  ?>" 
-            data-version_number="<?php echo $this->item['version']; ?>" 
-            data-release_date="<?php echo   $this->item['release_date'] ? date('Y-m-d', strtotime($this->item['release_date'])) : '';?>"
-            data-bs-placement="top" 
-            data-bs-toggle="modal" 
-            data-bs-target="#exampleModalToggle">
-            <i class="fa-solid fa-pen-to-square"></i>
-        </a>
         <a class="fs-4 me-1" href="<?php echo $this->link_form . '-feedback/' . $this->item['id']; ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Go to feedback"><i class="fa-solid fa-message"></i></a>
     </td>
 </tr>
