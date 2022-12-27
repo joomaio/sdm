@@ -33,7 +33,7 @@ $this->theme->add( $this->url.'assets/tinymce/tinymce.min.js', '', 'tinymce');
                     <input class="form-control rounded-0 border border-1" type="hidden" name="_method" value="<?php echo $this->id ? 'PUT' : 'POST' ?>">
                     <div class="me-2">
                         <a href="<?php echo $this->link_list ?>">
-                            <button type="button" class="btn btn-outline-secondary">Cancel</button>
+                            <button type="button" class="btn btn-outline-secondary">Close</button>
                         </a>
                     </div>
                     <div class="me-2">
@@ -133,6 +133,16 @@ $this->theme->add( $this->url.'assets/tinymce/tinymce.min.js', '', 'tinymce');
 
         $('#form_submit').submit(function(e) {
             $('input#input_title').val($('input#title').val());
+        });
+
+        $(".btn_save_close").click(function() {
+            $("#save_close").val(1);
+            $('#form_submit').submit();
+        });
+
+        $(".btn_apply").click(function() {
+            $("#save_close").val(0);
+            $('#form_submit').submit();
         });
         
     });
@@ -281,9 +291,6 @@ $js = <<<Javascript
             }
         });
         $("#description").attr('rows', 25);
-        $(".btn_save_close").click(function() {
-            $("#save_close").val(1);
-        });
         $(".button_delete_item").click(function() {
             var id = $(this).data('id');
             var result = confirm("You are going to delete 1 file(s) attchament. Are you sure ?");
