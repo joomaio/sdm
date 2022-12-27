@@ -191,10 +191,10 @@ $js = <<<Javascript
         }
     }
 
-    $('.js-example-tags').on('select2:select', function(e) {
+    $('.js-example-tags').on('select2:select', async function(e) {
         let tag = e.params.data;
         if (tag.newTag === true) {
-            $.post("{$this->link_tag}", {
+            await $.post("{$this->link_tag}", {
                     name: tag.text
                 })
                 .done(function(data) {

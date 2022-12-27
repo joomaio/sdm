@@ -70,9 +70,15 @@ class AdminNotesVM extends ViewModel
             if (!empty($item['tags'])){
                 $t1 = $where = [];
                 $where[] = "(`id` IN (".$item['tags'].") )";
-                $t2 = $this->TagEntity->list(0, 1000, $where,'','`name`');
-
-                foreach ($t2 as $i) $t1[] = $i['name'];
+                $t2 = $this->TagEntity->list(0, 0, $where,'','`name`');
+                if ($t2)
+                {
+                    foreach ($t2 as $i)
+                    {
+                        $t1[] = $i['name'];
+                    } 
+                }
+               
 
                 $data_tags[$item['id']] = implode(',', $t1);
             }

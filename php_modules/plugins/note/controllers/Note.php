@@ -56,6 +56,25 @@ class Note extends Admin {
         $note = $this->request->post->get('note', '', 'string');
         $editor = $this->request->post->get('editor', 'html', 'string');
 
+        $listTag = explode(',', $tags);
+        $tags_tmp = [];
+        foreach($listTag as $tag)
+        {
+            if (!$tag) continue;
+            $find = $this->TagEntity->findOne(['id', $tag]);
+            if ($find)
+            {
+                $tags_tmp[] = $tag;
+            }
+            elseif( !(int) $tag)
+            {
+                $newTag = $this->TagEntity->add(['name' => $tag]);
+                if ($newTag)
+                {
+                    $tags_tmp[] = $newTag;
+                }
+            }
+        }
         if ($editor == 'sheetjs')
         {
             $description = base64_decode($description_sheetjs);
@@ -149,6 +168,26 @@ class Note extends Admin {
             $note = $this->request->post->get('note', '', 'string');
             $editor = $this->request->post->get('editor', 'html', 'string');
 
+            $listTag = explode(',', $tags);
+            $tags_tmp = [];
+            foreach($listTag as $tag)
+            {
+                if (!$tag) continue;
+                $find = $this->TagEntity->findOne(['id', $tag]);
+                if ($find)
+                {
+                    $tags_tmp[] = $tag;
+                }
+                else
+                {
+                    $newTag = $this->TagEntity->add(['name' => $tag]);
+                    if ($newTag)
+                    {
+                        $tags_tmp[] = $newTag;
+                    }
+                }
+            }
+            $tags = implode(',', $tags_tmp);
             if ($editor == 'sheetjs')
             {
                 $description = base64_decode($description_sheetjs);
