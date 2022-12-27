@@ -75,6 +75,7 @@ class AdminNoteVM extends ViewModel
             'note' => [
                 'textarea',
                 'showLabel' => false,
+                'placeholder' => 'Note',
                 'formClass' => 'form-control',
             ],
             'file' => [
