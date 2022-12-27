@@ -16,7 +16,6 @@
 									<thead>
 										<tr>
 											<th>Title</th>
-											<th>Description</th>
 											<th>Tags</th>
 										</tr>
 									</thead>
