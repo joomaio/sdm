@@ -77,7 +77,11 @@ class AttachmentModelTest extends TestCase
      */
     public function testUploadTrue($file)
     {
-        $try = $this->AttachmentModel->upload($file, $this->note_id);
+        try {
+            $try = $this->AttachmentModel->upload($file, $this->note_id);
+        } catch (\Throwable $th) {
+            $try = false;
+        }
         if ($try)
         {
             static::$att_id = $try;
