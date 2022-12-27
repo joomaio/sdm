@@ -90,3 +90,6 @@ composer.phar
 RoboFile.ini
 
 log
+
+#phpunit
+.phpunit.result.cache
