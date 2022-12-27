@@ -98,6 +98,7 @@ class AttachmentModelTest extends TestCase
     {
         // create file sample
         $try = file_put_contents(ROOT_PATH. 'test.png', '');
+        static::$file = ROOT_PATH. 'test.png';
         $file = [
             'name' => 'test.png',
             'tmp_name' => ROOT_PATH. 'test.png',
@@ -112,9 +113,9 @@ class AttachmentModelTest extends TestCase
     
     protected function tearDown(): void
     {
-        if (file_exists(ROOT_PATH.static::$file))
+        if (file_exists(static::$file))
         {
-            unlink(ROOT_PATH.static::$file);
+            unlink(static::$file);
         }
 
         if (static::$att_id)
