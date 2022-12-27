@@ -133,7 +133,6 @@ $this->theme->add( $this->url.'assets/tinymce/tinymce.min.js', '', 'tinymce');
 </style>
 <script>
     $('form').submit(function() {
-        $('input#input_title').val($('input#title').val());
     });
     var sheet_editor = x_spreadsheet(document.getElementById("sheet_editor"), {
         view : {
@@ -148,7 +147,9 @@ $this->theme->add( $this->url.'assets/tinymce/tinymce.min.js', '', 'tinymce');
         sheet_editor.loadData(stox(XLSX.read(ab, {type: 'base64'})));
 
         $('#form_submit').submit(function(e) {
+            $('input#input_title').val($('input#title').val());
             const file_content = XLSX.write(xtos(sheet_editor.getData()), {type: 'base64', bookType: 'csv'});
+            console.log(file_content);
             $("#description_sheetjs").val(file_content);
         });
 
