@@ -8,7 +8,7 @@ use App\plugins\note\entities\TagEntity;
 
 class TagEntityTest extends TestCase
 {
-    private $MediaEntity;
+    private $TagEntity;
 
     protected function setUp(): void
     {

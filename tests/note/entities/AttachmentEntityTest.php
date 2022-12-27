@@ -8,7 +8,7 @@ use App\plugins\note\entities\AttachmentEntity;
 
 class AttachmentEntityTest extends TestCase
 {
-    private $MediaEntity;
+    private $AttachmentEntity;
 
     protected function setUp(): void
     {

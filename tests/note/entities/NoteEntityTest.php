@@ -8,7 +8,7 @@ use App\plugins\note\entities\NoteEntity;
 
 class NoteEntityTest extends TestCase
 {
-    private $MediaEntity;
+    private $NoteEntity;
 
     protected function setUp(): void
     {
