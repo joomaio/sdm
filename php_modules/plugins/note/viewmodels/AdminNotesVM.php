@@ -56,9 +56,8 @@ class AdminNotesVM extends ViewModel
                     " OR `tags` LIKE '" . $tag['id'] . ',' . "%'" .
                     " OR `tags` LIKE '%" . ',' . $tag['id'] . ',' . "%' )";
                 }
-
-                $where = [implode(" OR ", $where)];
             }
+            $where = [implode(" OR ", $where)];
         }
 
         $start  = ($page-1) * $limit;
