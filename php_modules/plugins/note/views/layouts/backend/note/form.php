@@ -33,7 +33,7 @@ $this->theme->add( $this->url.'assets/tinymce/tinymce.min.js', '', 'tinymce');
                     <input class="form-control rounded-0 border border-1" type="hidden" name="_method" value="<?php echo $this->id ? 'PUT' : 'POST' ?>">
                     <div class="me-2">
                         <a href="<?php echo $this->link_list ?>">
-                            <button type="button" class="btn btn-outline-secondary">Close</button>
+                            <button type="button" class="btn btn-outline-secondary">Cancel</button>
                         </a>
                     </div>
                     <div class="me-2">

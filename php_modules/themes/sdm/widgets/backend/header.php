@@ -9,7 +9,7 @@
             </h2>
             <div class="me-2">
                 <a href="<?php echo $this->link_list ?>">
-                    <button type="button" class="btn btn-outline-secondary">Close</button>
+                    <button type="button" class="btn btn-outline-secondary">Cancel</button>
                 </a>
             </div>
             <div class="me-2">
