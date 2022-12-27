@@ -10,7 +10,7 @@ if(!isset($sheetJs))
 }
 
 $js = <<<Javascript
-var sheet_editor = x_spreadsheet(document.getElementById("sheet_{$this->field->id}"), {
+var sheet_{$this->field->id} = x_spreadsheet(document.getElementById("sheet_{$this->field->id}"), {
     view : {
         height: () => $("#sheet_{$this->field->id}").height(),
         width: () => $("#sheet_{$this->field->id}").width()
@@ -18,17 +18,22 @@ var sheet_editor = x_spreadsheet(document.getElementById("sheet_{$this->field->i
     showGrid: true,
 });
 var ab = $('#{$this->field->id}').val();
-sheet_editor.loadData(stox(XLSX.read(ab, {type: 'base64'})));
+sheet_{$this->field->id}.loadData(stox(XLSX.read(ab, {type: 'base64'})));
 $(document).ready(function(e) {
     $('#sheet_{$this->field->id} .x-spreadsheet-toolbar').css('width', 'auto');
     $(window).resize(function(){
         $('#sheet_{$this->field->id} .x-spreadsheet-toolbar').css('width', 'auto');
     });
-    sheet_editor.change(function(data) {
+    sheet_{$this->field->id}.change(function(data) {
         var file_content = XLSX.write(xtos(sheet_{$this->field->id}.getData()), {type: 'base64', bookType: 'csv'});
         $('#{$this->field->id}').val(file_content);
     });
 });
+function reRender_{$this->field->id}()
+{
+    $('#sheet_{$this->field->id} .x-spreadsheet-toolbar').css('width', 'auto');
+    sheet_{$this->field->id}.reRender();
+}
 
 Javascript;
 

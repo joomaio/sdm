@@ -21,7 +21,9 @@ $this->theme->add( $this->url.'assets/tinymce/tinymce.min.js', '', 'tinymce');
                                 </div>
                             </span>
                         </div>
-                        <?php $this->field('description'); ?>
+                        <div id="html_editor">
+                            <?php $this->field('description'); ?>
+                        </div>
                         <?php $this->field('description_sheetjs'); ?>
                     </div>
                 </div>
@@ -253,51 +255,32 @@ $js = <<<Javascript
             $('#tags').val('')
         }
     }
-    
-    
 
     $(document).ready(function() {
         if (!$('#sheetToogle').is(":checked"))
         {
             $('#sheet_description_sheetjs').addClass('d-none');
-            tinymce.activeEditor.hide();
+            $('#html_editor').removeClass('d-none');
         }
         else
         {
-            tinymce.activeEditor.hide();
+            $('#html_editor').addClass('d-none');
         }
         $('#sheetToogle').change(function()
         {
             if ($(this).is(":checked"))
             {
-                if (check_tinymce)
-                {
-                    tinymce.activeEditor.hide();
-                }
-
-                $('#sheet_editor').removeClass('d-none');
-                sheet_editor.reRender()
+                $('#html_editor').addClass('d-none');
+                $('#sheet_description_sheetjs').removeClass('d-none');
+                reRender_description_sheetjs();
             }
             else
             {
-                if (!check_tinymce)
-                {
-                    tinymce_init();
-                }
-                else
-                {
-                    tinymce.activeEditor.show();
-                }
-
-                $('#sheet_editor').addClass('d-none');
-            }
-
-            if (!check_tinymce)
-            {
-                tinymce_init();
+                $('#html_editor').removeClass('d-none');
+                $('#sheet_description_sheetjs').addClass('d-none');
             }
         });
-        $("#description").attr('rows', 18);
+        $("#description").attr('rows', 25);
         $(".btn_save_close").click(function() {
             $("#save_close").val(1);
         });
