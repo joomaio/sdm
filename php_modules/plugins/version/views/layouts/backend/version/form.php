@@ -4,12 +4,12 @@
         <div class="modal-content container px-5 pt-5">
             <form action="" method="post" id="form_version">
                 <div class="row g-3 align-items-center">
-                    <div class="row px-0">
-                        <div class="mb-5 col-12 mx-auto pt-3">
+                    <div class="row">
+                        <div class="mb-3 col-12 mx-auto pt-3">
                             <?php $this->field('name'); ?>
                         </div>
                     </div>
-                    <div class="row px-0">
+                    <div class="row">
                         <div class="mb-3 col-12 mx-auto">
                             <div class="row">
                                 <div class="col-3 d-flex align-items-center">
@@ -21,7 +21,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row px-0">
+                    <div class="row">
                         <div class="mb-3 col-12 mx-auto">
                             <div class="row">
                                 <div class="col-3 d-flex align-items-center">
@@ -33,7 +33,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row px-0">
+                    <div class="row">
                         <div class="mb-3 col-12 mx-auto">
                             <div class="row">
                                 <div class="col-3 d-flex align-items-center">
@@ -45,17 +45,15 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row g-3 align-items-center m-0">
-                        <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-12 d-flex justify-content-end mb-2">
                             <?php $this->field('token'); ?>
                             <input class="form-control rounded-0 border border-1" id="version" type="hidden" name="_method" value="POST">
-                            <div class="row">
-                                <div class="col-6 text-end pe-0">
-                                    <button type="button" class="btn btn-outline-secondary fs-4" data-bs-dismiss="modal">Cancel</button>
-                                </div>
-                                <div class="col-6 text-end pe-0 ">
-                                    <button type="submit" class="btn btn-outline-success fs-4">Save</button>
-                                </div>
+                            <div class="me-2">
+                                <button type="button" class="btn btn-outline-secondary fs-4" data-bs-dismiss="modal">Cancel</button>
+                            </div>
+                            <div class="">
+                                <button type="submit" class="btn btn-outline-success fs-4">Save</button>
                             </div>
                         </div>
                     </div>

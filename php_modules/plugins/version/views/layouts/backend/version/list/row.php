@@ -8,7 +8,7 @@
             data-id="<?php echo  $this->item['id'] ?>" 
             data-name="<?php echo  $this->item['name']  ?>" 
             data-description="<?php echo  $this->item['description']  ?>" 
-            data-version_number="<?php echo $this->version_number; ?>" 
+            data-version_number="<?php echo $this->item['version']; ?>" 
             data-release_date="<?php echo   $this->item['release_date'] ? date('Y-m-d', strtotime($this->item['release_date'])) : '';?>" 
             data-bs-placement="top" 
             data-bs-toggle="modal" 
