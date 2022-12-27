@@ -24,7 +24,7 @@ class Note extends Admin {
 
         if(!empty($id) && !$exist)
         {
-            $this->session->set('flashMsg', "Invalid Note");
+            $this->session->set('flashMsg', "Invalid note");
             $this->app->redirect(
                 $this->router->url('notes')
             );
@@ -91,7 +91,7 @@ class Note extends Admin {
         $findOne = $this->NoteEntity->findOne(['title = "'. $title. '"']);
         if ($findOne)
         {
-            $this->session->set('flashMsg', 'Error: Title is already in use! ');
+            $this->session->set('flashMsg', 'Error: Title already used! ');
             $this->app->redirect(
                 $this->router->url('note/0')
             );
@@ -112,7 +112,7 @@ class Note extends Admin {
 
         if( !$newId )
         {
-            $msg = 'Error: Create Failed!';
+            $msg = 'Error: Created Failed!';
             $this->session->set('flashMsg', $msg);
             $this->app->redirect(
                 $this->router->url('note/0')
@@ -142,7 +142,7 @@ class Note extends Admin {
                     }
                 }
             }
-            $this->session->set('flashMsg', 'Create Successfully!');
+            $this->session->set('flashMsg', 'Created Successfully!');
             $link = $save_close ? 'notes' : 'note/'. $newId;
             $this->app->redirect(
                 $this->router->url($link)
@@ -204,7 +204,7 @@ class Note extends Admin {
 
             if ($findOne)
             {
-                $this->session->set('flashMsg', 'Error: Title is already in use! ');
+                $this->session->set('flashMsg', 'Error: Title already used! ');
                 $this->app->redirect(
                     $this->router->url('note/'. $ids)
                 );
@@ -245,7 +245,7 @@ class Note extends Admin {
                         }
                     }
                 } 
-                $this->session->set('flashMsg', 'Edit Successfully');
+                $this->session->set('flashMsg', 'Updated successfully');
                 $link = $save_close ? 'notes' : 'note/'. $ids;
                 $this->app->redirect(
                     $this->router->url($link)
@@ -253,7 +253,7 @@ class Note extends Admin {
             }
             else
             {
-                $msg = 'Error: Save Failed';
+                $msg = 'Error: Updated failed';
                 $this->session->set('flashMsg', $msg);
                 $this->app->redirect(
                     $this->router->url('note/'. $ids)
@@ -305,7 +305,7 @@ class Note extends Admin {
             $ids = $this->request->post->get('ids', [], 'array');
             if(count($ids)) return $ids;
 
-            $this->session->set('flashMsg', 'Invalid Note');
+            $this->session->set('flashMsg', 'Invalid note');
             $this->app->redirect(
                 $this->router->url('notes'),
             );
