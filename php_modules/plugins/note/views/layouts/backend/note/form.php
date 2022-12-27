@@ -16,10 +16,10 @@ $this->theme->add( $this->url.'assets/tinymce/tinymce.min.js', '', 'tinymce');
                 <input id="input_title" type="hidden" name="title">
                 <div class="row">
                     <div class="mb-3 col-lg-12 col-sm-12 mx-auto">
-                        <div class="fw-bold d-flex">
+                        <div class="fw-bold d-flex  mb-2">
                             <span class="me-auto">Description:</span> 
                             <span>
-                                <div class="form-check form-switch">
+                                <div class="form-check form-switch mb-0">
                                     <input class="form-check-input" type="checkbox" <?php echo ($this->data && $this->data['editor'] == 'sheetjs') ? 'checked' : ''; ?> name="editor" id="sheetToogle" value="sheetjs">
                                     <label class="form-check-label" for="sheetToogle">Sheet Editor</label>
                                 </div>
@@ -27,7 +27,7 @@ $this->theme->add( $this->url.'assets/tinymce/tinymce.min.js', '', 'tinymce');
                         </div>
                         <?php $this->field('description'); ?>
                         <?php $this->field('description_sheetjs'); ?>
-                        <div id="sheet_editor" class=" <?php echo ($this->data && $this->data['editor'] == 'sheetjs') ? '' : 'd-none';?>"></div>
+                        <div id="sheet_editor"></div>
                     </div>
                 </div>
                 
@@ -296,6 +296,7 @@ $js = <<<Javascript
     if (!$('#sheetToogle').is(":checked"))
     {
         tinymce_init();
+        $('#sheet_editor').addClass('d-none');
     }
 
     $(document).ready(function() {
@@ -309,6 +310,7 @@ $js = <<<Javascript
                 }
 
                 $('#sheet_editor').removeClass('d-none');
+                sheet_editor.reRender()
             }
             else
             {
