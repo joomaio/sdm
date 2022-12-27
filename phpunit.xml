@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<phpunit bootstrap="vendor/autoload.php">
+<phpunit bootstrap="vendor/autoload.php" stderr="true" stopOnError="true" stopOnFailure="true">
 
     <testsuites>
         <testsuite name="PhpUnit test">
-            <directory>unittest</directory>
+            <directory>test/ready</directory>
+            <directory>test/note</directory>
         </testsuite>
     </testsuites>
 
