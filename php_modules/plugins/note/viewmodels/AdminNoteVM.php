@@ -35,7 +35,7 @@ class AdminNoteVM extends ViewModel
         $data = $id ? $this->NoteEntity->findByPK($id) : [];
         if ($data)
         {
-            $data['description_sheetjs'] = base64_decode($data['description']);
+            $data['description_sheetjs'] = base64_encode(strip_tags($data['description']));
         }
 
         $data_tags = [];
@@ -63,9 +63,14 @@ class AdminNoteVM extends ViewModel
     {
         $fields = [
             'description' => [
-                'textarea',
+                'tinymce',
                 'showLabel' => false,
                 'formClass' => 'form-control',
+            ],
+            'description_sheetjs' => [
+                'textarea',
+                'showLabel' => false,
+                'formClass' => 'd-none',
             ],
             'note' => [
                 'textarea',

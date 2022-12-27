@@ -136,11 +136,17 @@ class Note extends Admin {
             $title = $this->request->post->get('title', '', 'string');
             $tags = $this->request->post->get('tags', '', 'string');
             $description = $this->request->post->get('description', '', 'string');
+            $description_sheetjs = $this->request->post->get('description_sheetjs', '', 'string');
             $findOne = $this->NoteEntity->findOne(['title = "'. $title. '"', 'id <> '. $ids]);
             $files = $this->request->file->get('files', [], 'array');
             $save_close = $this->request->post->get('save_close', '', 'string');
             $note = $this->request->post->get('note', '', 'string');
             $editor = $this->request->post->get('editor', 'html', 'string');
+
+            if ($editor == 'sheetjs')
+            {
+                $description = base64_decode($description_sheetjs);
+            }
 
             if ($findOne)
             {

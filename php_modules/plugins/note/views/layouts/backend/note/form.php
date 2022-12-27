@@ -19,12 +19,13 @@ $this->theme->add($this->url . 'assets/sheetjs/js/xlsxspread.min.js', '', 'sheet
                             <span class="me-auto">Description:</span> 
                             <span>
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" name="editor" id="sheetToogle" value="sheetjs">
+                                    <input class="form-check-input" type="checkbox" <?php echo ($this->data && $this->data['editor'] == 'sheetjs') ? 'checked' : ''; ?> name="editor" id="sheetToogle" value="sheetjs">
                                     <label class="form-check-label" for="sheetToogle">Sheet Editor</label>
                                 </div>
                             </span>
                         </div>
                         <?php $this->field('description'); ?>
+                        <?php $this->field('description_sheetjs'); ?>
                         <div id="sheet_editor"></div>
                     </div>
                 </div>
@@ -136,12 +137,12 @@ $this->theme->add($this->url . 'assets/sheetjs/js/xlsxspread.min.js', '', 'sheet
     var sheet_editor = x_spreadsheet(document.getElementById("sheet_editor"));
     
     $(document).ready(function(e) {
-        var ab = '<?php echo $this->data ? base64_encode($this->data['description']) : ''; ?>';
-        sheet_editor.loadData(stox(XLSX.read(ab)));
+        var ab = $('#description_sheetjs').val();
+        sheet_editor.loadData(stox(XLSX.read(ab, {type: 'base64'})));
 
         $('#form_submit').submit(function(e) {
             const file_content = XLSX.write(xtos(sheet_editor.getData()), {type: 'base64', bookType: 'csv'});
-            $("#description").val(file_content);
+            $("#description_sheetjs").val(file_content);
         });
 
         $('#sheet_editor .x-spreadsheet-toolbar').css('width', 'auto');
