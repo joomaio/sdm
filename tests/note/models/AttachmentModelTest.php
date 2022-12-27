@@ -23,6 +23,8 @@ class AttachmentModelTest extends TestCase
     private $NoteEntity;
     private $AttachmentEntity;
     static $session_id;
+    static $att_id;
+    static $file;
 
     protected function setUp(): void
     {
@@ -51,7 +53,6 @@ class AttachmentModelTest extends TestCase
         $this->AttachmentEntity = new AttachmentEntity($query);
         $this->container->set('NoteEntity', $this->NoteEntity); 
         $this->container->set('AttachmentEntity', $this->AttachmentEntity); 
-
         // Simulate File
         $this->container->set('file', new File()); 
 
@@ -65,16 +66,56 @@ class AttachmentModelTest extends TestCase
 
         // Simulate Model
         $this->AttachmentModel = new AttachmentModel($this->container);
+
+        // setup note id
+        $note = $this->NoteEntity->findOne(['id > 0']);
+        $this->note_id = $note ? $note['id'] : 0;
     }
     
-    public function testUploadTrue()
+    /**
+     * @dataProvider prepareDataTrue()
+     */
+    public function testUploadTrue($file)
     {
-        $this->assertIsArray([]);
+        $try = $this->AttachmentModel->upload($file, $this->note_id);
+        if ($try)
+        {
+            static::$att_id = $try;
+        }
+        $this->assertNotFalse($try);
     }
 
     public function testUploadFail()
     {
         $this->assertIsArray([]);
     }
+
+    public function prepareDataTrue()
+    {
+        // create file sample
+        $try = file_put_contents(ROOT_PATH. 'test.png', '');
+        $file = [
+            'name' => 'test.png',
+            'tmp_name' => ROOT_PATH. 'test.png',
+            'type' => mime_content_type(ROOT_PATH. 'test.png'),
+            'size' => filesize(ROOT_PATH. 'test.png'),
+        ];
+
+        return [
+            [$file],
+        ];
+    }
     
+    protected function tearDown(): void
+    {
+        if (file_exists(ROOT_PATH.static::$file))
+        {
+            unlink(ROOT_PATH.static::$file);
+        }
+
+        if (static::$att_id)
+        {
+            $this->AttachmentEntity->remove(static::$att_id);
+        }
+    }
 }

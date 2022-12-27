@@ -13,7 +13,11 @@ class File extends TestFile
             $this->error = $newFileName. ': File can not upload, please check folder permission.';
             return false;
         }
-
+        else
+        {
+            unlink($this->targetFile);
+        }
+        
         return true;
     }
 }
