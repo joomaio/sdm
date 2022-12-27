@@ -6,6 +6,7 @@ $this->theme->add($this->url . 'assets/sheetjs/css/xspreadsheet.css', '', 'sheet
 $this->theme->add($this->url . 'assets/sheetjs/js/xspreadsheet.js', '', 'sheetjs-xspreadsheet-js', 'top');
 $this->theme->add($this->url . 'assets/sheetjs/dist/xlsx.full.min.js', '', 'sheetjs-xlsx-js', 'top');
 $this->theme->add($this->url . 'assets/sheetjs/js/xlsxspread.min.js', '', 'sheetjs-xlsxspread-js', 'top');
+$this->theme->add( $this->url.'assets/tinymce/tinymce.min.js', '', 'tinymce');
 ?>
 <?php echo $this->render('notification'); ?>
 <div class="container-fluid align-items-center row justify-content-center mx-auto pt-3">
@@ -26,11 +27,11 @@ $this->theme->add($this->url . 'assets/sheetjs/js/xlsxspread.min.js', '', 'sheet
                         </div>
                         <?php $this->field('description'); ?>
                         <?php $this->field('description_sheetjs'); ?>
-                        <div id="sheet_editor"></div>
+                        <div id="sheet_editor" class="<?php echo ($this->data && $this->data['editor'] == 'sheetjs') ? '' : 'd-none';?>"></div>
                     </div>
                 </div>
                 
-                <div class="d-flex g-3 flex-row align-items-end m-0 justify-content-center">
+                <div class="d-flex g-3 flex-row align-items-end m-0 pb-3 justify-content-center">
                     <?php $this->field('token'); ?>
                     <input class="form-control rounded-0 border border-1" type="hidden" name="_method" value="<?php echo $this->id ? 'PUT' : 'POST' ?>">
                     <div class="me-2">
@@ -152,6 +153,23 @@ $this->theme->add($this->url . 'assets/sheetjs/js/xlsxspread.min.js', '', 'sheet
 </script>
 <?php
 $js = <<<Javascript
+    var check_tinymce = false;
+
+    function tinymce_init()
+    {
+        tinymce.init({
+            selector: '#description',
+            plugins: [
+                "advlist autolink lists link image charmap print preview anchor mediaadvanced",
+                "searchreplace visualblocks code fullscreen",
+                "insertdatetime media table contextmenu paste imagetools wordcount"
+            ],
+            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link mediaadvanced",
+            height: '60vh'
+        });
+        check_tinymce = true;
+    }
+
     var new_tags = [];
     $(".js-example-tags").select2({
         tags: true,
@@ -267,8 +285,42 @@ $js = <<<Javascript
             $('#tags').val('')
         }
     }
+    if (!$('#sheetToogle').is(":checked"))
+    {
+        tinymce_init();
+    }
 
     $(document).ready(function() {
+        $('#sheetToogle').change(function()
+        {
+            if ($(this).is(":checked"))
+            {
+                if (check_tinymce)
+                {
+                    tinymce.activeEditor.hide();
+                }
+
+                $('#sheet_editor').removeClass('d-none');
+            }
+            else
+            {
+                if (!check_tinymce)
+                {
+                    tinymce_init();
+                }
+                else
+                {
+                    tinymce.activeEditor.show();
+                }
+
+                $('#sheet_editor').addClass('d-none');
+            }
+
+            if (!check_tinymce)
+            {
+                tinymce_init();
+            }
+        });
         $("#description").attr('rows', 18);
         $(".btn_save_close").click(function() {
             $("#save_close").val(1);
