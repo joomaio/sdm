@@ -1,5 +1,5 @@
 <?php
-namespace unittest\simulate;
+namespace Tests\simulate;
 
 use SPT\File as TestFile;
 

@@ -1,5 +1,5 @@
 <?php
-namespace tests\note\entities;
+namespace Tests\note\entities;
 
 use PHPUnit\Framework\TestCase;
 use SPT\Query;
