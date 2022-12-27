@@ -89,7 +89,7 @@ class AdminNotesVM extends ViewModel
             $total = 0;
             if( !empty($search) )
             {
-                $this->session->set('flashMsg', 'Not Found Note');
+                $this->session->set('flashMsg', 'Notes not found');
             }
         }
 
