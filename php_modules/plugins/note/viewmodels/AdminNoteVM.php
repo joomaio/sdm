@@ -63,13 +63,14 @@ class AdminNoteVM extends ViewModel
     {
         $fields = [
             'description' => [
-                'textarea',
+                'tinymce',
                 'showLabel' => false,
                 'formClass' => 'd-none',
             ],
             'description_sheetjs' => [
-                'hidden',
+                'sheetjs',
                 'showLabel' => false,
+                'formClass' => 'field-sheetjs',
             ],
             'note' => [
                 'textarea',

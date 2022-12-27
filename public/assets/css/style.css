@@ -23,7 +23,7 @@ ul a.submenu-link{
     background: #35414e;
 }
 
-#sheet_editor{
+.field-sheetjs{
     border: 1px solid #c1c4c7;
     height: 80vh;
     width: 100%;

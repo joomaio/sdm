@@ -2,10 +2,6 @@
 $this->theme->add( $this->url .'assets/css/select2.min.css', '', 'select2-css');
 $this->theme->add( $this->url .'assets/css/select2_custom.css', '', 'select2-custom-css');
 $this->theme->add( $this->url. 'assets/js/select2.full.min.js', '', 'bootstrap-select2');
-$this->theme->add($this->url . 'assets/sheetjs/css/xspreadsheet.css', '', 'sheetjs-xspreadsheet-css');
-$this->theme->add($this->url . 'assets/sheetjs/js/xspreadsheet.js', '', 'sheetjs-xspreadsheet-js', 'top');
-$this->theme->add($this->url . 'assets/sheetjs/dist/xlsx.full.min.js', '', 'sheetjs-xlsx-js', 'top');
-$this->theme->add($this->url . 'assets/sheetjs/js/xlsxspread.min.js', '', 'sheetjs-xlsxspread-js', 'top');
 $this->theme->add( $this->url.'assets/tinymce/tinymce.min.js', '', 'tinymce');
 ?>
 <?php echo $this->render('notification'); ?>
@@ -27,7 +23,6 @@ $this->theme->add( $this->url.'assets/tinymce/tinymce.min.js', '', 'tinymce');
                         </div>
                         <?php $this->field('description'); ?>
                         <?php $this->field('description_sheetjs'); ?>
-                        <div id="sheet_editor"></div>
                     </div>
                 </div>
                 
@@ -132,53 +127,17 @@ $this->theme->add( $this->url.'assets/tinymce/tinymce.min.js', '', 'tinymce');
     }
 </style>
 <script>
-    $('form').submit(function() {
-    });
-    var sheet_editor = x_spreadsheet(document.getElementById("sheet_editor"), {
-        view : {
-            height: () => $("#sheet_editor").height(),
-            width: () => $("#sheet_editor").width()
-        },
-        showGrid: true,
-    });
-    
     $(document).ready(function(e) {
-        var ab = $('#description_sheetjs').val();
-        sheet_editor.loadData(stox(XLSX.read(ab, {type: 'base64'})));
 
         $('#form_submit').submit(function(e) {
             $('input#input_title').val($('input#title').val());
-            const file_content = XLSX.write(xtos(sheet_editor.getData()), {type: 'base64', bookType: 'csv'});
-            console.log(file_content);
-            $("#description_sheetjs").val(file_content);
         });
-
-        $('#sheet_editor .x-spreadsheet-toolbar').css('width', 'auto');
-        $(window).resize(function(){
-            $('#sheet_editor .x-spreadsheet-toolbar').css('width', 'auto');
-        });
+        
     });
     
 </script>
 <?php
 $js = <<<Javascript
-    var check_tinymce = false;
-
-    function tinymce_init()
-    {
-        tinymce.init({
-            selector: '#description',
-            plugins: [
-                "advlist autolink lists link image charmap print preview anchor mediaadvanced",
-                "searchreplace visualblocks code fullscreen",
-                "insertdatetime media table contextmenu paste imagetools wordcount"
-            ],
-            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link mediaadvanced",
-            height: '68vh'
-        });
-        check_tinymce = true;
-    }
-
     var new_tags = [];
     $(".js-example-tags").select2({
         tags: true,
@@ -294,13 +253,19 @@ $js = <<<Javascript
             $('#tags').val('')
         }
     }
-    if (!$('#sheetToogle').is(":checked"))
-    {
-        tinymce_init();
-        $('#sheet_editor').addClass('d-none');
-    }
+    
+    
 
     $(document).ready(function() {
+        if (!$('#sheetToogle').is(":checked"))
+        {
+            $('#sheet_description_sheetjs').addClass('d-none');
+            tinymce.activeEditor.hide();
+        }
+        else
+        {
+            tinymce.activeEditor.hide();
+        }
         $('#sheetToogle').change(function()
         {
             if ($(this).is(":checked"))
