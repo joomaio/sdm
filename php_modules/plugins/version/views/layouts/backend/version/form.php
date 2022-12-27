@@ -46,7 +46,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12 d-flex justify-content-end mb-2">
+                        <div class="col-12 d-flex justify-content-end mb-4">
                             <?php $this->field('token'); ?>
                             <input class="form-control rounded-0 border border-1" id="version" type="hidden" name="_method" value="POST">
                             <div class="me-2">

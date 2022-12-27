@@ -42,6 +42,9 @@ class AdminVersionsVM extends ViewModel
 
         if (!empty($search)) {
             $where[] = "(`name` LIKE '%" . $search . "%')";
+            $where[] = "(`version` LIKE '%" . $search . "%')";
+            $where[] = "(`description` LIKE '%" . $search . "%')";
+            $where = [implode(' OR ', $where)];
         }
 
         $start  = ($page - 1) * $limit;
@@ -56,6 +59,8 @@ class AdminVersionsVM extends ViewModel
         if (!$result) {
             $result = [];
             $total = 0;
+            $mgs = $search ? 'Version not found!' : '';
+            $this->session->set('flashMsg', $mgs);
         }
         $tag_feedback = $this->TagEntity->findOne(["`name` = 'feedback'"]);
 

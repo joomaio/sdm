@@ -42,8 +42,23 @@ class AdminFeedbackVM extends ViewModel
 
         $where = [];
 
-        if (!empty($search)) {
-            $where[] = "(`title` LIKE '%" . $search . "%')";
+        if (!empty($search)) 
+        {
+            $tags = $this->TagEntity->list(0, 0, ["`name` LIKE '%". $search ."%' "]);
+            $where[] = "(`description` LIKE '%". $search ."%')";
+            $where[] = "(`note` LIKE '%". $search ."%')";
+            $where[] = "(`title` LIKE '%". $search ."%')";
+            if ($tags)
+            {
+                foreach ($tags as $tag)
+                {
+                    $where[] = "(`tags` = '" . $tag['id'] . "'" .
+                    " OR `tags` LIKE '%" . ',' . $tag['id'] . "'" .
+                    " OR `tags` LIKE '" . $tag['id'] . ',' . "%'" .
+                    " OR `tags` LIKE '%" . ',' . $tag['id'] . ',' . "%' )";
+                }
+            }
+            $where = [implode(" OR ", $where)];
         }
 
         $start  = ($page - 1) * $limit;
@@ -92,6 +107,8 @@ class AdminFeedbackVM extends ViewModel
         if (!$result) {
             $result = [];
             $total = 0;
+            $mgs = $search ? 'Feedback not found!' : '';
+            $this->session->set('flashMsg', $mgs);
         }
 
         
