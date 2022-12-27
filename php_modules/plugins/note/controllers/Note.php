@@ -82,7 +82,7 @@ class Note extends Admin {
 
         if (!$title)
         {
-            $this->session->set('flashMsg', 'Error: Title can\'t empty! ');
+            $this->session->set('flashMsg', 'Error: Title is required! ');
             $this->app->redirect(
                 $this->router->url('note/0')
             );
@@ -188,6 +188,15 @@ class Note extends Admin {
                 }
             }
             $tags = implode(',', $tags_tmp);
+
+            if (!$title)
+            {
+                $this->session->set('flashMsg', 'Error: Title is required! ');
+                $this->app->redirect(
+                    $this->router->url('note/0')
+                );
+            }
+
             if ($editor == 'sheetjs')
             {
                 $description = base64_decode($description_sheetjs);

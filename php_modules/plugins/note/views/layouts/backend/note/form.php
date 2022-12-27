@@ -9,7 +9,7 @@ $this->theme->add( $this->url.'assets/tinymce/tinymce.min.js', '', 'tinymce');
     <form enctype="multipart/form-data" action="<?php echo $this->link_form . '/' . $this->id ?>" method="post" id="form_submit">
         <div class="row g-3">
             <div class="col-lg-8 col-sm-12">
-                <input id="input_title" type="hidden" name="title">
+                <input id="input_title" type="hidden" class="d-none" name="title" required>
                 <div class="row">
                     <div class="mb-3 col-lg-12 col-sm-12 mx-auto">
                         <div class="fw-bold d-flex  mb-2">
@@ -41,7 +41,7 @@ $this->theme->add( $this->url.'assets/tinymce/tinymce.min.js', '', 'tinymce');
                         <button type="submit" class="btn btn-outline-success btn_save_close">Save & Close</button>
                     </div>
                     <div class="">
-                        <button type="submit" class="btn btn-outline-success">Apply</button>
+                        <button type="submit" class="btn btn-outline-success btn_apply">Apply</button>
                     </div>
                 </div>
             </div>
@@ -69,7 +69,7 @@ $this->theme->add( $this->url.'assets/tinymce/tinymce.min.js', '', 'tinymce');
                         </select>
                     </div>
                 </div>
-                <label class="form-label fw-bold pt-3">Attachments:</label>
+                <label class="form-label fw-bold pt-2">Attachments:</label>
                 <input name="files[]" type="file" multiple id="file" class="form-control">
                 <div class="d-flex flex-wrap pt-4">
                     <?php foreach ($this->attachments as $item) :
@@ -131,17 +131,35 @@ $this->theme->add( $this->url.'assets/tinymce/tinymce.min.js', '', 'tinymce');
 <script>
     $(document).ready(function(e) {
 
-        $('#form_submit').submit(function(e) {
-            $('input#input_title').val($('input#title').val());
-        });
-
-        $(".btn_save_close").click(function() {
+        $(".btn_save_close").click(function(e) {
+            e.preventDefault();
             $("#save_close").val(1);
+            $('input#input_title').val($('input#title').val());
+            if (!$('input#title').val())
+            {
+                alert("Please enter a valid Title");
+                $('html, body').animate({
+                    scrollTop: 0
+                });
+                $('input#title').focus();
+                return false;
+            }
             $('#form_submit').submit();
         });
 
-        $(".btn_apply").click(function() {
+        $(".btn_apply").click(function(e) {
+            e.preventDefault();
             $("#save_close").val(0);
+            $('input#input_title').val($('input#title').val());
+            if (!$('input#title').val())
+            {
+                alert("Please enter a valid Title");
+                $('html, body').animate({
+                    scrollTop: 0
+                });
+                $('input#title').focus();
+                return false;
+            }
             $('#form_submit').submit();
         });
         

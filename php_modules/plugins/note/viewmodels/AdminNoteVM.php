@@ -50,7 +50,7 @@ class AdminNoteVM extends ViewModel
         $this->set('data', $data, true);
         $this->set('data_tags', $data_tags, true);
         $this->set('attachments', $attachments);
-        $this->set('title_page_edit', $data ? $data['title'] : 'New Note', true);
+        $this->set('title_page_edit', $data && $data['title'] ? $data['title'] : 'New Note', true);
         $this->set('url', $this->router->url(), true);
         $this->set('link_list', $this->router->url('notes'), true);
         $this->set('link_form', $this->router->url('note'), true);
