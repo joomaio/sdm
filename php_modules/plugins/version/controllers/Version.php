@@ -58,7 +58,7 @@ class Version extends Admin
 
         if (!$name)
         {
-            $this->session->set('flashMsg', 'Error: Name can\'t empty! ');
+            $this->session->set('flashMsg', 'Error: Title is required! ');
             $this->app->redirect(
                 $this->router->url('versions')
             );
@@ -67,7 +67,7 @@ class Version extends Admin
         $findOne = $this->VersionEntity->findOne(['name = "'. $name. '"']);
         if ($findOne)
         {
-            $this->session->set('flashMsg', 'Error: Version name is already in use! ');
+            $this->session->set('flashMsg', 'Error: Title already used! ');
             $this->app->redirect(
                 $this->router->url('versions')
             );
@@ -87,7 +87,7 @@ class Version extends Admin
 
         if( !$newId )
         {
-            $msg = 'Error: Create Failed!';
+            $msg = 'Error: Created failed!';
             $this->session->set('flashMsg', $msg);
             $this->app->redirect(
                 $this->router->url('versions')
@@ -95,7 +95,7 @@ class Version extends Admin
         }
         else
         {
-            $this->session->set('flashMsg', 'Create Successfully!');
+            $this->session->set('flashMsg', 'Created Successfully!');
             $this->app->redirect(
                 $this->router->url('versions')
             );
@@ -127,7 +127,7 @@ class Version extends Admin
             $findOne = $this->VersionEntity->findOne(['name = "'. $name. '"', 'id <> '. $ids]);
             if ($findOne)
             {
-                $this->session->set('flashMsg', 'Error: Version name is already in use! ');
+                $this->session->set('flashMsg', 'Error: Title already used! ');
                 $this->app->redirect(
                     $this->router->url('versions')
                 );
@@ -145,14 +145,14 @@ class Version extends Admin
             
             if($try) 
             {
-                $this->session->set('flashMsg', 'Edit Successfully');
+                $this->session->set('flashMsg', 'Updated Successfully');
                 $this->app->redirect(
                     $this->router->url('versions')
                 );
             }
             else
             {
-                $msg = 'Error: Save Failed';
+                $msg = 'Error: Updated Failed';
                 $this->session->set('flashMsg', $msg);
                 $this->app->redirect(
                     $this->router->url('versions')
