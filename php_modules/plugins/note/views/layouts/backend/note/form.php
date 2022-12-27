@@ -27,7 +27,7 @@ $this->theme->add( $this->url.'assets/tinymce/tinymce.min.js', '', 'tinymce');
                         </div>
                         <?php $this->field('description'); ?>
                         <?php $this->field('description_sheetjs'); ?>
-                        <div id="sheet_editor" class="<?php echo ($this->data && $this->data['editor'] == 'sheetjs') ? '' : 'd-none';?>"></div>
+                        <div id="sheet_editor" class=" <?php echo ($this->data && $this->data['editor'] == 'sheetjs') ? '' : 'd-none';?>"></div>
                     </div>
                 </div>
                 
@@ -135,7 +135,13 @@ $this->theme->add( $this->url.'assets/tinymce/tinymce.min.js', '', 'tinymce');
     $('form').submit(function() {
         $('input#input_title').val($('input#title').val());
     });
-    var sheet_editor = x_spreadsheet(document.getElementById("sheet_editor"));
+    var sheet_editor = x_spreadsheet(document.getElementById("sheet_editor"), {
+        view : {
+            height: () => $("#sheet_editor").height(),
+            width: () => $("#sheet_editor").width()
+        },
+        showGrid: true,
+    });
     
     $(document).ready(function(e) {
         var ab = $('#description_sheetjs').val();
@@ -147,9 +153,11 @@ $this->theme->add( $this->url.'assets/tinymce/tinymce.min.js', '', 'tinymce');
         });
 
         $('#sheet_editor .x-spreadsheet-toolbar').css('width', 'auto');
-        $('#sheet_editor .x-spreadsheet-sheet').css('width', 'auto');
-        $('#sheet_editor .x-spreadsheet-bottombar').css('width', 'auto');
+        $(window).resize(function(){
+            $('#sheet_editor .x-spreadsheet-toolbar').css('width', 'auto');
+        });
     });
+    
 </script>
 <?php
 $js = <<<Javascript
@@ -165,7 +173,7 @@ $js = <<<Javascript
                 "insertdatetime media table contextmenu paste imagetools wordcount"
             ],
             toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link mediaadvanced",
-            height: '60vh'
+            height: '68vh'
         });
         check_tinymce = true;
     }
