@@ -26,27 +26,25 @@ class Setting extends Admin
     {
         $this->isLoggedIn();
         $fields = [
-            'version_format_x',
-            'version_format_y',
-            'version_format_z',
+            'version_level',
+            'version_level_deep',
         ];
 
         $try = true;
         foreach ($fields as $key)
         {
-            $value = $this->request->post->get($key, '', 'string');
-            if ($value && substr_count($value, 'x') != strlen($value))
+            if ($this->request->post->get($key, '', 'int') < 1)
             {
-                $this->session->set('flashMsg', 'Invalid format, version format only \'x\' character');
-                $this->app->redirect( $this->router->url('setting-version'));
+                $this->session->set('flashMsg', 'Invalid setting');
+                return $this->app->redirect( $this->router->url('setting-version'));
             }
-            $try = $this->OptionModel->set($key, $this->request->post->get($key, '', 'string'));
+            $try = $this->OptionModel->set($key, $this->request->post->get($key, '', 'int'));
             if (!$try) break;
         }
 
-        $msg = $try ? 'Save Done.' : 'Save Fail';
+        $msg = $try ? 'Save Successfully.' : 'Save Fail';
         $this->session->set('flashMsg', $msg);
-        $this->app->redirect( $this->router->url('setting-version'));
+        return $this->app->redirect( $this->router->url('setting-version'));
     }
 
 }
