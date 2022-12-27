@@ -40,7 +40,7 @@ class NoteEntity extends Entity
                     'null' => 'YES',
                 ],
                 'note' => [
-                    'type' => 'longtext',
+                    'type' => 'text',
                     'null' => 'YES',
                 ],
                 'editor' => [
