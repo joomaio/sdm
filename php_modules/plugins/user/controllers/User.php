@@ -126,7 +126,7 @@ class User extends Admin
         }
         else
         {
-            $this->session->set('flashMsg', 'Error: Confirm Password Failed');
+            $this->session->set('flashMsg', 'Error: Confirm Password Invalid');
             return $this->app->redirect(
                 $this->router->url('user/'.$id)
             );
@@ -138,7 +138,7 @@ class User extends Admin
 
         if($try) 
         {
-            $this->session->set('flashMsg', 'Edit Successfully');
+            $this->session->set('flashMsg', 'Updated Successfully');
             $link = $save_close ? '' : 'profile';
             return $this->app->redirect(
                 $this->router->url($link)
@@ -146,7 +146,7 @@ class User extends Admin
         }
         else
         {
-            $msg = 'Error: Save Failed';
+            $msg = 'Error: Updated Fail';
             $this->session->set('flashMsg', $msg);
             return $this->app->redirect(
                 $this->router->url('profile')
@@ -189,7 +189,7 @@ class User extends Admin
         //check confirm password
         if($this->request->post->get('password', '') != $this->request->post->get('confirm_password', ''))
         {
-            $this->session->set('flashMsg', 'Error: Confirm Password Failed');
+            $this->session->set('flashMsg', 'Error: Confirm Password Invalid');
             return $this->app->redirect(
                 $this->router->url('user/0')
             );
@@ -210,7 +210,7 @@ class User extends Admin
 
         if( !$newId )
         {
-            $msg = 'Error: Save Failed';
+            $msg = 'Error: Created Fail';
             $this->session->set('flashMsg', $msg);
             return $this->app->redirect(
                 $this->router->url('user/0')
@@ -219,7 +219,7 @@ class User extends Admin
         else
         {
             $this->UserGroupModel->addUserMap($newId);
-            $this->session->set('flashMsg', 'Create Successfully');
+            $this->session->set('flashMsg', 'Created Successfully');
             $link = $save_close ? 'users' : 'user/'. $newId;
             return $this->app->redirect(
                 $this->router->url($link)
@@ -233,33 +233,18 @@ class User extends Admin
         $save_close = $this->request->post->get('save_close', '', 'string');
        
         // TODO valid the request input
+        $groups = $this->request->post->get('groups', [], 'array');
+        $access = $this->UserModel->getAccessByGroup($groups);
 
-        if( is_array($ids) && $ids != null)
-        {
-            // publishment
-            $count = 0; 
-            $action = $this->request->post->get('published', '', 'string');
-        
-            if (in_array($this->user->get('id'), $ids) && $action == 'unactive')
-            {
-                $this->session->set('flashMsg', 'Error: You cannot unactivate your account');
-                return $this->app->redirect(
-                    $this->router->url('users') 
-                );
-            }
-
-            foreach($ids as $id)
-            {
-                $toggle = $this->UserEntity->togglePublishment($id, $action);
-                $count++;
-            }
-            $this->session->set('flashMsg', $count.' changed record(s)');
-            return $this->app->redirect(
-                $this->router->url('users')
-            );
-        }
         if(is_numeric($ids) && $ids)
         {
+            if ($ids == $this->user->get('id') && (!in_array('user_manager', $access) || !in_array('usergroup_manager', $access)))
+            {
+                $this->session->set('flashMsg', 'Error: You can\'t delete your access group');
+                return $this->app->redirect(
+                    $this->router->url('user/'. $ids)
+                );
+            }
 
             $try = MW::fire('validation', ['ValidateUser'], []);
             if (!$try)
@@ -290,7 +275,7 @@ class User extends Admin
             }
             else
             {
-                $this->session->set('flashMsg', 'Error: Confirm Password Failed');
+                $this->session->set('flashMsg', 'Error: Confirm Password Invalid');
                 return $this->app->redirect(
                     $this->router->url('user/'.$ids)
                 );
@@ -304,7 +289,7 @@ class User extends Admin
             if($try) 
             {
                 $this->UserGroupModel->updateUserMap($user);
-                $this->session->set('flashMsg', 'Edit Successfully');
+                $this->session->set('flashMsg', 'Updated Successfully');
                 $link = $save_close ? 'users' : 'user/'. $ids;
                 return $this->app->redirect(
                     $this->router->url($link)
