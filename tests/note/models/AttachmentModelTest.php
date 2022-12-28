@@ -64,8 +64,8 @@ class AttachmentModelTest extends TestCase
         {
             static::$session_id = rand();
         } 
-        $session = new Session( new DatabaseSession( new DatabaseSessionEntity($query), static::$session_id ) );
-        $this->container->set('session', $session);
+        $this->session = new Session( new DatabaseSession( new DatabaseSessionEntity($query), static::$session_id ) );
+        $this->container->set('session', $this->session);
 
         // Simulate Model
         $this->AttachmentModel = new AttachmentModel($this->container);
@@ -73,7 +73,7 @@ class AttachmentModelTest extends TestCase
         // Simulate User
         $user = new User( new UserAdapter() );
         $user->init([
-            'session' => $session,
+            'session' => $this->session,
             'entity' => new  UserEntity($query)
         ]);
         $this->container->share('user', $user, true);
@@ -100,9 +100,18 @@ class AttachmentModelTest extends TestCase
         $this->assertNotFalse($try);
     }
 
-    public function testUploadFail()
+    /**
+     * @dataProvider prepareDataFalse()
+     */
+    public function testUploadFail($file)
     {
-        $this->assertIsArray([]);
+        try {
+            $try = $this->AttachmentModel->upload($file, $this->note_id);
+        } catch (\Throwable $th) {
+            $try = false;
+        }
+        
+        $this->assertFalse($try);
     }
 
     public function prepareDataTrue()
@@ -134,13 +143,13 @@ class AttachmentModelTest extends TestCase
     public function prepareDataFalse()
     {
         // create file sample
-        $try = file_put_contents(ROOT_PATH. 'test.png', '');
-        static::$file = ROOT_PATH. 'test.png';
+        $try = file_put_contents(ROOT_PATH. 'test.sql', '');
+        static::$file[] = ROOT_PATH. 'test.sql';
         $file = [
-            'name' => 'test.png',
-            'tmp_name' => ROOT_PATH. 'test.png',
-            'type' => mime_content_type(ROOT_PATH. 'test.png'),
-            'size' => filesize(ROOT_PATH. 'test.png'),
+            'name' => 'test.sql',
+            'tmp_name' => ROOT_PATH. 'test.sql',
+            'type' => mime_content_type(ROOT_PATH. 'test.sql'),
+            'size' => filesize(ROOT_PATH. 'test.sql'),
         ];
 
         return [
