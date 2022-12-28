@@ -97,8 +97,8 @@ class NoteTest extends TestCase
         $try = $this->app->user->login(USERNAME, PASSWORD);
 
         //simulate request
-        $request = new Request();
-        $this->container->set('request', $request);
+        $this->request = new Request();
+        $this->container->set('request', $this->request);
 
         //simulate controller
         $this->NoteController = new Note($this->container);
@@ -143,6 +143,55 @@ class NoteTest extends TestCase
         {
             $this->assertEquals($url, SITE_URL.'note/0');
         }
+    }
+
+    /**
+     * @depends testAdd
+     * @dataProvider prepareNote()
+     */
+    public function testUpdate($data, $status)
+    {
+        $note = $this->NoteEntity->findOne(['id > 0']);
+        if (!$note)
+        {
+            $note = $this->NoteEntity->add(['title' => 'Note Test']);
+        }
+        else
+        {
+            $note = $note['id'];
+        }
+        
+        $try = true;
+        if (!$note)
+        {
+            $try = false;
+        }
+        $this->assertTrue($try);
+
+        foreach($data as $key => $value)
+        {
+            if($key != 'files')
+            {
+                $_POST[$key] = $value;
+            }
+            else
+            {
+                $_FILES[$key] = $value;
+            }
+        }
+
+        $this->request->set('urlVars', ['id' => $note]);
+
+        $this->NoteController->update();
+        $session = $this->session->get('flashMsg', '');
+        if ($status)
+        {
+            $this->assertEquals($session, 'Edit Successfully');
+        }
+        else
+        {
+            $this->assertNotEquals($session, 'Edit Successfully');
+        }      
     }
 
     public function prepareNote()
