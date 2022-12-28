@@ -1,4 +1,4 @@
-<phpunit bootstrap="vendor/autoload.php" stderr="true" stopOnError="true" stopOnFailure="true">
+<phpunit bootstrap="vendor/autoload.php" stderr="true" stopOnError="true">
 
     <testsuites>
         <testsuite name="PhpUnit test">
