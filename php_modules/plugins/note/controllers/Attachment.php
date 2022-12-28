@@ -26,19 +26,19 @@ class Attachment extends Admin {
             }
             else
             {
-                $this->app->redirect(
+                return $this->app->redirect(
                     $this->router->url('note/'. $item['note_id']),
                 );
             }
             $this->session->set('flashMsg', $count.' deleted file(s)');
-            $this->app->redirect(
+            return $this->app->redirect(
                 $this->router->url('note/'. $item['note_id']),
             );
         }
         else
         {
             $this->session->set('flashMsg', 'Invalid Attachment');
-            $this->app->redirect(
+            return $this->app->redirect(
                 $this->router->url('notes'),
             );
         }
@@ -54,7 +54,7 @@ class Attachment extends Admin {
         if(empty($id))
         {
             $this->session->set('flashMsg', 'Invalid Attachment');
-            $this->app->redirect(
+            return $this->app->redirect(
                 $this->router->url('notes'),
             );
         }
@@ -84,13 +84,13 @@ class Attachment extends Admin {
             }
 
             $this->session->set('flashMsg', 'Not Found File Attachment!');
-            $this->app->redirect(
+            return $this->app->redirect(
                 $this->router->url('note/'. $item['note_id']),
             );
         }
 
         $this->session->set('flashMsg', 'Invalid Attachment!');
-        $this->app->redirect(
+        return $this->app->redirect(
             $this->router->url('notes'),
         );
         

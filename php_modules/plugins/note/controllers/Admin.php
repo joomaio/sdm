@@ -18,7 +18,7 @@ class Admin extends MVController
     {
         if( !$this->user->get('id') )
         {
-            $this->app->redirect(
+            return $this->app->redirect(
                 $this->router->url(
                     'login'
                 )
