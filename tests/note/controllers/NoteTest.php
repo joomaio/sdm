@@ -37,6 +37,7 @@ class NoteTest extends TestCase
     static $session_id;
 
     static $newID;
+    static $removeID;
     static $file;
 
     protected function setUp(): void
@@ -151,21 +152,21 @@ class NoteTest extends TestCase
      */
     public function testUpdate($data, $status)
     {
-        $note = $this->NoteEntity->findOne(['id > 0']);
-        if (!$note)
-        {
-            $note = $this->NoteEntity->add(['title' => 'Note Test']);
-        }
-        else
-        {
-            $note = $note['id'];
-        }
+        $newNote = $this->NoteEntity->add([
+            'title' => 'Note Test',
+            'tags' => '',
+            'created_by' => 0,
+            'modified_by' => 0,
+        ]);
+
+        $this->assertNotFalse($newNote);
         
         $try = true;
-        if (!$note)
+        if (!$newNote)
         {
             $try = false;
         }
+        static::$newID = $newNote;
         $this->assertTrue($try);
 
         foreach($data as $key => $value)
@@ -180,18 +181,73 @@ class NoteTest extends TestCase
             }
         }
 
-        $this->request->set('urlVars', ['id' => $note]);
+        $this->request->set('urlVars', ['id' => $newNote]);
 
         $this->NoteController->update();
         $session = $this->session->get('flashMsg', '');
         if ($status)
         {
-            $this->assertEquals($session, 'Edit Successfully');
+            $this->assertEquals($session, 'Updated successfully');
         }
         else
         {
-            $this->assertNotEquals($session, 'Edit Successfully');
+            $this->assertNotEquals($session, 'Updated successfully');
         }      
+    }
+
+    public function testDelete()
+    {
+        $id = $this->prepareDelete();
+        $this->request->set('urlVars', ['id' => $id]);
+        $this->NoteController->delete();
+        
+        $message = $this->session->get('flashMsg', '');
+        return $this->assertEquals($message, '1 deleted record(s)');
+    }
+
+    public function testMulDelete()
+    {
+        $count = 2;
+        $id = $this->prepareDelete($count);
+        $this->request->set('urlVars', ['id' => '']);
+
+        $_POST['ids'] = $id;
+
+        $this->NoteController->delete();
+        
+        $message = $this->session->get('flashMsg', '');
+        return $this->assertEquals($message, $count.' deleted record(s)');
+    }
+
+    public function prepareDelete($number = 1)
+    {
+        if ($number == 1)
+        {
+            $tmp = $this->NoteEntity->add([
+                'title' => 'Note Test '. strtotime('now'),
+                'tags' => '',
+                'created_by' => 0,
+                'modified_by' => 0,
+            ]);
+
+            return $tmp ? $tmp : 0;
+        }
+        else
+        {
+            $result = [];
+            for ($i=0; $i < $number; $i++) { 
+                # code...
+                $tmp = $this->NoteEntity->add([
+                    'title' => 'Note Test '. $i .'_'. strtotime('now'),
+                    'tags' => '',
+                    'created_by' => 0,
+                    'modified_by' => 0,
+                ]);
+                $result[] = $tmp ? $tmp : 0;
+            }
+            return $result;
+        }
+
     }
 
     public function prepareNote()
@@ -236,7 +292,5 @@ class NoteTest extends TestCase
         {
             $this->NoteEntity->remove(static::$newID);
         }
-
-        static::$newID = '';
     }
 }
