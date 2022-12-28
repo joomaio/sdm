@@ -21,7 +21,6 @@
 											<th>Name</th>
 											<th>Right Access</th>
 											<th>Status</th>
-											<th>Action</th>
 										</tr>
 									</thead>
 									<tbody>

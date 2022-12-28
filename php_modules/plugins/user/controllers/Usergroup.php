@@ -63,7 +63,7 @@ class Usergroup extends Admin
         
         if( !$newId )
         {
-            $msg = 'Error: Creat Failed';
+            $msg = 'Error: Created Fail';
             $this->session->set('flashMsg', $msg);
             return $this->app->redirect(
                 $this->router->url('user-group/0')
@@ -71,7 +71,7 @@ class Usergroup extends Admin
         }
         else
         {
-            $this->session->set('flashMsg', 'Creat Successfully');
+            $this->session->set('flashMsg', 'Created Successfully');
             $link = $save_close ? 'user-groups' : 'user-group/'. $newId;
             return $this->app->redirect(
                 $this->router->url($link)
@@ -84,25 +84,7 @@ class Usergroup extends Admin
         $sth = $this->validateId(); 
         $save_close = $this->request->post->get('save_close', '', 'string');
         
-        if( is_array($sth) )
-        {
-            // publishment
-            $count = 0;
-            $action = $this->request->post->get('published', '', 'string');
-
-            foreach($sth as $id)
-            {
-                if( $this->GroupEntity->toggleActive($id, $action) )
-                {
-                    $count++;
-                }
-           }
-
-            $this->session->set('flashMsg', $count.' changed record(s)');
-            return $this->app->redirect( $this->router->url('user-groups'));
-
-        }
-        elseif( is_numeric($sth) )
+        if( is_numeric($sth) )
         {   
             $try = MW::fire('validation', ['ValidateGroup'], []);
             if (!$try)
@@ -115,6 +97,14 @@ class Usergroup extends Admin
             }
 
             $status = $this->request->post->get('status', 0, 'string');
+            if (!$this->UserGroupModel->checkAccessGroup($sth, $this->request->post->get('access', [], 'array')))
+            {
+                $this->session->set('flashMsg', 'Error: You can\'t delete your access group!');
+                return $this->app->redirect(
+                    $this->router->url('user-group/'. $sth)
+                );
+            }
+
             $user = [
                 'name' => $this->request->post->get('name', '', 'string'),
                 'description' => $this->request->post->get('description', '', 'string'),
@@ -126,7 +116,7 @@ class Usergroup extends Admin
             ];
             $try = $this->GroupEntity->update( $user );
     
-            $msg = $try ? 'Edit Successfully' : 'Edit Failed';
+            $msg = $try ? 'Updated Successfully' : 'Updated Fail';
             $this->session->set('flashMsg', $msg);
     
             if ($try)
@@ -161,6 +151,14 @@ class Usergroup extends Admin
         {
             foreach($sth as $id)
             {
+                if (!$this->UserGroupModel->checkAccessGroup($id, []))
+                {
+                    $this->session->set('flashMsg', 'Error: You can\'t delete your access group!');
+                    return $this->app->redirect(
+                        $this->router->url('user-groups')
+                    );
+                }
+
                 if( $this->GroupEntity->remove( $id ) )
                 {
                     $this->UserGroupModel->removeByGroup($id);
@@ -170,6 +168,14 @@ class Usergroup extends Admin
         }
         elseif( is_numeric($sth) )
         {
+            if (!$this->UserGroupModel->checkAccessGroup($sth, []))
+            {
+                $this->session->set('flashMsg', 'Error: You can\'t delete your access group!');
+                return $this->app->redirect(
+                    $this->router->url('user-groups')
+                );
+            }
+
             if( $this->GroupEntity->remove($sth ) )
             {
                 $this->UserGroupModel->removeByGroup($sth);
