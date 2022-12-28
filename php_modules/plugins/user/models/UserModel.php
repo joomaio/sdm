@@ -89,4 +89,20 @@ class UserModel extends Base
         
         return true;
     }
+
+    public function getAccessByGroup($groups)
+    {
+        $access = [];
+        foreach($groups as $group)
+        {
+            $group_tmp = $this->GroupEntity->findByPK($group);
+            if ($group_tmp)
+            {
+                $access_tmp = $group_tmp['access'] ? json_decode($group_tmp['access'], true) : [];
+                $access = array_merge($access, $access_tmp);
+            }
+        }
+
+        return $access;
+    }
 }
