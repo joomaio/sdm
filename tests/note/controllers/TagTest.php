@@ -144,7 +144,7 @@ class TagTest extends TestCase
         elseif (!$name)
         {
             $status = 'fail';
-            $message = 'Error: Name invalid!';
+            $message = 'Name invalid';
         }
         else
         {
