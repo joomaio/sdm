@@ -3,7 +3,9 @@
     <testsuites>
         <testsuite name="PhpUnit test">
             <directory>tests/ready</directory>
-            <directory>tests/note</directory>
+            <directory>tests/note/entities</directory>
+            <directory>tests/note/models</directory>
+            <directory>tests/note/controllers</directory>
         </testsuite>
     </testsuites>
 
