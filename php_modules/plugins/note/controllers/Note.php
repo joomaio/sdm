@@ -120,7 +120,7 @@ class Note extends Admin {
         }
         else
         {
-            if (is_array($files['name']) && $files['name'][0])
+            if ($files && is_array($files['name']) && $files['name'][0])
             {
                 for ($i=0; $i < count($files['name']); $i++) 
                 { 
@@ -223,7 +223,7 @@ class Note extends Admin {
 
             if($try)
             {
-                if (is_array($files['name']) && $files['name'][0])
+                if ($files && is_array($files['name']) && $files['name'][0])
                 {
                     for ($i=0; $i < count($files['name']); $i++) 
                     { 
