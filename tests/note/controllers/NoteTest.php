@@ -105,16 +105,6 @@ class NoteTest extends TestCase
         $this->NoteController = new Note($this->container);
     }
     
-    // public function testDetail()
-    // {
-    //     $id = $this->NoteEntity->list(0, 1, [], 'id desc');
-    //     if ($try)
-    //     {
-    //         static::$att_id = $try;
-    //     }
-    //     $this->assertNotFalse($try);
-    // }
-
     /**
      * @dataProvider prepareNote()
      */
