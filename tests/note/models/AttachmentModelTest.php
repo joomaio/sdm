@@ -156,7 +156,54 @@ class AttachmentModelTest extends TestCase
             [$file],
         ];
     }
-    
+
+    public function prepareFile()
+    {
+        // create file sample
+        $try = file_put_contents(ROOT_PATH. 'test_remove.png', '');
+        $file[] = [
+            'name' => 'test_remove.png',
+            'tmp_name' => ROOT_PATH. 'test_remove.png',
+            'type' => mime_content_type(ROOT_PATH. 'test_remove.png'),
+            'size' => filesize(ROOT_PATH. 'test_remove.png'),
+        ];
+
+        return [
+            $file,
+        ];
+    }
+
+    /**
+     * @depends testUploadTrue
+     * @dataProvider prepareFile()
+     */
+    public function testRemoveTrue($file)
+    {
+        $id = $this->AttachmentModel->upload($file, $this->note_id);
+
+        if (!$id)
+        {
+            $try = false;
+        }
+        else
+        {
+            static::$file[] = $file['tmp_name'];
+            $try = $this->AttachmentModel->remove($id);
+        }
+
+        $this->assertTrue($try);
+    }
+
+    /**
+     * @depends testUploadTrue
+     */
+    public function testRemoveFalse()
+    {
+        $id = -1;
+        $try = $this->AttachmentModel->remove($id);
+        $this->assertFalse($try);
+    }
+
     protected function tearDown(): void
     {
         if (static::$file)
@@ -179,11 +226,13 @@ class AttachmentModelTest extends TestCase
                 }
             }
         }
-        
+        static::$file = [];
 
         if (static::$att_id)
         {
             $this->AttachmentEntity->remove(static::$att_id);
         }
+
+        static::$att_id = '';
     }
 }
