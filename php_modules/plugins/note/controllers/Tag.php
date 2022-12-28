@@ -42,7 +42,7 @@ class Tag extends Admin {
             return $this->app->response(
                 [
                     'status'  => 'fail',
-                    'data'    => $data,
+                    'data'    => '',
                     'message' => 'Name invalid',
                 ]);
         }
