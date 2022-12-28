@@ -108,7 +108,8 @@ class AttachmentTest extends TestCase
 
         $this->AttachmentController->delete($id);
         $find = $this->AttachmentEntity->findByPK($id);
-        var_dump($find);
+    
+        $this->assertFalse($find);
     }
 
     public function prepareDelete()
@@ -123,58 +124,4 @@ class AttachmentTest extends TestCase
         return $id ? $id : 0;
     }
 
-    /**
-     * @dataProvider prepareTag()
-     */
-    public function testAdd($name)
-    {
-        $_POST['name'] = $name;
-        $find = $this->TagEntity->findOne(['name = "'. $name .'"']);
-        if ($find && $name)
-        {
-            $status = 'fail';
-            $message = 'Error: Title is already in use!';
-        }
-        elseif (!$name)
-        {
-            $status = 'fail';
-            $message = 'Name invalid';
-        }
-        else
-        {
-            $status = 'success';
-            $message = 'Create Tag sucess';
-        }
-        $this->AttachmentController->add();
-        $content = $this->app->get('respone_content');
-        
-        if ($content['data'])
-        {
-            static::$newID = $content['data']['id'];
-        }
-        $this->assertEquals($content['status'], $status);
-        $this->assertEquals($content['message'], $message);
-
-    }
-
-    public function prepareTag()
-    {
-        return [
-            ['test1'],
-            [''],
-            ['test2'],
-            ['test3'],
-            ['test2'],
-        ];
-    }
-    
-
-    protected function tearDown(): void
-    {
-        if (static::$newID)
-        {
-            $this->TagEntity->remove(static::$newID);
-        }
-        $_POST = array();
-    }
 }
