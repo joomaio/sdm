@@ -26,7 +26,7 @@ class Note extends Admin
         if(!empty($id) && !$exist) 
         {
             $this->session->set('flashMsg', "Invalid Relate Note");
-            $this->app->redirect(
+            return $this->app->redirect(
                 $this->router->url('detail-request/'. $request_id)
             );
         }
@@ -156,7 +156,7 @@ class Note extends Admin
 
         if( is_array($ids) && $ids != null)
         {
-            $this->app->redirect(
+            return $this->app->redirect(
                 $this->router->url('detail-request/'. $request_id)
             );
         }
@@ -172,7 +172,7 @@ class Note extends Admin
                 if ($findOne)
                 {
                     $this->session->set('flashMsg', 'Error: Duplicate Relate Note');
-                    $this->app->redirect(
+                    return $this->app->redirect(
                         $this->router->url('detail-request/'. $request_id),
                     );
                 }
@@ -187,7 +187,7 @@ class Note extends Admin
             if($try) 
             {
                 $this->session->set('flashMsg', 'Edit Relate Note Successfully');
-                $this->app->redirect(
+                return $this->app->redirect(
                     $this->router->url('detail-request/'. $request_id), 
                 );
             }
@@ -195,7 +195,7 @@ class Note extends Admin
             {
                 $msg = 'Error: Save Relate Note Failed';
                 $this->session->set('flashMsg', $msg);
-                $this->app->redirect(
+                return $this->app->redirect(
                     $this->router->url('detail-request/'. $request_id .'/'. $ids)
                 );
             }
@@ -226,7 +226,7 @@ class Note extends Admin
             }
         }  
         
-        $this->app->response([
+        return $this->app->response([
             'result' => 'ok',
             'message' => $count.' deleted record(s)',
         ], 200);
@@ -245,7 +245,7 @@ class Note extends Admin
             if(count($ids)) return $ids;
 
             $this->session->set('flashMsg', 'Invalid Relate Note');
-            $this->app->redirect(
+            return $this->app->redirect(
                 $this->router->url('detail-request/'. $request_id),
             );
         }
@@ -263,7 +263,7 @@ class Note extends Admin
         if(empty($id))
         {
             $this->session->set('flashMsg', 'Invalid Request');
-            $this->app->redirect(
+            return $this->app->redirect(
                 $this->router->url('admin'),
             );
         }

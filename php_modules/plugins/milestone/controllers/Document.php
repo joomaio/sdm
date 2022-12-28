@@ -22,7 +22,7 @@ class Document extends Admin
         if (!$request)
         {
             $this->session->set('flashMsg', 'Invalid Request');
-            $this->app->redirect(
+            return $this->app->redirect(
                 $this->router->url('milestones')
             );
         }
@@ -96,7 +96,7 @@ class Document extends Admin
         if(empty($id))
         {
             $this->session->set('flashMsg', 'Invalid Request');
-            $this->app->redirect(
+            return $this->app->redirect(
                 $this->router->url('milestones'),
             );
         }

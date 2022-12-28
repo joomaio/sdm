@@ -158,7 +158,7 @@ class Version extends Admin
             if(count($ids)) return $ids;
 
             $this->session->set('flashMsg', 'Invalid Task');
-            $this->app->redirect(
+            return $this->app->redirect(
                 $this->router->url('detail-request/'. $request_id),
             );
         }
@@ -176,7 +176,7 @@ class Version extends Admin
         if(empty($id))
         {
             $this->session->set('flashMsg', 'Invalid Request');
-            $this->app->redirect(
+            return $this->app->redirect(
                 $this->router->url('milestones'),
             );
         }
@@ -189,7 +189,7 @@ class Version extends Admin
         if (!$this->container->exists('VersionEntity'))
         {
             $this->session->set('flashMsg', 'Invalid Plugin Version');
-            $this->app->redirect(
+            return $this->app->redirect(
                 $this->router->url('admin')
             );
         }
