@@ -17,7 +17,7 @@ class Attachment extends Admin {
     {
         $id = $this->validateID();
         $item = $this->AttachmentEntity->findByPK($id);
-
+        $count = 0;
         if( $id && $item)
         {
             if( $this->AttachmentModel->remove($id ) )
