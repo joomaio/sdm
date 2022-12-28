@@ -74,7 +74,7 @@ class AdminUsersVM extends ViewModel
             $total = 0;
             if ($where)
             {
-                $this->session->set('flashMsg', 'Not Found User');
+                $this->session->set('flashMsg', 'User note found');
             }
         }
 

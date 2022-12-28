@@ -43,12 +43,22 @@ class AdminNotesVM extends ViewModel
 
         if( !empty($search) )
         {
-            $where[] = "(`title` LIKE '%".$search."%' )";
+            $tags = $this->TagEntity->list(0, 0, ["`name` LIKE '%". $search ."%' "]);
+            $where[] = "(`description` LIKE '%". $search ."%')";
+            $where[] = "(`note` LIKE '%". $search ."%')";
+            $where[] = "(`title` LIKE '%". $search ."%')";
+            if ($tags)
+            {
+                foreach ($tags as $tag)
+                {
+                    $where[] = "(`tags` = '" . $tag['id'] . "'" .
+                    " OR `tags` LIKE '%" . ',' . $tag['id'] . "'" .
+                    " OR `tags` LIKE '" . $tag['id'] . ',' . "%'" .
+                    " OR `tags` LIKE '%" . ',' . $tag['id'] . ',' . "%' )";
+                }
+            }
+            $where = [implode(" OR ", $where)];
         }
-//        if(is_numeric($status))
-//        {
-//            $where[] = '`status`='. $status;
-//        }
 
         $start  = ($page-1) * $limit;
         $sort = $sort ? $sort : 'title asc';
@@ -60,9 +70,15 @@ class AdminNotesVM extends ViewModel
             if (!empty($item['tags'])){
                 $t1 = $where = [];
                 $where[] = "(`id` IN (".$item['tags'].") )";
-                $t2 = $this->TagEntity->list(0, 1000, $where,'','`name`');
-
-                foreach ($t2 as $i) $t1[] = $i['name'];
+                $t2 = $this->TagEntity->list(0, 0, $where,'','`name`');
+                if ($t2)
+                {
+                    foreach ($t2 as $i)
+                    {
+                        $t1[] = $i['name'];
+                    } 
+                }
+               
 
                 $data_tags[$item['id']] = implode(',', $t1);
             }
@@ -73,7 +89,7 @@ class AdminNotesVM extends ViewModel
             $total = 0;
             if( !empty($search) )
             {
-                $this->session->set('flashMsg', 'Not Found Note');
+                $this->session->set('flashMsg', 'Notes not found');
             }
         }
 

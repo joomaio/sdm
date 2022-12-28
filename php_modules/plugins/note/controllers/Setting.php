@@ -41,6 +41,6 @@ class Setting extends Admin
 
         $msg = $try ? 'Save Done.' : 'Save Fail';
         $this->session->set('flashMsg', $msg);
-        $this->app->redirect( $this->router->url('setting-connections'));
+        return $this->app->redirect( $this->router->url('setting-connections'));
     }
 }

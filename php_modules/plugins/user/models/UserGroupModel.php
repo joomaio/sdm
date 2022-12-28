@@ -83,4 +83,38 @@ class UserGroupModel extends Base
         }
         return true;
     }
+
+    public function checkAccessGroup($id, $access = [])
+    {
+        $groups = $this->UserEntity->getGroups($this->user->get('id'));
+        $check = false;
+        $user_groups = [];
+
+        foreach($groups as $group)
+        {
+            if ($group['group_id'] == $id)
+            {
+                $check = true;
+            }
+            else
+            {
+                $user_groups[] = $group['id'];
+            }
+        }
+
+        if (!$check)
+        {
+            return true;
+        }
+        
+        $user_access = $this->UserModel->getAccessByGroup($user_groups);
+        $user_access = array_merge($user_access, $access);
+        
+        if (!in_array('user_manager', $user_access) || !in_array('usergroup_manager', $user_access))
+        {
+            return false;
+        }
+
+        return true;
+    }
 }

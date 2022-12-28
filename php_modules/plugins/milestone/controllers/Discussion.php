@@ -89,7 +89,7 @@ class Discussion extends Admin
         if(empty($id))
         {
             $this->session->set('flashMsg', 'Invalid Request');
-            $this->app->redirect(
+            return $this->app->redirect(
                 $this->router->url('milestones'),
             );
         }

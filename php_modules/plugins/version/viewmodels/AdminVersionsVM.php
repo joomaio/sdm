@@ -42,20 +42,25 @@ class AdminVersionsVM extends ViewModel
 
         if (!empty($search)) {
             $where[] = "(`name` LIKE '%" . $search . "%')";
+            $where[] = "(`version` LIKE '%" . $search . "%')";
+            $where[] = "(`description` LIKE '%" . $search . "%')";
+            $where = [implode(' OR ', $where)];
         }
 
         $start  = ($page - 1) * $limit;
         $sort = $sort ? $sort : 'created_at desc';
 
         $result = $this->VersionEntity->list($start, $limit, $where, $sort);
+        $total = $this->VersionEntity->getListTotal();
 
         $get_log = [];
         $get_log = $this->VersionNoteEntity->list(0, 0, $where, 0);
 
-        $total = $this->VersionEntity->getListTotal();
         if (!$result) {
             $result = [];
             $total = 0;
+            $mgs = $search ? 'Version not found!' : '';
+            $this->session->set('flashMsg', $mgs);
         }
         $tag_feedback = $this->TagEntity->findOne(["`name` = 'feedback'"]);
 

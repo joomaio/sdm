@@ -36,7 +36,16 @@ class NoteEntity extends Entity
                     'null' => 'YES',
                 ],
                 'description' => [
+                    'type' => 'longtext',
+                    'null' => 'YES',
+                ],
+                'note' => [
                     'type' => 'text',
+                    'null' => 'YES',
+                ],
+                'editor' => [
+                    'type' => 'varchar',
+                    'limit' => 100,
                     'null' => 'YES',
                 ],
                 'tags' => [

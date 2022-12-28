@@ -68,12 +68,12 @@ class AdminVersionVM extends ViewModel
         $data = [];
         foreach ($fields as $key => $value) {
             if ($key != 'token') {
-                $data[$key] =  $this->OptionModel->get($key, '');
+                $data[$key] =  $this->OptionModel->get($key, '1');
             }
         }
         $form = new Form($this->getFormFieldsSetting(), $data);
 
-        $title_page = 'Setting Version';
+        $title_page = 'Version Setting';
         $this->view->set('fields', $fields, true);
         $this->view->set('form', $form, true);
         $this->view->set('title_page', $title_page, true);
@@ -86,25 +86,21 @@ class AdminVersionVM extends ViewModel
     public function getFormFieldsSetting()
     {
         $fields = [
-            'version_format_x' => [
-                'text',
+            'version_level' => [
+                'number',
                 'showLabel' => false,
                 'placeholder' => '',
+                'defaultValue' => 1,
                 'formClass' => 'form-control',
                 'required' => 'required'
             ],
-            'version_format_y' => [
-                'text',
+            'version_level_deep' => [
+                'number',
                 'showLabel' => false,
                 'placeholder' => '',
+                'defaultValue' => 2,
                 'formClass' => 'form-control',
                 'required' => 'required'
-            ],
-            'version_format_z' => [
-                'text',
-                'showLabel' => false,
-                'placeholder' => '',
-                'formClass' => 'form-control',
             ],
             'token' => ['hidden',
                 'default' => $this->app->getToken(),

@@ -26,7 +26,4 @@
         ?>
     </td>
     <td><?php echo   $this->item['status'] ? 'Active' : 'Inactive';  ?></td>
-    <td>
-        <a class="fs-4 me-1" href="<?php echo $this->link_form . '/' . $this->item['id']; ?>"><i class="fa-solid fa-pen-to-square"></i></a>
-    </td>
 </tr>

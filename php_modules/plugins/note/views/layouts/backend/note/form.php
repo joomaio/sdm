@@ -2,21 +2,33 @@
 $this->theme->add( $this->url .'assets/css/select2.min.css', '', 'select2-css');
 $this->theme->add( $this->url .'assets/css/select2_custom.css', '', 'select2-custom-css');
 $this->theme->add( $this->url. 'assets/js/select2.full.min.js', '', 'bootstrap-select2');
+$this->theme->add( $this->url.'assets/tinymce/tinymce.min.js', '', 'tinymce');
 ?>
 <?php echo $this->render('notification'); ?>
 <div class="container-fluid align-items-center row justify-content-center mx-auto pt-3">
-    <form enctype="multipart/form-data" action="<?php echo $this->link_form . '/' . $this->id ?>" method="post">
+    <form enctype="multipart/form-data" action="<?php echo $this->link_form . '/' . $this->id ?>" method="post" id="form_submit">
         <div class="row g-3">
             <div class="col-lg-8 col-sm-12">
-                <input id="input_title" type="hidden" name="title">
+                <input id="input_title" type="hidden" class="d-none" name="title" required>
                 <div class="row">
                     <div class="mb-3 col-lg-12 col-sm-12 mx-auto">
-                        <label class="form-label fw-bold">Description:</label>
-                        <?php $this->field('description'); ?>
+                        <div class="fw-bold d-flex  mb-2">
+                            <span class="me-auto">Description:</span> 
+                            <span>
+                                <div class="form-check form-switch mb-0">
+                                    <input class="form-check-input" type="checkbox" <?php echo ($this->data && $this->data['editor'] == 'sheetjs') ? 'checked' : ''; ?> name="editor" id="sheetToogle" value="sheetjs">
+                                    <label class="form-check-label" for="sheetToogle">Sheet Editor</label>
+                                </div>
+                            </span>
+                        </div>
+                        <div id="html_editor">
+                            <?php $this->field('description'); ?>
+                        </div>
+                        <?php $this->field('description_sheetjs'); ?>
                     </div>
                 </div>
                 
-                <div class="d-flex g-3 flex-row align-items-end m-0 justify-content-center">
+                <div class="d-flex g-3 flex-row align-items-end m-0 pb-3 justify-content-center">
                     <?php $this->field('token'); ?>
                     <input class="form-control rounded-0 border border-1" type="hidden" name="_method" value="<?php echo $this->id ? 'PUT' : 'POST' ?>">
                     <div class="me-2">
@@ -29,11 +41,17 @@ $this->theme->add( $this->url. 'assets/js/select2.full.min.js', '', 'bootstrap-s
                         <button type="submit" class="btn btn-outline-success btn_save_close">Save & Close</button>
                     </div>
                     <div class="">
-                        <button type="submit" class="btn btn-outline-success">Apply</button>
+                        <button type="submit" class="btn btn-outline-success btn_apply">Apply</button>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-sm-12">
+                <div class="row">
+                    <div class="mb-3 col-lg-12 col-sm-12 mx-auto">
+                        <label class="form-label fw-bold">Note:</label>
+                        <?php $this->field('note'); ?>
+                    </div>
+                </div>
                 <div class="row pt-3" style="display: none">
                     <div class="mb-3 col-lg-12 col-sm-12 mx-auto">
                         <label class="form-label fw-bold">Tags:</label>
@@ -51,7 +69,7 @@ $this->theme->add( $this->url. 'assets/js/select2.full.min.js', '', 'bootstrap-s
                         </select>
                     </div>
                 </div>
-                <label class="form-label fw-bold pt-3">Attachments:</label>
+                <label class="form-label fw-bold pt-2">Attachments:</label>
                 <input name="files[]" type="file" multiple id="file" class="form-control">
                 <div class="d-flex flex-wrap pt-4">
                     <?php foreach ($this->attachments as $item) :
@@ -111,9 +129,42 @@ $this->theme->add( $this->url. 'assets/js/select2.full.min.js', '', 'bootstrap-s
     }
 </style>
 <script>
-    $('form').submit(function() {
-        $('input#input_title').val($('input#title').val());
+    $(document).ready(function(e) {
+
+        $(".btn_save_close").click(function(e) {
+            e.preventDefault();
+            $("#save_close").val(1);
+            $('input#input_title').val($('input#title').val());
+            if (!$('input#title').val())
+            {
+                alert("Please enter a valid Title");
+                $('html, body').animate({
+                    scrollTop: 0
+                });
+                $('input#title').focus();
+                return false;
+            }
+            $('#form_submit').submit();
+        });
+
+        $(".btn_apply").click(function(e) {
+            e.preventDefault();
+            $("#save_close").val(0);
+            $('input#input_title').val($('input#title').val());
+            if (!$('input#title').val())
+            {
+                alert("Please enter a valid Title");
+                $('html, body').animate({
+                    scrollTop: 0
+                });
+                $('input#title').focus();
+                return false;
+            }
+            $('#form_submit').submit();
+        });
+        
     });
+    
 </script>
 <?php
 $js = <<<Javascript
@@ -168,10 +219,10 @@ $js = <<<Javascript
         }
     }
 
-    $('.js-example-tags').on('select2:select', function(e) {
+    $('.js-example-tags').on('select2:select', async function(e) {
         let tag = e.params.data;
         if (tag.newTag === true) {
-            $.post("{$this->link_tag}", {
+            await $.post("{$this->link_tag}", {
                     name: tag.text
                 })
                 .done(function(data) {
@@ -234,10 +285,30 @@ $js = <<<Javascript
     }
 
     $(document).ready(function() {
-        $("#description").attr('rows', 18);
-        $(".btn_save_close").click(function() {
-            $("#save_close").val(1);
+        if (!$('#sheetToogle').is(":checked"))
+        {
+            $('#sheet_description_sheetjs').addClass('d-none');
+            $('#html_editor').removeClass('d-none');
+        }
+        else
+        {
+            $('#html_editor').addClass('d-none');
+        }
+        $('#sheetToogle').change(function()
+        {
+            if ($(this).is(":checked"))
+            {
+                $('#html_editor').addClass('d-none');
+                $('#sheet_description_sheetjs').removeClass('d-none');
+                reRender_description_sheetjs();
+            }
+            else
+            {
+                $('#html_editor').removeClass('d-none');
+                $('#sheet_description_sheetjs').addClass('d-none');
+            }
         });
+        $("#description").attr('rows', 25);
         $(".button_delete_item").click(function() {
             var id = $(this).data('id');
             var result = confirm("You are going to delete 1 file(s) attchament. Are you sure ?");

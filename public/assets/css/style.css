@@ -22,3 +22,10 @@ ul a.submenu-link{
 {
     background: #35414e;
 }
+
+.field-sheetjs{
+    border: 1px solid #c1c4c7;
+    height: 80vh;
+    width: 100%;
+    background-color: #f5f6f7;
+}

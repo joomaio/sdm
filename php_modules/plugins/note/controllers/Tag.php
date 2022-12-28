@@ -27,19 +27,35 @@ class Tag extends Admin {
         }
 
         $data = $this->TagEntity->list(0,100, $where);
-        return $this->responseJson('success', '', $data);
+        return $this->app->response(
+            [
+                'status'  => 'success',
+                'data'    => $data,
+                'message' => '',
+            ]);
     }
 
     public function add(){
         $name = $this->request->post->get('name', '', 'string');
 
         if (empty($name)){
-            return $this->responseJson('fail', 'Name invalid');
+            return $this->app->response(
+                [
+                    'status'  => 'fail',
+                    'data'    => $data,
+                    'message' => 'Name invalid',
+                ]);
         }
 
         $findOne = $this->TagEntity->findOne(['name = "'. $name. '"']);
         if (!empty($findOne)){
-            return $this->responseJson('fail', 'Error: Title is already in use!');
+            return $this->app->response(
+                [
+                    'status'  => 'fail',
+                    'data'    => '',
+                    'message' => 'Error: Title is already in use!',
+                ]
+            );
         }
 
         $newId =  $this->TagEntity->add([
@@ -47,21 +63,19 @@ class Tag extends Admin {
         ]);
 
         if ($newId){
-            return $this->responseJson('success', 'Create Tag sucess', ['id' => $newId, 'name' => $name]);
+            return $this->app->response(
+                [
+                    'status'  => 'success',
+                    'data'    => ['id' => $newId, 'name' => $name],
+                    'message' => 'Create Tag sucess',
+                ]);
         } else {
-            return $this->responseJson('fail', 'Error: Create Tag fail!');
+            return $this->app->response(
+                [
+                    'status'  => 'fail',
+                    'data'    => '',
+                    'message' => 'Error: Create Tag fail!',
+                ]);
         }
-    }
-
-    private function responseJson ($status, $message = '', $data = [], $code = 200){
-        header('Content-Type: application/json; charset=utf-8');
-        $response = [
-            'status'  => $status,
-            'data'    => $data,
-            'message' => $message,
-            'code'    => $code
-        ];
-        echo json_encode($response);
-        die();
     }
 }

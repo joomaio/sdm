@@ -67,9 +67,9 @@
 
             $('#form_milestone').attr('action', '<?php echo $this->link_form;?>/' + id);
             if(id) {
-                $('#mile_stone').val('PUT');
+                $('#milestone').val('PUT');
             } else {
-                $('#mile_stone').val('POST');
+                $('#milestone').val('POST');
             }
         });
 

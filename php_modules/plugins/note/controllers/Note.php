@@ -24,8 +24,8 @@ class Note extends Admin {
 
         if(!empty($id) && !$exist)
         {
-            $this->session->set('flashMsg', "Invalid Note");
-            $this->app->redirect(
+            $this->session->set('flashMsg', "Invalid note");
+            return $this->app->redirect(
                 $this->router->url('notes')
             );
         }
@@ -50,13 +50,40 @@ class Note extends Admin {
         $title = $this->request->post->get('title', '', 'string');
         $tags = $this->request->post->get('tags', '', 'string');
         $description = $this->request->post->get('description', '', 'string');
+        $description_sheetjs = $this->request->post->get('description_sheetjs', '', 'string');
         $save_close = $this->request->post->get('save_close', '', 'string');
         $files = $this->request->file->get('files', [], 'array');
+        $note = $this->request->post->get('note', '', 'string');
+        $editor = $this->request->post->get('editor', 'html', 'string');
+
+        $listTag = explode(',', $tags);
+        $tags_tmp = [];
+        foreach($listTag as $tag)
+        {
+            if (!$tag) continue;
+            $find = $this->TagEntity->findOne(['id', $tag]);
+            if ($find)
+            {
+                $tags_tmp[] = $tag;
+            }
+            elseif( !(int) $tag)
+            {
+                $newTag = $this->TagEntity->add(['name' => $tag]);
+                if ($newTag)
+                {
+                    $tags_tmp[] = $newTag;
+                }
+            }
+        }
+        if ($editor == 'sheetjs')
+        {
+            $description = base64_decode($description_sheetjs);
+        }
 
         if (!$title)
         {
-            $this->session->set('flashMsg', 'Error: Title can\'t empty! ');
-            $this->app->redirect(
+            $this->session->set('flashMsg', 'Error: Title is required! ');
+            return $this->app->redirect(
                 $this->router->url('note/0')
             );
         }
@@ -64,8 +91,8 @@ class Note extends Admin {
         $findOne = $this->NoteEntity->findOne(['title = "'. $title. '"']);
         if ($findOne)
         {
-            $this->session->set('flashMsg', 'Error: Title is already in use! ');
-            $this->app->redirect(
+            $this->session->set('flashMsg', 'Error: Title already used! ');
+            return $this->app->redirect(
                 $this->router->url('note/0')
             );
         }
@@ -74,6 +101,8 @@ class Note extends Admin {
         $newId =  $this->NoteEntity->add([
             'title' => $title,
             'tags' => $tags,
+            'note' => $note,
+            'editor' => $editor,
             'description' => $description,
             'created_by' => $this->user->get('id'),
             'created_at' => date('Y-m-d H:i:s'),
@@ -83,15 +112,15 @@ class Note extends Admin {
 
         if( !$newId )
         {
-            $msg = 'Error: Create Failed!';
+            $msg = 'Error: Created Failed!';
             $this->session->set('flashMsg', $msg);
-            $this->app->redirect(
+            return $this->app->redirect(
                 $this->router->url('note/0')
             );
         }
         else
         {
-            if (is_array($files['name']) && $files['name'][0])
+            if ($files && is_array($files['name']) && $files['name'][0])
             {
                 for ($i=0; $i < count($files['name']); $i++) 
                 { 
@@ -107,15 +136,15 @@ class Note extends Admin {
                     $try = $this->AttachmentModel->upload($file, $newId);
                     if (!$try)
                     {
-                        $this->app->redirect(
+                        return $this->app->redirect(
                             $this->router->url('note/'. $newId)
                         );
                     }
                 }
             }
-            $this->session->set('flashMsg', 'Create Successfully!');
+            $this->session->set('flashMsg', 'Created Successfully!');
             $link = $save_close ? 'notes' : 'note/'. $newId;
-            $this->app->redirect(
+            return $this->app->redirect(
                 $this->router->url($link)
             );
         }
@@ -127,35 +156,56 @@ class Note extends Admin {
 
         // TODO valid the request input
 
-        if( is_array($ids) && $ids != null)
-        {
-            // publishment
-            $count = 0;
-            $action = $this->request->post->get('status', 0, 'string');
-
-            foreach($ids as $id)
-            {
-                $toggle = $this->NoteEntity->toggleStatus($id, $action);
-                $count++;
-            }
-            $this->session->set('flashMsg', $count.' changed record(s)');
-            $this->app->redirect(
-                $this->router->url('notes')
-            );
-        }
         if(is_numeric($ids) && $ids)
         {
             $title = $this->request->post->get('title', '', 'string');
             $tags = $this->request->post->get('tags', '', 'string');
             $description = $this->request->post->get('description', '', 'string');
+            $description_sheetjs = $this->request->post->get('description_sheetjs', '', 'string');
             $findOne = $this->NoteEntity->findOne(['title = "'. $title. '"', 'id <> '. $ids]);
             $files = $this->request->file->get('files', [], 'array');
             $save_close = $this->request->post->get('save_close', '', 'string');
+            $note = $this->request->post->get('note', '', 'string');
+            $editor = $this->request->post->get('editor', 'html', 'string');
+
+            $listTag = explode(',', $tags);
+            $tags_tmp = [];
+            foreach($listTag as $tag)
+            {
+                if (!$tag) continue;
+                $find = $this->TagEntity->findOne(['id', $tag]);
+                if ($find)
+                {
+                    $tags_tmp[] = $tag;
+                }
+                else
+                {
+                    $newTag = $this->TagEntity->add(['name' => $tag]);
+                    if ($newTag)
+                    {
+                        $tags_tmp[] = $newTag;
+                    }
+                }
+            }
+            $tags = implode(',', $tags_tmp);
+
+            if (!$title)
+            {
+                $this->session->set('flashMsg', 'Error: Title is required! ');
+                return $this->app->redirect(
+                    $this->router->url('note/0')
+                );
+            }
+
+            if ($editor == 'sheetjs')
+            {
+                $description = base64_decode($description_sheetjs);
+            }
 
             if ($findOne)
             {
-                $this->session->set('flashMsg', 'Error: Title is already in use! ');
-                $this->app->redirect(
+                $this->session->set('flashMsg', 'Error: Title already used! ');
+                return $this->app->redirect(
                     $this->router->url('note/'. $ids)
                 );
             }
@@ -163,6 +213,8 @@ class Note extends Admin {
             $try = $this->NoteEntity->update([
                 'title' => $title,
                 'tags' => $tags,
+                'note' => $note,
+                'editor' => $editor,
                 'description' => $description,
                 'modified_by' => $this->user->get('id'),
                 'modified_at' => date('Y-m-d H:i:s'),
@@ -171,7 +223,7 @@ class Note extends Admin {
 
             if($try)
             {
-                if (is_array($files['name']) && $files['name'][0])
+                if ($files && is_array($files['name']) && $files['name'][0])
                 {
                     for ($i=0; $i < count($files['name']); $i++) 
                     { 
@@ -187,23 +239,23 @@ class Note extends Admin {
                         $try = $this->AttachmentModel->upload($file, $ids);
                         if (!$try)
                         {
-                            $this->app->redirect(
+                            return $this->app->redirect(
                                 $this->router->url('note/'. $ids)
                             );
                         }
                     }
                 } 
-                $this->session->set('flashMsg', 'Edit Successfully');
+                $this->session->set('flashMsg', 'Updated successfully');
                 $link = $save_close ? 'notes' : 'note/'. $ids;
-                $this->app->redirect(
+                return $this->app->redirect(
                     $this->router->url($link)
                 );
             }
             else
             {
-                $msg = 'Error: Save Failed';
+                $msg = 'Error: Updated failed';
                 $this->session->set('flashMsg', $msg);
-                $this->app->redirect(
+                return $this->app->redirect(
                     $this->router->url('note/'. $ids)
                 );
             }
@@ -236,7 +288,7 @@ class Note extends Admin {
 
 
         $this->session->set('flashMsg', $count.' deleted record(s)');
-        $this->app->redirect(
+        return $this->app->redirect(
             $this->router->url('notes'),
         );
     }
@@ -253,8 +305,8 @@ class Note extends Admin {
             $ids = $this->request->post->get('ids', [], 'array');
             if(count($ids)) return $ids;
 
-            $this->session->set('flashMsg', 'Invalid Note');
-            $this->app->redirect(
+            $this->session->set('flashMsg', 'Invalid note');
+            return $this->app->redirect(
                 $this->router->url('notes'),
             );
         }

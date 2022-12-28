@@ -33,7 +33,11 @@ class AdminNoteVM extends ViewModel
         $this->set('id', $id, true);
 
         $data = $id ? $this->NoteEntity->findByPK($id) : [];
-        
+        if ($data)
+        {
+            $data['description_sheetjs'] = base64_encode(strip_tags($data['description']));
+        }
+
         $data_tags = [];
         if (!empty($data['tags'])){
             $where[] = "(`id` IN (".$data['tags'].") )";
@@ -46,10 +50,10 @@ class AdminNoteVM extends ViewModel
         $this->set('data', $data, true);
         $this->set('data_tags', $data_tags, true);
         $this->set('attachments', $attachments);
-        $this->set('title_page_edit', $data ? $data['title'] : 'New Note', true);
+        $this->set('title_page_edit', $data && $data['title'] ? $data['title'] : 'New Note', true);
         $this->set('url', $this->router->url(), true);
-        $this->set('link_list', $this->router->url('notes'));
-        $this->set('link_form', $this->router->url('note'));
+        $this->set('link_list', $this->router->url('notes'), true);
+        $this->set('link_form', $this->router->url('note'), true);
         $this->set('link_form_attachment', $this->router->url('attachment'));
         $this->set('link_form_download_attachment', $this->router->url('download/attachment'));
         $this->set('link_tag', $this->router->url('tag'));
@@ -61,6 +65,17 @@ class AdminNoteVM extends ViewModel
             'description' => [
                 'tinymce',
                 'showLabel' => false,
+                'formClass' => 'd-none',
+            ],
+            'description_sheetjs' => [
+                'sheetjs',
+                'showLabel' => false,
+                'formClass' => 'field-sheetjs',
+            ],
+            'note' => [
+                'textarea',
+                'showLabel' => false,
+                'placeholder' => 'Note',
                 'formClass' => 'form-control',
             ],
             'file' => [
@@ -85,21 +100,6 @@ class AdminNoteVM extends ViewModel
                 'default' => $this->app->getToken(),
             ],
         ];
-
-        if($this->view->id)
-        {
-            $fields['modified_at'] = ['readonly'];
-            $fields['modified_by'] = ['readonly'];
-            $fields['created_at'] = ['readonly'];
-            $fields['created_by'] = ['readonly'];
-        }
-        else
-        {
-            $fields['modified_at'] = ['hidden'];
-            $fields['modified_by'] = ['hidden'];
-            $fields['created_at'] = ['hidden'];
-            $fields['created_by'] = ['hidden'];
-        }
 
         return $fields;
     }

@@ -23,7 +23,6 @@
 											<th>Email</th>
 											<th>Groups</th>
 											<th>Status</th>
-											<th>Action</th>
 										</tr>
 									</thead>
 									<tbody>
