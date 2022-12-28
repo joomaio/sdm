@@ -104,7 +104,7 @@ class NoteTest extends TestCase
         //simulate controller
         $this->NoteController = new Note($this->container);
     }
-    
+
     /**
      * @dataProvider prepareNote()
      */
@@ -282,5 +282,7 @@ class NoteTest extends TestCase
         {
             $this->NoteEntity->remove(static::$newID);
         }
+
+        $_POST = array();
     }
 }
