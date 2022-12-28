@@ -13,6 +13,9 @@ use SPT\Session\DatabaseSessionEntity;
 use SPT\Session\Instance as Session; 
 use SPT\Storage\File\ArrayType as FileArray;
 use Tests\simulate\File;
+use SPT\User\Instance as User;
+use SPT\User\SPT\User as UserAdapter;
+use SPT\User\SPT\UserEntity;
 
 class AttachmentModelTest extends TestCase
 {
@@ -67,6 +70,14 @@ class AttachmentModelTest extends TestCase
         // Simulate Model
         $this->AttachmentModel = new AttachmentModel($this->container);
 
+        // Simulate User
+        $user = new User( new UserAdapter() );
+        $user->init([
+            'session' => $session,
+            'entity' => new  UserEntity($query)
+        ]);
+        $this->container->share('user', $user, true);
+
         // setup note id
         $note = $this->NoteEntity->findOne(['id > 0']);
         $this->note_id = $note ? $note['id'] : 0;
@@ -97,6 +108,32 @@ class AttachmentModelTest extends TestCase
     public function prepareDataTrue()
     {
         // create file sample
+        static::$file = [];
+        $try = file_put_contents(ROOT_PATH. 'test.png', '');
+        static::$file[] = ROOT_PATH. 'test.png';
+        $try = file_put_contents(ROOT_PATH. 'test.jpg', '');
+        static::$file[] = ROOT_PATH. 'test.jpg';
+        $file[] = [
+            'name' => 'test.png',
+            'tmp_name' => ROOT_PATH. 'test.png',
+            'type' => mime_content_type(ROOT_PATH. 'test.png'),
+            'size' => filesize(ROOT_PATH. 'test.png'),
+        ];
+        $file[] = [
+            'name' => 'test.jpg',
+            'tmp_name' => ROOT_PATH. 'test.jpg',
+            'type' => mime_content_type(ROOT_PATH. 'test.jpg'),
+            'size' => filesize(ROOT_PATH. 'test.jpg'),
+        ];
+
+        return [
+            $file,
+        ];
+    }
+
+    public function prepareDataFalse()
+    {
+        // create file sample
         $try = file_put_contents(ROOT_PATH. 'test.png', '');
         static::$file = ROOT_PATH. 'test.png';
         $file = [
@@ -113,10 +150,27 @@ class AttachmentModelTest extends TestCase
     
     protected function tearDown(): void
     {
-        if (file_exists(static::$file))
+        if (static::$file)
         {
-            unlink(static::$file);
+            if (is_array(static::$file))
+            {
+                foreach(static::$file as $f)
+                {
+                    if (file_exists($f))
+                    {
+                        unlink($f);
+                    }
+                }
+            }
+            else
+            {
+                if (file_exists(static::$file))
+                {
+                    unlink(static::$file);
+                }
+            }
         }
+        
 
         if (static::$att_id)
         {
