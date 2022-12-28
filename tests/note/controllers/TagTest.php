@@ -110,199 +110,77 @@ class TagTest extends TestCase
      */
     public function testList($name)
     {
-        $_POST['name'] = '';
-        $this->request->set('');
+        $_POST['name'] = $name;
 
-        $this->NoteController->add();
-        $url = $this->app->get('url_redirect');
-        if ($status)
-        {
-            $newNote = $this->NoteEntity->list(0, 1, [], 'id desc');
-            static::$newID = $newNote[0]['id'];
-            $this->assertNotEquals($url, SITE_URL.'note/0');
-        }
-        else
-        {
-            $this->assertEquals($url, SITE_URL.'note/0');
-        }
+        $try = $this->TagController->list();
+
+        $content = $this->app->get('respone_content');
+        $this->assertEquals($content['status'], 'success');
+        $this->assertIsArray($content['data']);
+        $this->assertEquals($content['message'], '');
+    }
+
+    public function prepareFilter()
+    {
+        return [
+            ['test'],
+            [''],
+            ['search'],
+        ];
     }
 
     /**
-     * @dataProvider prepareNote()
+     * @dataProvider prepareTag()
      */
-    public function testAdd($data, $status)
+    public function testAdd($name)
     {
-        foreach($data as $key => $value)
+        $_POST['name'] = $name;
+        $find = $this->TagEntity->findOne(['name = "'. $name .'"']);
+        if ($find && $name)
         {
-            if($key != 'files')
-            {
-                $_POST[$key] = $value;
-            }
-            else
-            {
-                $_FILES[$key] = $value;
-            }
+            $status = 'fail';
+            $message = 'Error: Title is already in use!';
         }
-
-        $this->NoteController->add();
-        $url = $this->app->get('url_redirect');
-        if ($status)
+        elseif (!$name)
         {
-            $newNote = $this->NoteEntity->list(0, 1, [], 'id desc');
-            static::$newID = $newNote[0]['id'];
-            $this->assertNotEquals($url, SITE_URL.'note/0');
+            $status = 'fail';
+            $message = 'Error: Name invalid!';
         }
         else
         {
-            $this->assertEquals($url, SITE_URL.'note/0');
+            $status = 'success';
+            $message = 'Create Tag sucess';
         }
-    }
-
-    /**
-     * @depends testAdd
-     * @dataProvider prepareNote()
-     */
-    public function testUpdate($data, $status)
-    {
-        $newNote = $this->NoteEntity->add([
-            'title' => 'Note Test',
-            'tags' => '',
-            'created_by' => 0,
-            'modified_by' => 0,
-        ]);
-
-        $this->assertNotFalse($newNote);
+        $this->TagController->add();
+        $content = $this->app->get('respone_content');
         
-        $try = true;
-        if (!$newNote)
+        if ($content['data'])
         {
-            $try = false;
+            static::$newID = $content['data']['id'];
         }
-        static::$newID = $newNote;
-        $this->assertTrue($try);
-
-        foreach($data as $key => $value)
-        {
-            if($key != 'files')
-            {
-                $_POST[$key] = $value;
-            }
-            else
-            {
-                $_FILES[$key] = $value;
-            }
-        }
-
-        $this->request->set('urlVars', ['id' => $newNote]);
-
-        $this->NoteController->update();
-        $session = $this->session->get('flashMsg', '');
-        if ($status)
-        {
-            $this->assertEquals($session, 'Updated successfully');
-        }
-        else
-        {
-            $this->assertNotEquals($session, 'Updated successfully');
-        }      
-    }
-
-    public function testDelete()
-    {
-        $id = $this->prepareDelete();
-        $this->request->set('urlVars', ['id' => $id]);
-        $this->NoteController->delete();
-        
-        $message = $this->session->get('flashMsg', '');
-        return $this->assertEquals($message, '1 deleted record(s)');
-    }
-
-    public function testMulDelete()
-    {
-        $count = 2;
-        $id = $this->prepareDelete($count);
-        $this->request->set('urlVars', ['id' => '']);
-
-        $_POST['ids'] = $id;
-
-        $this->NoteController->delete();
-        
-        $message = $this->session->get('flashMsg', '');
-        return $this->assertEquals($message, $count.' deleted record(s)');
-    }
-
-    public function prepareDelete($number = 1)
-    {
-        if ($number == 1)
-        {
-            $tmp = $this->NoteEntity->add([
-                'title' => 'Note Test '. strtotime('now'),
-                'tags' => '',
-                'created_by' => 0,
-                'modified_by' => 0,
-            ]);
-
-            return $tmp ? $tmp : 0;
-        }
-        else
-        {
-            $result = [];
-            for ($i=0; $i < $number; $i++) { 
-                # code...
-                $tmp = $this->NoteEntity->add([
-                    'title' => 'Note Test '. $i .'_'. strtotime('now'),
-                    'tags' => '',
-                    'created_by' => 0,
-                    'modified_by' => 0,
-                ]);
-                $result[] = $tmp ? $tmp : 0;
-            }
-            return $result;
-        }
+        $this->assertEquals($content['status'], $status);
+        $this->assertEquals($content['message'], $message);
 
     }
 
-    public function prepareNote()
+    public function prepareTag()
     {
-        $notes[] = [[
-                'title' => '',
-                'tags' => '',
-                'description' => '',
-                'note' => '',
-                'files' => [
-                    'name' => [''],
-                    'tmp_name' => [''],
-                    'type' => [''],
-                    'size' => [''],
-                ],
-            ],
-            false,
+        return [
+            ['test1'],
+            [''],
+            ['test2'],
+            ['test3'],
+            ['test2'],
         ];
-
-        $notes[] = [
-            [
-                'title' => 'Note Test Title',
-                'tags' => '',
-                'description' => '',
-                'note' => '',
-                'files' => [
-                    'name' => [''],
-                    'tmp_name' => [''],
-                    'type' => [''],
-                    'size' => [''],
-                ],
-            ],
-            true,
-        ];
-
-        return $notes;
     }
+    
 
     protected function tearDown(): void
     {
         if (static::$newID)
         {
-            $this->NoteEntity->remove(static::$newID);
+            $this->TagEntity->remove(static::$newID);
         }
+        $_POST = array();
     }
 }
