@@ -57,6 +57,10 @@ class AdminGroupsVM extends ViewModel
         {
             $result = [];
             $total = 0;
+            if( !empty($search) )
+            {
+                $this->session->set('flashMsg', 'Groups not found');
+            }
         }
 
         foreach($result as &$group) {
