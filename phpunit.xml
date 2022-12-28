@@ -6,6 +6,7 @@
             <directory>tests/note/entities</directory>
             <directory>tests/note/models</directory>
             <directory>tests/note/controllers</directory>
+            <directory>tests/note/viewmodels</directory>
         </testsuite>
     </testsuites>
 
