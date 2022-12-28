@@ -46,7 +46,7 @@ class Setting extends MVController
 
         $msg = $try ? 'Save Done.' : 'Save Fail';
         $this->session->set('flashMsg', $msg);
-        $this->app->redirect( $this->router->url('setting-system'));
+        return $this->app->redirect( $this->router->url('setting-system'));
     }
 
     public function smtp()
@@ -78,14 +78,14 @@ class Setting extends MVController
 
         $msg = $try ? 'Save Done.' : 'Save Fail';
         $this->session->set('flashMsg', $msg);
-        $this->app->redirect( $this->router->url('setting-smtp'));
+        return $this->app->redirect( $this->router->url('setting-smtp'));
     }
 
     public function isLoggedIn()
     {
         if( !$this->user->get('id') )
         {
-            $this->app->redirect(
+            return $this->app->redirect(
                 $this->router->url(
                     'login'
                 )
@@ -101,7 +101,7 @@ class Setting extends MVController
         if (!$admin_mail)
         {
             $this->session->set('flashMsg', 'Error: Enter admin email before testing');
-            $this->app->redirect( $this->router->url('setting'));
+            return $this->app->redirect( $this->router->url('setting'));
         }
 
         $try = $this->EmailModel->send($admin_mail, 'Admin', 'This is mail test', 'Mail Test');
@@ -109,6 +109,6 @@ class Setting extends MVController
         {
             $this->session->set('flashMsg', 'Sent Mail Successfully');
         }
-        $this->app->redirect( $this->router->url('setting-smtp'));
+        return $this->app->redirect( $this->router->url('setting-smtp'));
     }
 }
