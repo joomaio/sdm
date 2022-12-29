@@ -2,9 +2,7 @@
 namespace Tests\note\entities;
 
 use PHPUnit\Framework\TestCase;
-use SPT\Query;
-use SPT\Extend\Pdo as PdoWrapper;
-use App\plugins\note\entities\NoteEntity;
+use SPT\App\Instance as AppIns;
 
 class NoteEntityTest extends TestCase
 {
@@ -12,15 +10,7 @@ class NoteEntityTest extends TestCase
 
     protected function setUp(): void
     {
-        $config_content = require(PATH_CONFIG);
-
-        $query = new Query(
-            new PdoWrapper(
-                $config_content['db'],
-            ), ['#__' => $config_content['db']['prefix']]
-        );
-        
-        $this->NoteEntity = new NoteEntity($query);
+        $this->NoteEntity = AppIns::factory('NoteEntity');
     }
     
     public function testGetFields()

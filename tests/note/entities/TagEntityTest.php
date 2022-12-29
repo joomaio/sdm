@@ -2,9 +2,7 @@
 namespace Tests\note\entities;
 
 use PHPUnit\Framework\TestCase;
-use SPT\Query;
-use SPT\Extend\Pdo as PdoWrapper;
-use App\plugins\note\entities\TagEntity;
+use SPT\App\Instance as AppIns;
 
 class TagEntityTest extends TestCase
 {
@@ -12,15 +10,7 @@ class TagEntityTest extends TestCase
 
     protected function setUp(): void
     {
-        $config_content = require(PATH_CONFIG);
-
-        $query = new Query(
-            new PdoWrapper(
-                $config_content['db'],
-            ), ['#__' => $config_content['db']['prefix']]
-        );
-        
-        $this->TagEntity = new TagEntity($query);
+        $this->TagEntity = AppIns::factory('TagEntity');
     }
     
     public function testGetFields()

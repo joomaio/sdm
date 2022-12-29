@@ -1,15 +1,15 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-require_once __DIR__ . '/../config.php';
+use SPT\App\Instance as AppIns;
 
 class ConfigFileTest extends TestCase
 {
 
     public function testConfig()
     {
-        $path = PATH_CONFIG;
-        if( !file_exists( $path ))
+        $config = AppIns::factory('config');
+        if( !file_exists( $config->getPaths()[0] ))
         {
             throw new \Exception('Config file has not been created.');
         }
