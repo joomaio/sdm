@@ -65,10 +65,7 @@ class appTest extends appPlg
     
     public function redirect($url = null)
     {
-        if (!$this->get('url_redirect', ''))
-        {
-            $this->set('url_redirect', $url);
-        }
+        $this->set('url_redirect', $url);
     }
 
     public function response($content, $code='200')

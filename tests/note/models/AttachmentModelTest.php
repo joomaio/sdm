@@ -3,13 +3,15 @@ namespace Tests\note\models;
 
 use PHPUnit\Framework\TestCase;
 use SPT\App\Instance as AppIns;
+use Tests\libraries\File;
 
 class AttachmentModelTest extends TestCase
 {
     private $AttachmentModel;
     private $AttachmentEntity;
+    private $file;
     static $att_id;
-    static $file;
+    static $clearFile;
     static $note_id;
 
     protected function setUp(): void
@@ -18,7 +20,9 @@ class AttachmentModelTest extends TestCase
         $this->AttachmentEntity = AppIns::factory('AttachmentEntity');
         $this->NoteEntity = AppIns::factory('NoteEntity');
         $this->user = AppIns::factory('user');
-        $this->user->set('id', 1);
+        $this->container = AppIns::factory('app')->getContainer();
+        $this->container->set('file', new File());
+
         // create note
         $note = $this->NoteEntity->findOne(['title', 'Attactment Test']);
         if (!$note)
@@ -52,7 +56,7 @@ class AttachmentModelTest extends TestCase
     public function testUploadFail($file)
     {
         try {
-            $try = $this->AttachmentModel->upload($file, $this->note_id);
+            $try = $this->AttachmentModel->upload($file, static::$note_id);
         } catch (\Throwable $th) {
             $try = false;
         }
@@ -63,11 +67,11 @@ class AttachmentModelTest extends TestCase
     public function prepareDataTrue()
     {
         // create file sample
-        static::$file = [];
+        static::$clearFile = [];
         $try = file_put_contents(PUBLIC_PATH. 'test.png', '');
-        static::$file[] = PUBLIC_PATH. 'test.png';
+        static::$clearFile[] = PUBLIC_PATH. 'test.png';
         $try = file_put_contents(PUBLIC_PATH. 'test.jpg', '');
-        static::$file[] = PUBLIC_PATH. 'test.jpg';
+        static::$clearFile[] = PUBLIC_PATH. 'test.jpg';
         $file[] = [
             'name' => 'test.png',
             'tmp_name' => PUBLIC_PATH. 'test.png',
@@ -90,7 +94,7 @@ class AttachmentModelTest extends TestCase
     {
         // create file sample
         $try = file_put_contents(PUBLIC_PATH. 'test.sql', '');
-        static::$file[] = PUBLIC_PATH. 'test.sql';
+        static::$clearFile[] = PUBLIC_PATH. 'test.sql';
         $file = [
             'name' => 'test.sql',
             'tmp_name' => PUBLIC_PATH. 'test.sql',
@@ -125,7 +129,7 @@ class AttachmentModelTest extends TestCase
      */
     public function testRemoveTrue($file)
     {
-        $id = $this->AttachmentModel->upload($file, $this->note_id);
+        $id = $this->AttachmentModel->upload($file, static::$note_id);
 
         if (!$id)
         {
@@ -133,7 +137,7 @@ class AttachmentModelTest extends TestCase
         }
         else
         {
-            static::$file[] = $file['tmp_name'];
+            static::$clearFile[] = $file['tmp_name'];
             $try = $this->AttachmentModel->remove($id);
         }
 
@@ -152,11 +156,11 @@ class AttachmentModelTest extends TestCase
 
     protected function tearDown(): void
     {
-        if (static::$file)
+        if (static::$clearFile)
         {
-            if (is_array(static::$file))
+            if (is_array(static::$clearFile))
             {
-                foreach(static::$file as $f)
+                foreach(static::$clearFile as $f)
                 {
                     if (file_exists($f))
                     {
@@ -166,19 +170,25 @@ class AttachmentModelTest extends TestCase
             }
             else
             {
-                if (file_exists(static::$file))
+                if (file_exists(static::$clearFile))
                 {
-                    unlink(static::$file);
+                    unlink(static::$clearFile);
                 }
             }
         }
-        static::$file = [];
+        static::$clearFile = [];
 
         if (static::$att_id)
         {
             $this->AttachmentEntity->remove(static::$att_id);
         }
 
+        if (static::$note_id)
+        {
+            $this->NoteEntity->remove(static::$note_id);
+        }
+
+        static::$note_id = '';
         static::$att_id = '';
     }
 }

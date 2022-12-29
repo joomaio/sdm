@@ -1,4 +1,4 @@
-<phpunit bootstrap="vendor/autoload.php" stderr="true" stopOnError="true">
+<phpunit bootstrap="tests/loader.php" stderr="true" stopOnError="true">
 
     <testsuites>
         <testsuite name="PhpUnit test">
@@ -6,7 +6,7 @@
             <directory>tests/note/entities</directory>
             <directory>tests/note/models</directory>
             <directory>tests/note/controllers</directory>
-            <directory>tests/note/viewmodels</directory>
+            <directory>tests/note/viewmodels</directory> 
         </testsuite>
     </testsuites>
 
