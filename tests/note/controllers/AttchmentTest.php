@@ -18,6 +18,7 @@ class AttachmentTest extends TestCase
     {
         $this->AttachmentEntity = AppIns::factory('AttachmentEntity');
         $this->app = AppIns::factory('app');
+        $this->request = AppIns::factory('request');
 
         $container = $this->app->getContainer();
         $this->AttachmentController = new Attachment($container);
