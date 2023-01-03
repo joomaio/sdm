@@ -33,8 +33,8 @@ class Loader
     {
         if(static::$app == null)
         {
-            $app = new appTest(new Container);
-            AppIns::bootstrap( new appTest(new Container),[
+            static::$app = new appTest(new Container);
+            AppIns::bootstrap( static::$app,[
                 'app' => APP_PATH,
                 'config' => APP_PATH. '/config.php', 
                 'plugin' => APP_PATH. '//plugins/', 
@@ -44,7 +44,7 @@ class Loader
             AppIns::main()->execute();
         }
 
-        return $app;
+        return static::$app;
     }
 }
 
