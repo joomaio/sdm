@@ -25,15 +25,28 @@ use Tests\libraries\appTest;
 use SPT\Request\Base as Request;
 use SPT\Storage\File\ArrayType as FileArray;
 
-/**
- * Running application
- */
-AppIns::bootstrap( new appTest(new Container),[
-    'app' => APP_PATH,
-    'config' => APP_PATH. '/config.php', 
-    'plugin' => APP_PATH. '//plugins/', 
-    'theme' => APP_PATH. 'themes/', 
-]);
+class Loader 
+{
+    private static $app;
 
-AppIns::main()->execute();
+    public static function getInstance()
+    {
+        if(static::$app == null)
+        {
+            $app = new appTest(new Container);
+            AppIns::bootstrap( new appTest(new Container),[
+                'app' => APP_PATH,
+                'config' => APP_PATH. '/config.php', 
+                'plugin' => APP_PATH. '//plugins/', 
+                'theme' => APP_PATH. 'themes/', 
+            ]);
+
+            AppIns::main()->execute();
+        }
+
+        return $app;
+    }
+}
+
+Loader::getInstance();
 
